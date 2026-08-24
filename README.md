@@ -11,6 +11,7 @@ Gacha copy talks in rates. Players live in tails. This app lets you encode a poo
 - **Run a banner until the featured drops.** Mean, median, p90, and a histogram, from a seeded trial count you pick.
 - **Put a cap on the tail.** Spark-if-needed buys the featured when the bar fills. Spark-never shows the raw distribution.
 - **Compare a 50/50 with capturing against a straight rate-up.** Genshin-like and FGO-like sit in the same catalog so the shape difference is visible, not theoretical.
+- **Watch a spark bar die when the pickup lands.** Blue Archive-like Charge resets at 100/200 success. The old 200 spark does not. Dual pickups are the whole fight.
 - **Use a no-pity crate as the control.** Independent covert odds, long tail, no hug at 90.
 - **Share one pity bar across a guild.** Pool Share is an original mechanic: leftover pity is wasted once, not once per player.
 - **Heat the missing stickers.** Collection Heat boosts unowned ids so completing a set is the product, not a side effect.
@@ -23,11 +24,13 @@ Studied presets are like-models of published or community-consensus shapes. They
 | Preset | Shape |
 | --- | --- |
 | Genshin-like Character | 0.6% / 90, soft ramp from 74, 50/50 capturing, spark 180 |
+| Blue Archive-like Spark | 0.7% pickup, 200-point spark, leftover bar survives a natural hit |
+| Blue Archive-like Charge | JP 5.5: 100 = 50% pickup 3-star, 200 = pickup, hit resets |
 | FGO-like Story Banner | 1% SSR, 80% on the rate-up, featured pity at 330 |
 | Independent Crate | 0.64% covert, no pity |
 | 1% + Hard Pity 100 | Teaching control |
 
-Original presets are design proposals: Pool Share, Collection Heat, Audience Spark. Details and the math live in [docs/methodology.md](docs/methodology.md).
+Original presets are design proposals: Pool Share, Collection Heat, Audience Spark. Details live in [docs/methodology.md](docs/methodology.md). Blue Archive charge vs spark is in [docs/blue-archive-recruitment.md](docs/blue-archive-recruitment.md).
 
 ## Run it
 

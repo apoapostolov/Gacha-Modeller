@@ -3,7 +3,7 @@
 ## Now
 
 - [x] Seeded pull engine with rarity pity, capturing, spark
-- [x] Studied like-models: Genshin, FGO, crate, 1%+100
+- [x] Studied like-models: Genshin, FGO, crate, 1%+100, Blue Archive spark + charge
 - [x] Original: pool share, collection heat, audience spark
 - [x] Monte Carlo lab UI
 - [x] Engine tests for the invariants

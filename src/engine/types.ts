@@ -47,6 +47,18 @@ export interface SparkRule {
   cost: number;
 }
 
+/**
+ * Recruitment-charge style checkpoints (Blue Archive JP 5.5).
+ * `sinceFeatured` is the charge. Mid fires once at exactly midAt.
+ * Off-banner 3-stars do not reset charge. This banner's pickup does.
+ */
+export interface ChargeRule {
+  midAt: number;
+  /** Chance the mid checkpoint is this banner's pickup. Rest is off-banner of that rarity. */
+  midFeaturedChance: number;
+  hardAt: number;
+}
+
 export interface MultiPullRule {
   size: number;
   guaranteeRarity?: string;
@@ -82,6 +94,7 @@ export interface Banner {
   pity: PityRule[];
   featured?: FeaturedRule;
   spark?: SparkRule;
+  charge?: ChargeRule;
   multiPull?: MultiPullRule;
   items: PoolItem[];
   mechanics?: MechanicFlags;
@@ -109,6 +122,7 @@ export interface PullOutcome {
 export type Goal =
   | { type: 'first-featured' }
   | { type: 'copies'; count: number }
+  | { type: 'unique-featured'; count: number }
   | { type: 'budget'; pulls: number }
   | { type: 'collection' };
 
@@ -119,6 +133,8 @@ export interface TrialResult {
   uniqueCount: number;
   sparked: boolean;
   inventory: Record<string, number>;
+  /** Pulls when the first pickup landed, if this trial chased two banners. */
+  firstPulls?: number;
 }
 
 export interface Summary {

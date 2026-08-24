@@ -5,6 +5,7 @@ import {
   mulberry32,
   pull,
   runMonteCarlo,
+  runMonteCarloTwoPickup,
   simulatePoolShare,
   type PullOutcome,
   type SimReport,
@@ -12,7 +13,7 @@ import {
 import { PRESETS } from './presets/index.ts';
 import { Histogram } from './ui/Histogram.tsx';
 import { fmt, goalLabel, money } from './ui/format.ts';
-import type { Banner, Goal, PoolShareReport, SparkPolicy } from './engine/index.ts';
+import type { Banner, Goal, PoolShareReport, SparkPolicy, Summary } from './engine/index.ts';
 
 const SEED = 20260823;
 
@@ -45,6 +46,10 @@ export function App() {
   const [report, setReport] = useState<SimReport | null>(null);
   const [share, setShare] = useState<PoolShareReport | null>(null);
   const [heatCompare, setHeatCompare] = useState<SimReport | null>(null);
+  const [dual, setDual] = useState<{
+    spark: { first: Summary; both: Summary; earlyBoth: Summary };
+    charge: { first: Summary; both: Summary; earlyBoth: Summary };
+  } | null>(null);
   const [tape, setTape] = useState<PullOutcome[]>([]);
 
   const goal: Goal = defaultGoal(banner);
@@ -72,6 +77,17 @@ export function App() {
         setHeatCompare(runMonteCarlo(cold, goal, Math.min(trials, 2500), SEED, 'never'));
       } else {
         setHeatCompare(null);
+      }
+      if (banner.charge || banner.id.startsWith('blue-archive')) {
+        const sparkBanner = PRESETS.find((entry) => entry.id === 'blue-archive-spark') ?? banner;
+        const chargeBanner = PRESETS.find((entry) => entry.id === 'blue-archive-charge') ?? banner;
+        const n = Math.min(trials, 2500);
+        setDual({
+          spark: runMonteCarloTwoPickup(sparkBanner, n, SEED, 'if-needed'),
+          charge: runMonteCarloTwoPickup(chargeBanner, n, SEED, 'never'),
+        });
+      } else {
+        setDual(null);
       }
       setTape(runTape(banner, banner.multiPull?.size ?? 10));
       setBusy(false);
@@ -178,7 +194,19 @@ export function App() {
                 <span>Spark</span>
               </div>
             )}
-            {banner.featured && (
+            {banner.charge && (
+              <>
+                <div className="rate">
+                  <b>{banner.charge.midAt}</b>
+                  <span>{Math.round(banner.charge.midFeaturedChance * 100)}% mid 3-star</span>
+                </div>
+                <div className="rate">
+                  <b>{banner.charge.hardAt}</b>
+                  <span>Pickup hard</span>
+                </div>
+              </>
+            )}
+            {banner.featured && !banner.charge && (
               <div className="rate">
                 <b>{Math.round(banner.featured.chance * 100)}%</b>
                 <span>{banner.featured.capturing ? '50/50 capture' : 'Featured share'}</span>
@@ -257,6 +285,15 @@ export function App() {
               <strong>Heat vs cold album.</strong> Mean packs to complete {fmt(report.pulls.mean)} with
               heat, {fmt(heatCompare.pulls.mean)} without. Heat cuts duplicates; it does not create
               new stickers.
+            </p>
+          )}
+          {dual && (
+            <p className="compare">
+              <strong>Two sequential pickups.</strong> If A lands by pull 80, Spark still finishes both by
+              200 (p90 {fmt(dual.spark.earlyBoth.p90)}, max {fmt(dual.spark.earlyBoth.max, 0)}). Charge
+              zeros the bar, so B is a new cycle (p90 {fmt(dual.charge.earlyBoth.p90)}, max{' '}
+              {fmt(dual.charge.earlyBoth.max, 0)}). Unconditional mean can still favor Charge. The 100
+              coin is a gift. The lost leftover is the nerf.
             </p>
           )}
         </section>

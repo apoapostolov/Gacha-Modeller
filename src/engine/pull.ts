@@ -120,6 +120,7 @@ function resolveFeatured(
   state: PullState,
   rarityId: string,
   rng: Rng,
+  opts?: { chance?: number; capturing?: boolean },
 ): { pool: PoolItem[]; featuredRoll?: FeaturedRoll } {
   const rule = banner.featured;
   if (!rule || rule.rarity !== rarityId) {
@@ -129,19 +130,22 @@ function resolveFeatured(
   const standard = standardItems(banner, rarityId);
   if (featured.length === 0) return { pool: itemsOf(banner, rarityId) };
 
+  const chance = opts?.chance ?? rule.chance;
+  const capturing = opts?.capturing ?? rule.capturing;
+
   let featuredRoll: FeaturedRoll;
   let useFeatured: boolean;
-  if (state.featuredArmed) {
+  if (state.featuredArmed && opts?.chance == null) {
     featuredRoll = 'guaranteed';
     useFeatured = true;
     state.featuredArmed = false;
-  } else if (rng() < rule.chance) {
+  } else if (rng() < chance) {
     featuredRoll = 'won';
     useFeatured = true;
   } else {
     featuredRoll = 'lost';
     useFeatured = false;
-    if (rule.capturing) state.featuredArmed = true;
+    if (capturing) state.featuredArmed = true;
   }
 
   if (useFeatured) return { pool: featured, featuredRoll };
@@ -156,18 +160,47 @@ function grant(banner: Banner, state: PullState, item: PoolItem): void {
   if (item.featured && (!chase || item.rarity === chase)) state.sinceFeatured = 0;
 }
 
-function firstFeaturedItem(banner: Banner): PoolItem {
+export function featuredPool(banner: Banner): PoolItem[] {
   const chase = banner.featured?.rarity;
-  const item = banner.items.find(
+  return banner.items.filter(
     (entry) => entry.featured && (!chase || entry.rarity === chase),
   );
-  if (!item) throw new Error(`banner ${banner.id} has no featured item`);
-  return item;
 }
 
-/** Force the featured item. Used by spark and featured hard pity. */
+function nextFeaturedItem(banner: Banner, state: PullState): PoolItem {
+  const pool = featuredPool(banner);
+  if (pool.length === 0) throw new Error(`banner ${banner.id} has no featured item`);
+  const missing = pool.find((entry) => !state.owned.has(entry.id));
+  return missing ?? pool[0]!;
+}
+
+function finishPull(banner: Banner, state: PullState): void {
+  state.totalPulls += 1;
+  state.sparkProgress += 1 + (banner.mechanics?.audienceSparkPerPull ?? 0);
+}
+
+function rollItem(
+  banner: Banner,
+  state: PullState,
+  rng: Rng,
+  rarity: Rarity,
+  pityKind: PityKind,
+  featuredOpts?: { chance?: number; capturing?: boolean },
+): PullOutcome {
+  const { pool, featuredRoll } = resolveFeatured(banner, state, rarity.id, rng, featuredOpts);
+  if (pool.length === 0) {
+    throw new Error(`banner ${banner.id} has no items for rarity ${rarity.id}`);
+  }
+  const item = pickFrom(banner, state, pool, rng);
+  applyCounters(banner, state, rarity.id);
+  grant(banner, state, item);
+  finishPull(banner, state);
+  return { item, rarity: rarity.id, pityKind, featuredRoll };
+}
+
+/** Force a featured item. Used by spark, featured hard pity, and charge hard. */
 export function grantFeatured(banner: Banner, state: PullState): PullOutcome {
-  const item = firstFeaturedItem(banner);
+  const item = nextFeaturedItem(banner, state);
   applyCounters(banner, state, item.rarity);
   state.featuredArmed = false;
   grant(banner, state, item);
@@ -179,26 +212,40 @@ export function grantFeatured(banner: Banner, state: PullState): PullOutcome {
   };
 }
 
+function rarityById(banner: Banner, id: string): Rarity {
+  const rarity = banner.rarities.find((entry) => entry.id === id);
+  if (!rarity) throw new Error(`banner ${banner.id} missing rarity ${id}`);
+  return rarity;
+}
+
 export function pull(banner: Banner, state: PullState, rng: Rng): PullOutcome {
   state.sinceFeatured += 1;
+  const charge = banner.charge;
+  if (charge && state.sinceFeatured >= charge.hardAt) {
+    const outcome = grantFeatured(banner, state);
+    finishPull(banner, state);
+    return outcome;
+  }
+  if (charge && state.sinceFeatured === charge.midAt && banner.featured) {
+    return rollItem(
+      banner,
+      state,
+      rng,
+      rarityById(banner, banner.featured.rarity),
+      'soft',
+      { chance: charge.midFeaturedChance, capturing: false },
+    );
+  }
+
   const featuredRule = banner.featured;
   if (featuredRule?.hardAt && state.sinceFeatured >= featuredRule.hardAt) {
-    state.totalPulls += 1;
-    state.sparkProgress += 1 + (banner.mechanics?.audienceSparkPerPull ?? 0);
-    return grantFeatured(banner, state);
+    const outcome = grantFeatured(banner, state);
+    finishPull(banner, state);
+    return outcome;
   }
 
   const { rarity, pityKind } = pickRarity(banner, state, rng);
-  const { pool, featuredRoll } = resolveFeatured(banner, state, rarity.id, rng);
-  if (pool.length === 0) {
-    throw new Error(`banner ${banner.id} has no items for rarity ${rarity.id}`);
-  }
-  const item = pickFrom(banner, state, pool, rng);
-  applyCounters(banner, state, rarity.id);
-  grant(banner, state, item);
-  state.totalPulls += 1;
-  state.sparkProgress += 1 + (banner.mechanics?.audienceSparkPerPull ?? 0);
-  return { item, rarity: rarity.id, pityKind, featuredRoll };
+  return rollItem(banner, state, rng, rarity, pityKind);
 }
 
 export function sparkIfReady(banner: Banner, state: PullState): PullOutcome | null {
@@ -207,6 +254,7 @@ export function sparkIfReady(banner: Banner, state: PullState): PullOutcome | nu
   if (state.sparkProgress + 1e-9 < spark.cost) return null;
   const outcome = grantFeatured(banner, state);
   outcome.sparked = true;
+  state.sparkProgress -= spark.cost;
   return outcome;
 }
 
@@ -223,4 +271,8 @@ export function featuredCount(banner: Banner, state: PullState): number {
 
 export function uniqueCount(state: PullState): number {
   return state.owned.size;
+}
+
+export function uniqueFeaturedCount(banner: Banner, state: PullState): number {
+  return featuredPool(banner).filter((item) => (state.inventory[item.id] ?? 0) > 0).length;
 }

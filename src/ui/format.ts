@@ -18,6 +18,8 @@ export function goalLabel(goal: Goal): string {
       return 'First featured';
     case 'copies':
       return `${goal.count} featured copies`;
+    case 'unique-featured':
+      return `${goal.count} unique pickups`;
     case 'budget':
       return `${goal.pulls} pulls`;
     case 'collection':

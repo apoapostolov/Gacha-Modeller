@@ -8,6 +8,7 @@ import {
   runMonteCarlo,
   runTrial,
   simulatePoolShare,
+  runMonteCarloTwoPickup,
   type Banner,
 } from '../src/engine/index.ts';
 import {
@@ -18,6 +19,8 @@ import {
   hardPityBaseline,
   poolShare,
   audienceSpark,
+  blueArchiveCharge,
+  blueArchiveSpark,
 } from '../src/presets/index.ts';
 import { item } from '../src/presets/helpers.ts';
 
@@ -206,5 +209,103 @@ describe('inventory', () => {
     const state = createState(hardPityBaseline);
     for (let i = 0; i < 100; i++) pull(hardPityBaseline, state, rng);
     expect(featuredCount(hardPityBaseline, state)).toBeGreaterThanOrEqual(1);
+  });
+});
+
+describe('recruitment charge', () => {
+  const dryCharge = banner({
+    id: 'charge-dry',
+    rarities: [
+      { id: 'three', name: '3', baseRate: 0, color: '#000' },
+      { id: 'one', name: '1', baseRate: 0, color: '#000' },
+    ],
+    featured: { rarity: 'three', chance: 0, capturing: false },
+    charge: { midAt: 100, midFeaturedChance: 0, hardAt: 200 },
+    items: [item('pu', 'PU', 'three', 1, true), item('off', 'Off', 'three', 1), item('j', 'J', 'one', 1)],
+  });
+
+  it('forces a 3-star at 100 that can miss the pickup, then forces pickup at 200', () => {
+    const rng = mulberry32(1);
+    const state = createState(dryCharge);
+    const tape = [];
+    for (let i = 0; i < 200; i++) tape.push(pull(dryCharge, state, rng));
+    expect(tape[99]?.rarity).toBe('three');
+    expect(tape[99]?.item.id).toBe('off');
+    expect(tape[99]?.featuredRoll).toBe('lost');
+    expect(tape[199]?.item.id).toBe('pu');
+    expect(tape.slice(0, 99).every((row) => row.item.id === 'j')).toBe(true);
+  });
+
+  it('gives the pickup at 100 when the mid coin is 100%', () => {
+    const hot = banner({
+      ...dryCharge,
+      id: 'charge-hot',
+      charge: { midAt: 100, midFeaturedChance: 1, hardAt: 200 },
+    });
+    const result = runTrial(hot, { type: 'first-featured' }, mulberry32(3), 'never');
+    expect(result.pulls).toBe(100);
+    expect(result.featuredCount).toBe(1);
+  });
+
+  it('does not reset charge on an off-banner 3-star', () => {
+    const alwaysThree = banner({
+      id: 'charge-off',
+      rarities: [
+        { id: 'three', name: '3', baseRate: 1, color: '#000' },
+        { id: 'one', name: '1', baseRate: 0, color: '#000' },
+      ],
+      featured: { rarity: 'three', chance: 0, capturing: false },
+      charge: { midAt: 100, midFeaturedChance: 0, hardAt: 200 },
+      items: [item('pu', 'PU', 'three', 1, true), item('off', 'Off', 'three', 1)],
+    });
+    const rng = mulberry32(8);
+    const state = createState(alwaysThree);
+    pull(alwaysThree, state, rng);
+    expect(state.owned.has('off')).toBe(true);
+    expect(state.sinceFeatured).toBe(1);
+  });
+
+  it('resets charge when the pickup lands', () => {
+    const alwaysPu = banner({
+      id: 'charge-hit',
+      rarities: [
+        { id: 'three', name: '3', baseRate: 1, color: '#000' },
+        { id: 'one', name: '1', baseRate: 0, color: '#000' },
+      ],
+      featured: { rarity: 'three', chance: 1, capturing: false },
+      charge: { midAt: 100, midFeaturedChance: 0.5, hardAt: 200 },
+      items: [item('pu', 'PU', 'three', 1, true), item('off', 'Off', 'three', 1)],
+    });
+    const rng = mulberry32(2);
+    const state = createState(alwaysPu);
+    pull(alwaysPu, state, rng);
+    expect(state.owned.has('pu')).toBe(true);
+    expect(state.sinceFeatured).toBe(0);
+  });
+});
+
+describe('Blue Archive-like presets', () => {
+  it('spark first-pickup mean sits under 200 and below a raw 1/0.007 geometric', () => {
+    const report = runMonteCarlo(blueArchiveSpark, { type: 'first-featured' }, 2500, 17, 'if-needed');
+    expect(report.pulls.mean).toBeGreaterThan(80);
+    expect(report.pulls.mean).toBeLessThan(160);
+    expect(report.pulls.max).toBeLessThanOrEqual(200);
+  });
+
+  it('charge first-pickup never exceeds 200', () => {
+    const report = runMonteCarlo(blueArchiveCharge, { type: 'first-featured' }, 2500, 19, 'never');
+    expect(report.pulls.max).toBeLessThanOrEqual(200);
+    expect(report.pulls.mean).toBeGreaterThan(70);
+    expect(report.pulls.mean).toBeLessThan(150);
+  });
+
+  it('an early first pickup still caps spark-both at 200; charge can walk a second 200', () => {
+    const spark = runMonteCarloTwoPickup(blueArchiveSpark, 1500, 23, 'if-needed');
+    const charge = runMonteCarloTwoPickup(blueArchiveCharge, 1500, 23, 'never');
+    expect(spark.earlyBoth.n).toBeGreaterThan(50);
+    expect(charge.earlyBoth.n).toBeGreaterThan(50);
+    expect(spark.earlyBoth.max).toBeLessThanOrEqual(200);
+    expect(charge.earlyBoth.max).toBeGreaterThan(200);
+    expect(charge.earlyBoth.p90).toBeGreaterThan(spark.earlyBoth.p90);
   });
 });

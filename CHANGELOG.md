@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-08-24
+
+First public release of the local gacha probability lab.
+
+### Added
+
+- Professional GitHub hero image showing the real lab UI and its seeded trial output.
+- README landing image for the catalog and simulation workflow.
+
 ## [0.1.0] - 2026-08-24
 
 First lab. You pick a banner, it runs the pulls, and you see the cost and the tail before a pool ships.
@@ -17,4 +26,5 @@ First lab. You pick a banner, it runs the pulls, and you see the cost and the ta
 - Audience Spark: chat fills the spark bar without touching the base rate.
 - A local Vite lab with histogram, cost, shop rate, a ten-pull tape, and those compares on the matching presets.
 
+[1.0.0]: https://github.com/apoapostolov/Gacha-Modeller/releases/tag/v1.0.0
 [0.1.0]: https://github.com/apoapostolov/Gacha-Modeller/releases/tag/v0.1.0

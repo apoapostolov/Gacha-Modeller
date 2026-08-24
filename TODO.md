@@ -16,7 +16,7 @@
 - [ ] A claim / split rule when a guild bar actually drops
 - [ ] More like-models: HSR, WuWa, Nikke, FIFA pack, TCG pack
 - [ ] Genshin capturing-radiance as an optional featured modifier
-- [ ] A real screenshot for the README
+- [x] A real screenshot for the README
 - [ ] Onboard to 10001+ only if this becomes daily-use
 
 ## Not now

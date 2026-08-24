@@ -2,6 +2,8 @@
 
 A local lab for gacha banners, lootbox crates, and the social tricks sitting on a pity bar.
 
+![Gacha Modeller lab](docs/gacha-modeller-hero.png)
+
 <!-- trophy-proof: screenshot of the lab after a Genshin-like 8k-trial run (histogram + mean/p90 + spark rate). -->
 
 Store pages talk in rates. You live in the tail: the 90th percentile, the spark you had to buy, the second student after the bar reset. Encode a pool here, studied or one you invented, and run it until those numbers are honest.

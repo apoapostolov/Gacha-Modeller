@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 
-## [0.1.0] - 2026-08-23
+## [0.1.0] - 2026-08-24
 
 First lab. You pick a banner, it runs the pulls, and you see the cost and the tail before a pool ships.
 

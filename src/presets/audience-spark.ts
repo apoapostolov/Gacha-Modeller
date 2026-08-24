@@ -10,13 +10,13 @@ export const audienceSpark: Banner = {
   id: 'audience-spark',
   name: 'Audience Spark',
   family: 'original',
-  blurb: 'Streamer overlay. Viewers add 0.25 spark progress per pull, so 180 becomes ~144.',
+  blurb: 'Streamer overlay. Chat adds 0.25 spark per pull, so 180 lands near 144.',
   source: 'original',
   notes: [
-    'Same 50/50 banner as Genshin-like, spark still 180.',
-    'Each pull fills 1.25 spark ticks. The shop buy lands near 144 pulls if the featured never dropped.',
-    'Marketing: the chat is on the bar. Watching is a contribution. Pulling is a public event.',
-    'This subsidises the tail without changing the base rate, which reads as generous and still sells pulls.',
+    'Same 50/50 banner as Genshin-like. Spark cost is still 180.',
+    'Each pull fills 1.25 spark ticks. If the featured never drops, the shop buy is around 144.',
+    'Chat sits on the bar. Watching counts. Pulling is a public event.',
+    'You cheapen the tail without touching the base rate. It reads generous and still sells pulls.',
   ],
   mechanics: { audienceSparkPerPull: 0.25 },
 };

@@ -5,7 +5,7 @@ export function Histogram({ data, unit }: { data: HistogramData; unit: string })
   const end = data.start + data.width * data.counts.length;
   return (
     <figure className="histo">
-      <div className="histo-bars" role="img" aria-label={`Histogram of ${unit}`}>
+      <div className="histo-bars" role="img" aria-label={`How often each ${unit} count showed up`}>
         {data.counts.map((count, i) => (
           <div
             key={i}

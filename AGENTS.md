@@ -1,4 +1,4 @@
-# AGENTS.md — Gacha-Modeller
+# AGENTS.md: Gacha-Modeller
 
 Project contract. Wins over `/mnt/c/git/defaults/AGENTS.md`.
 
@@ -20,6 +20,7 @@ Project contract. Wins over `/mnt/c/git/defaults/AGENTS.md`.
 
 ## Rules
 
+- Reader-facing copy (README, changelog, `docs/`, preset `blurb`/`notes`, UI chrome) uses **warm Human**: direct you, contractions, no em dash, no fake first person, no performative empathy. Numbers and citations stay exact.
 - The engine is the product. Presets are data. Do not hide probability logic in React.
 - Studied presets are like-models. Cite the shape in `source`. Never paste a licensed live drop table. Never name a preset as the live game without `-like`.
 - Original mechanics stay `family: 'original'` with `source: 'original'`.

@@ -15,15 +15,15 @@ export function money(n: number, currency: string): string {
 export function goalLabel(goal: Goal): string {
   switch (goal.type) {
     case 'first-featured':
-      return 'First featured';
+      return 'until the featured drops';
     case 'copies':
-      return `${goal.count} featured copies`;
+      return `until ${goal.count} featured copies`;
     case 'unique-featured':
-      return `${goal.count} unique pickups`;
+      return `until ${goal.count} different pickups`;
     case 'budget':
-      return `${goal.pulls} pulls`;
+      return `after ${goal.pulls} pulls`;
     case 'collection':
-      return 'Complete the set';
+      return 'until the album is full';
   }
 }
 

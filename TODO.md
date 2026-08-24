@@ -10,17 +10,17 @@
 
 ## Next
 
-- [ ] CSV export of trial pulls
-- [ ] Side-by-side two-banner overlay
-- [ ] Player-time model (session length, daily cap)
-- [ ] Claim / split rule on pool-share drops
+- [ ] CSV export so you can take a trial tape elsewhere
+- [ ] Two banners on one histogram
+- [ ] Player-time (session length, daily cap)
+- [ ] A claim / split rule when a guild bar actually drops
 - [ ] More like-models: HSR, WuWa, Nikke, FIFA pack, TCG pack
 - [ ] Genshin capturing-radiance as an optional featured modifier
-- [ ] Screenshot for the README trophy slot
+- [ ] A real screenshot for the README
 - [ ] Onboard to 10001+ only if this becomes daily-use
 
 ## Not now
 
 - Live game API scraping
-- Accounts, leaderboards, or simulated spending with real stores
-- Legal advice about lootbox regulation
+- Accounts, leaderboards, or simulated spending in real stores
+- Legal advice about lootboxes

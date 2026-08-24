@@ -1,25 +1,25 @@
 # Gacha Modeller
 
-Local Monte Carlo lab for gacha banners, lootbox crates, and the social tricks that sit on top of a pity bar.
+A local lab for gacha banners, lootbox crates, and the social tricks sitting on a pity bar.
 
 <!-- trophy-proof: screenshot of the lab after a Genshin-like 8k-trial run (histogram + mean/p90 + spark rate). -->
 
-Gacha copy talks in rates. Players live in tails. This app lets you encode a pool — studied like-models or a mechanic you invented — and see how many pulls, how much currency, and how often the spark shop actually saves someone.
+Store pages talk in rates. You live in the tail: the 90th percentile, the spark you had to buy, the second student after the bar reset. Encode a pool here, studied or one you invented, and run it until those numbers are honest.
 
 ## What you can do
 
-- **Run a banner until the featured drops.** Mean, median, p90, and a histogram, from a seeded trial count you pick.
-- **Put a cap on the tail.** Spark-if-needed buys the featured when the bar fills. Spark-never shows the raw distribution.
-- **Compare a 50/50 with capturing against a straight rate-up.** Genshin-like and FGO-like sit in the same catalog so the shape difference is visible, not theoretical.
-- **Watch a spark bar die when the pickup lands.** Blue Archive-like Charge resets at 100/200 success. The old 200 spark does not. Dual pickups are the whole fight.
-- **Use a no-pity crate as the control.** Independent covert odds, long tail, no hug at 90.
-- **Share one pity bar across a guild.** Pool Share is an original mechanic: leftover pity is wasted once, not once per player.
-- **Heat the missing stickers.** Collection Heat boosts unowned ids so completing a set is the product, not a side effect.
-- **Let an audience fill the spark bar.** Viewers add progress per pull. The overlay is the marketing; the number is how much tail you subsidised.
+- **Pull until the featured shows.** You set the trial count. You get mean, median, p90, and a histogram.
+- **Cap the tail with a shop.** Spark-if-needed buys the featured when the bar fills. Leave the shop closed if you want the raw distribution.
+- **Set 50/50 capturing next to a straight rate-up.** Genshin-like and FGO-like sit in the same catalog so you can see the shape, not argue it.
+- **See leftover spark vanish when the pickup lands.** Blue Archive-like Charge resets when the student lands. The old 200 spark does not. Dual pickups are where that hurts.
+- **Keep a no-pity crate as the control.** Covert odds around 0.64%, no hug at 90, a long tail. Everything kinder should beat this.
+- **Share one pity bar across a guild.** Pool Share wastes leftover pity once, not once per player.
+- **Heat the stickers you still lack.** Collection Heat makes unowned pieces more likely. Completing the set is the product.
+- **Let chat fill the spark bar.** Audience Spark adds progress per pull. The overlay is the pitch; the number is how much tail you gave away.
 
 ## Catalog
 
-Studied presets are like-models of published or community-consensus shapes. They are not licensed live tables.
+Studied presets follow a published or community-consensus shape. They are not licensed live tables.
 
 | Preset | Shape |
 | --- | --- |
@@ -30,7 +30,7 @@ Studied presets are like-models of published or community-consensus shapes. They
 | Independent Crate | 0.64% covert, no pity |
 | 1% + Hard Pity 100 | Teaching control |
 
-Original presets are design proposals: Pool Share, Collection Heat, Audience Spark. Details live in [docs/methodology.md](docs/methodology.md). Blue Archive charge vs spark is in [docs/blue-archive-recruitment.md](docs/blue-archive-recruitment.md).
+Pool Share, Collection Heat, and Audience Spark are ours. How the engine rolls lives in [docs/methodology.md](docs/methodology.md). Blue Archive charge vs spark is in [docs/blue-archive-recruitment.md](docs/blue-archive-recruitment.md).
 
 ## Run it
 
@@ -41,12 +41,12 @@ npm test
 npm run dev
 ```
 
-Open http://127.0.0.1:3018/. Pick a banner, set trials, run. The engine is deterministic from seed `20260823`.
+Open http://127.0.0.1:3018/. Pick a banner, set trials, run. Same seed (`20260823`) gives you the same histogram.
 
 ## Limits
 
 - No live game APIs. If a real banner changed last Tuesday, this lab does not know.
-- No session calendars, first-time packs, or store UI. Those belong in a later player-time model.
+- No session calendars, first-time packs, or store UI. Those wait on a player-time model.
 - No legal opinion on lootboxes.
 
 ## License

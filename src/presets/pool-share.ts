@@ -11,13 +11,13 @@ export const poolShare: Banner = {
   id: 'pool-share',
   name: 'Pool Share (guild pity)',
   family: 'original',
-  blurb: 'Genshin-like rates, but 4 players share one 5-star pity bar.',
+  blurb: 'Genshin-like rates, but four of you share one 5-star bar.',
   source: 'original',
   notes: [
-    'Marketing pitch: "Pull together. Pity is shared." F2P rides a whale bar.',
-    'The group 5-star rate at a fixed total pull count beats N solo players because leftover pity is not wasted N times.',
-    'Fairness is the cost. One copy still goes to whoever rolled the hit unless you add a claim rule.',
-    'Run the social comparison: 4 players × 90 pulls, shared vs solo.',
+    'The pitch is "pull together, pity is shared." A free player can ride a whale bar.',
+    'At the same total pulls, the group gets more 5-stars than four solos, because leftover pity is not thrown away four times.',
+    'Fairness still costs you. The copy goes to whoever rolled it unless you add a claim rule.',
+    'The comparison uses 4 players × 90 pulls, shared vs solo.',
   ],
   mechanics: { poolSharePlayers: 4 },
 };

@@ -106,11 +106,11 @@ export function App() {
     <div className="shell">
       <header className="top">
         <div>
-          <p className="eyebrow">Simulation lab</p>
+          <p className="eyebrow">Try the pool first</p>
           <h1>Gacha Modeller</h1>
           <p className="lede">
-            Run studied pity models and original social or marketing mechanics through Monte Carlo
-            trials. Read the cost, the tail, and the player-time before a pool ships.
+            You pick a banner. We run the pulls. Cost, tail, and how long someone sits in it, before
+            you ship the pool.
           </p>
         </div>
         <div className="controls">
@@ -131,12 +131,12 @@ export function App() {
               value={sparkPolicy}
               onChange={(e) => setSparkPolicy(e.target.value as SparkPolicy)}
             >
-              <option value="if-needed">If needed</option>
-              <option value="never">Never</option>
+              <option value="if-needed">Use the shop</option>
+              <option value="never">Leave it closed</option>
             </select>
           </label>
           <button className="primary" onClick={simulate} disabled={busy}>
-            {busy ? 'Running…' : 'Run'}
+            {busy ? 'Rolling…' : 'Run pulls'}
           </button>
         </div>
       </header>
@@ -144,7 +144,7 @@ export function App() {
       <div className="layout">
         <aside className="panel catalog">
           <section className="catalog-group">
-            <h2>Studied</h2>
+            <h2>Published shapes</h2>
             {studied.map((entry) => (
               <button
                 key={entry.id}
@@ -157,7 +157,7 @@ export function App() {
             ))}
           </section>
           <section className="catalog-group">
-            <h2>Original</h2>
+            <h2>Invented here</h2>
             {original.map((entry) => (
               <button
                 key={entry.id}
@@ -172,7 +172,7 @@ export function App() {
         </aside>
 
         <section className="panel dossier">
-          <h2>Banner</h2>
+          <h2>This pool</h2>
           <h3>{banner.name}</h3>
           <p className="blurb">{banner.blurb}</p>
           <div className="rates">
@@ -198,23 +198,26 @@ export function App() {
               <>
                 <div className="rate">
                   <b>{banner.charge.midAt}</b>
-                  <span>{Math.round(banner.charge.midFeaturedChance * 100)}% mid 3-star</span>
+                  <span>
+                    {Math.round(banner.charge.midFeaturedChance * 100)}/
+                    {Math.round((1 - banner.charge.midFeaturedChance) * 100)} at {banner.charge.midAt}
+                  </span>
                 </div>
                 <div className="rate">
                   <b>{banner.charge.hardAt}</b>
-                  <span>Pickup hard</span>
+                  <span>Guaranteed pickup</span>
                 </div>
               </>
             )}
             {banner.featured && !banner.charge && (
               <div className="rate">
                 <b>{Math.round(banner.featured.chance * 100)}%</b>
-                <span>{banner.featured.capturing ? '50/50 capture' : 'Featured share'}</span>
+                <span>{banner.featured.capturing ? '50/50, next is yours' : 'Chance it is featured'}</span>
               </div>
             )}
           </div>
           <p className="source">
-            <strong>Source. </strong>
+            <strong>Where the shape comes from. </strong>
             {banner.source}
           </p>
           <ul className="notes">
@@ -222,7 +225,7 @@ export function App() {
               <li key={note}>{note}</li>
             ))}
           </ul>
-          <div className="tape" aria-label="sample pulls">
+          <div className="tape" aria-label="a few sample pulls">
             {tape.map((row, i) => (
               <span
                 key={`${row.item.id}-${i}`}
@@ -236,30 +239,30 @@ export function App() {
         </section>
 
         <section className="panel">
-          <h2>Results · {goalLabel(goal)}</h2>
+          <h2>How it landed · {goalLabel(goal)}</h2>
           {report && (
             <>
               <div className="kpis">
                 <div className="kpi">
-                  <div className="label">Mean pulls</div>
+                  <div className="label">Average pulls</div>
                   <div className="value">{fmt(report.pulls.mean)}</div>
                   <div className="sub">
                     median {fmt(report.pulls.median)} · p90 {fmt(report.pulls.p90)}
                   </div>
                 </div>
                 <div className="kpi">
-                  <div className="label">Mean cost</div>
+                  <div className="label">Average cost</div>
                   <div className="value">{fmt(report.cost.mean, 0)}</div>
                   <div className="sub">{money(report.cost.p90, banner.pullCost.currency)} at p90</div>
                 </div>
                 <div className="kpi">
-                  <div className="label">Spark rate</div>
+                  <div className="label">Bought from the shop</div>
                   <div className="value">{fmt(report.sparkRate * 100, 1)}%</div>
-                  <div className="sub">{report.trials.toLocaleString()} trials · seed {report.seed}</div>
+                  <div className="sub">{report.trials.toLocaleString()} trials, seed {report.seed}</div>
                 </div>
                 <div className="kpi">
                   <div className="label">
-                    {goal.type === 'collection' ? 'Unique items' : 'Featured copies'}
+                    {goal.type === 'collection' ? 'Stickers you own' : 'Featured copies'}
                   </div>
                   <div className="value">
                     {fmt(goal.type === 'collection' ? report.uniqueCount.mean : report.featuredCount.mean)}
@@ -274,37 +277,38 @@ export function App() {
           )}
           {share && (
             <p className="compare">
-              <strong>Pool share vs solo.</strong> {share.players} players × {share.budgetPerPlayer}{' '}
-              pulls. Shared mean featured {fmt(share.sharedFeatured.mean, 2)} vs solo{' '}
-              {fmt(share.soloFeatured.mean, 2)}. Solo leftover pity wasted:{' '}
+              <strong>Guild bar vs going alone.</strong> {share.players} players, {share.budgetPerPlayer}{' '}
+              pulls each. Together you average {fmt(share.sharedFeatured.mean, 2)} featured hits; solos
+              average {fmt(share.soloFeatured.mean, 2)}. Solo leftover pity thrown away:{' '}
               {fmt(share.leftoverPityWasteSolo.mean, 1)} pulls.
             </p>
           )}
           {heatCompare && report && (
             <p className="compare">
-              <strong>Heat vs cold album.</strong> Mean packs to complete {fmt(report.pulls.mean)} with
-              heat, {fmt(heatCompare.pulls.mean)} without. Heat cuts duplicates; it does not create
-              new stickers.
+              <strong>Hot album vs cold.</strong> Average packs to finish: {fmt(report.pulls.mean)} with
+              heat, {fmt(heatCompare.pulls.mean)} without. Heat trims dupes. It does not invent new
+              stickers.
             </p>
           )}
           {dual && (
             <p className="compare">
-              <strong>Two sequential pickups.</strong> If A lands by pull 80, Spark still finishes both by
-              200 (p90 {fmt(dual.spark.earlyBoth.p90)}, max {fmt(dual.spark.earlyBoth.max, 0)}). Charge
-              zeros the bar, so B is a new cycle (p90 {fmt(dual.charge.earlyBoth.p90)}, max{' '}
-              {fmt(dual.charge.earlyBoth.max, 0)}). Unconditional mean can still favor Charge. The 100
-              coin is a gift. The lost leftover is the nerf.
+              <strong>Two pickups, one after the other.</strong> If A lands by pull 80, the old spark still
+              finishes both by 200 (p90 {fmt(dual.spark.earlyBoth.p90)}, max{' '}
+              {fmt(dual.spark.earlyBoth.max, 0)}). Charge zeros the bar, so B is a fresh cycle (p90{' '}
+              {fmt(dual.charge.earlyBoth.p90)}, max {fmt(dual.charge.earlyBoth.max, 0)}). Average pulls
+              across every trial can still look kinder on Charge. The 100 coin is a gift. The leftover
+              you used to bank is what you lost.
             </p>
           )}
         </section>
       </div>
 
       <p className="foot">
-        Local Vite app. Engine is deterministic from a seed. Methodology lives in{' '}
+        Runs on your machine. Same seed, same histogram. How the rolls work is in{' '}
         <a href="https://github.com/apoapostolov/Gacha-Modeller/blob/main/docs/methodology.md">
           docs/methodology.md
         </a>
-        . Presets are like-models, not licensed live tables.
+        . These are like-models, not licensed live tables.
       </p>
     </div>
   );

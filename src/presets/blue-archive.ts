@@ -36,14 +36,14 @@ export const blueArchiveSpark: Banner = {
   ...shared,
   id: 'blue-archive-spark',
   name: 'Blue Archive-like Spark',
-  blurb: '0.7% pickup, 3% 3-star, spark at 200. Early pickup does not spend the bar.',
+  blurb: '0.7% pickup, 3% 3-star, spark at 200. A natural hit does not spend the bar.',
   source:
     'Blue Archive published rates (3% 3-star, 0.7% pickup, 120 pyroxene) plus the pre-5.5 Recruitment Points spark at 200. Dual banners shared the point pool. Points converted to keystones when a banner ended; they did not carry.',
   notes: [
-    'Pickup is 0.7% absolute, not 50% of 3-stars. P(pickup | 3-star) is 0.7 / 3 ≈ 23.3%.',
-    'Every pull adds one Recruitment Point. 200 points buy the current pickup. A natural pickup does not reset the points.',
-    'On a dual pickup, an early copy of A still lets you spark B at 200. That is the planning tool JP 5.5 removed.',
-    'Spark is a shop spend. This preset is the Global-still-current control, and the JP baseline before 29 Jul 2026.',
+    'Pickup is 0.7% on its own, not half of all 3-stars. Given a 3-star, the pickup is about 23.3%.',
+    'Every pull adds one Recruitment Point. 200 points buy the current pickup. A natural hit does not reset that.',
+    'On a dual pickup, an early A still lets you spark B at 200. That is the plan JP 5.5 took away.',
+    'Spark is a shop spend. Global still worked this way when JP shipped charge, and JP did too before 29 Jul 2026.',
   ],
   spark: { cost: 200 },
 };
@@ -53,15 +53,15 @@ export const blueArchiveCharge: Banner = {
   ...shared,
   id: 'blue-archive-charge',
   name: 'Blue Archive-like Charge',
-  blurb: 'Same 0.7%. Charge 100 = 50% pickup 3-star, 200 = pickup. Success resets. Same-type banners share the bar.',
+  blurb: 'Same 0.7%. At 100 you get a 3-star, 50% pickup. At 200, pickup. A hit resets. Same-type banners share the bar.',
   source:
-    'Blue Archive JP 5.5 Recruitment Charge (29 Jul 2026). Wiki + Yostar/Inven writeup: 100 charge guarantees a 3-star at 50% pickup, 200 guarantees pickup, reset on this banner’s pickup, two pools (regular vs limited), charge carries across same-type banners. Not a live drop-table dump.',
+    "Blue Archive JP 5.5 Recruitment Charge (29 Jul 2026). Wiki + Yostar/Inven writeup: 100 charge guarantees a 3-star at 50% pickup, 200 guarantees pickup, reset on this banner's pickup, two pools (regular vs limited), charge carries across same-type banners. Not a live drop-table dump.",
   notes: [
-    'Charge ticks on every pull. Off-banner 3-stars do not reset it. This banner’s pickup does, including a natural 0.7%.',
-    'At exactly 100, the pull is a 3-star with 50% pickup. That 50% is a checkpoint, not capturing: a miss does not arm the next 3-star.',
-    'At 200, the pickup is forced. Then charge is 0.',
+    "Charge ticks on every pull. Off-banner 3-stars do not reset it. This banner's pickup does, even a natural 0.7%.",
+    'At exactly 100, this pull is a 3-star with a 50% pickup. That coin is a checkpoint, not a catch-up: a miss does not arm the next 3-star.',
+    'At 200 the pickup is forced, then charge is 0.',
     'Regular and limited banners use separate bars. Dual pickups of the same type share a bar, so getting A zeros the bar you wanted for B.',
-    'The 5.5 livestream announced this days before JP shipped it. Producer Kim Yong-ha apologised. Steam recent reviews went Overwhelmingly Negative. Global timing was unannounced at write-up.',
+    'The 5.5 livestream announced this days before JP shipped it. Producer Kim Yong-ha apologised. Steam recent reviews went Overwhelmingly Negative. Global timing was unannounced in those writeups.',
   ],
   charge: { midAt: 100, midFeaturedChance: 0.5, hardAt: 200 },
 };

@@ -6,13 +6,13 @@ export const crateLootbox: Banner = {
   id: 'crate-lootbox',
   name: 'Independent Crate',
   family: 'studied',
-  blurb: 'No pity. Covert ~0.64%. The tail has no cap, so whales and unlucky players never meet.',
+  blurb: 'No pity. Covert about 0.64%. The tail never hugs you.',
   source:
     'Independent rarity roll in the shape of CS-style weapon crates (coverts around 0.64%). No official table is copied; this is the no-pity control.',
   notes: [
-    'Each crate is independent. There is no soft pity, hard pity, or spark.',
-    'Expected crates to a covert is 1 / 0.0064 ≈ 156. The 95th percentile sits much higher.',
-    'Use this as the gambling baseline when you add pity or social caps.',
+    'Each crate is its own roll. No soft pity, no hard pity, no spark.',
+    'Average crates to a covert is about 156 (1 / 0.0064). The 95th percentile sits much higher.',
+    'Use this when you add pity or social caps and need a meaner baseline.',
   ],
   pullCost: { amount: 2.5, currency: 'usd-like' },
   rarities: [

@@ -4,12 +4,13 @@
 
 ## [1.0.0] - 2026-08-24
 
-First public release of the local gacha probability lab.
+The lab's first stable presentation release. Its simulation rules and preset
+catalog shipped in 0.1.0; this update gives the project a visual front door.
 
 ### Added
 
-- Professional GitHub hero image showing the real lab UI and its seeded trial output.
-- README landing image for the catalog and simulation workflow.
+- The README now shows a real seeded lab run, including the catalog, outcome
+  measures, and histogram, so readers can judge the tool before running it.
 
 ## [0.1.0] - 2026-08-24
 

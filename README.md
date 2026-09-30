@@ -1,6 +1,20 @@
-# Gacha Modeller
+<!-- markdownlint-disable MD033 -->
 
-A local lab for gacha banners, lootbox crates, and the social tricks sitting on a pity bar.
+<div align="center">
+
+  <h1>Gacha Modeller</h1>
+
+  <p>Test banner and lootbox odds until the costly tail is as clear as the average.</p>
+
+  <p>
+    <a href="#what-you-can-do"><img src="https://img.shields.io/badge/Type-Web%20app-555" alt="Type: Web app"></a>
+    <a href="./package.json"><img src="https://img.shields.io/badge/Language-TypeScript-555" alt="Language: TypeScript"></a>
+    <a href="https://github.com/apoapostolov/Gacha-Modeller/releases/latest"><img src="https://img.shields.io/github/v/release/apoapostolov/Gacha-Modeller" alt="Latest stable release version"></a>
+    <a href="https://github.com/apoapostolov/Gacha-Modeller/releases/latest"><img src="https://img.shields.io/github/release-date/apoapostolov/Gacha-Modeller?display_date=published_at&amp;label=last%20release" alt="Published date of latest stable release"></a>
+    <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-green" alt="License: MIT"></a>
+  </p>
+
+</div>
 
 ![Gacha Modeller lab after a seeded banner simulation, with cost distribution and summary measures](docs/gacha-modeller-hero.png)
 

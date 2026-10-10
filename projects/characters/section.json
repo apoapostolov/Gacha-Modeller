@@ -1,0 +1,8 @@
+{
+  "format": "reward-model-section",
+  "version": 1,
+  "id": "characters",
+  "title": "Character collections",
+  "description": "Cited acquisition shapes with synthetic character pools.",
+  "order": 10
+}

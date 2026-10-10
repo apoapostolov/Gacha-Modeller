@@ -1,0 +1,189 @@
+{
+  "format": "gacha-modeller-project",
+  "version": 2,
+  "id": "fortnite-xray-like",
+  "name": "Fortnite-like revealed X-Ray llama",
+  "baseline": {
+    "schemaVersion": 2,
+    "id": "fortnite-xray-like-snapshot-0",
+    "hash": "bf8e5d1ac8f0c1499ffb385d1259854a7fb062ed6e160b928a178c53feb8e374",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "id": "fortnite-xray-like",
+      "name": "Fortnite-like revealed X-Ray llama",
+      "family": "studied",
+      "blurb": "A fixed revealed offer containing a schematic, hero and materials. Content is known before selection.",
+      "source": "Epic Save the World X-Ray announcement (2019) and store changes (2022): https://www.fortnite.com/news/loot-unboxing and https://www.fortnite.com/news/changes-to-save-the-world-store-and-llama-shop",
+      "notes": [
+        "Save the World, not Battle Royale. X-Ray contents are revealed before purchase, so this configured offer is deterministic.",
+        "From v20.00, Epic removed V-Buck and real-money llama purchases in favour of earned X-Ray Tickets. This example uses earned-ticket cost only.",
+        "Synthetic offer contents and price; no current game price or reward table is claimed.",
+        "The engine executes this one known offer. Offer rotation, inspect/skip decisions and selection among revealed alternatives are not simulated."
+      ],
+      "pullCost": {
+        "amount": 33.333333333333336,
+        "currency": "earned X-Ray-like tickets"
+      },
+      "rarities": [
+        {
+          "id": "reward",
+          "name": "Revealed reward",
+          "baseRate": 0,
+          "color": "#d4b483"
+        }
+      ],
+      "pity": [],
+      "multiPull": {
+        "size": 3,
+        "slots": [
+          {
+            "itemId": "schematic",
+            "quantity": 1
+          },
+          {
+            "itemId": "hero",
+            "quantity": 1
+          },
+          {
+            "itemId": "materials",
+            "quantity": 20
+          }
+        ]
+      },
+      "items": [
+        {
+          "id": "schematic",
+          "name": "Revealed schematic",
+          "rarity": "reward",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "hero",
+          "name": "Revealed hero",
+          "rarity": "reward",
+          "weight": 1
+        },
+        {
+          "id": "materials",
+          "name": "Material bundle",
+          "rarity": "reward",
+          "weight": 1
+        }
+      ],
+      "provenance": {
+        "packs": {
+          "kind": "cited-shape",
+          "source": "https://www.fortnite.com/news/loot-unboxing",
+          "asOf": "2019-01-25"
+        },
+        "rates": {
+          "kind": "synthetic",
+          "source": "Known illustrative offer; no random opening or live pool."
+        }
+      }
+    }
+  },
+  "candidate": {
+    "schemaVersion": 2,
+    "id": "fortnite-xray-like-snapshot-1",
+    "hash": "8a09e09c4ec36d3164d7eddf95479194ac607a123009c5754b1708e82302a7f5",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "id": "fortnite-xray-like-candidate",
+      "name": "Fortnite-like revealed X-Ray llama candidate",
+      "family": "original",
+      "blurb": "A fixed revealed offer containing a schematic, hero and materials. Content is known before selection.",
+      "source": "original",
+      "notes": [
+        "Save the World, not Battle Royale. X-Ray contents are revealed before purchase, so this configured offer is deterministic.",
+        "From v20.00, Epic removed V-Buck and real-money llama purchases in favour of earned X-Ray Tickets. This example uses earned-ticket cost only.",
+        "Synthetic offer contents and price; no current game price or reward table is claimed.",
+        "The engine executes this one known offer. Offer rotation, inspect/skip decisions and selection among revealed alternatives are not simulated."
+      ],
+      "pullCost": {
+        "amount": 33.333333333333336,
+        "currency": "earned X-Ray-like tickets"
+      },
+      "rarities": [
+        {
+          "id": "reward",
+          "name": "Revealed reward",
+          "baseRate": 0,
+          "color": "#d4b483"
+        }
+      ],
+      "pity": [],
+      "multiPull": {
+        "size": 3,
+        "slots": [
+          {
+            "itemId": "schematic",
+            "quantity": 1
+          },
+          {
+            "itemId": "hero",
+            "quantity": 1
+          },
+          {
+            "itemId": "materials",
+            "quantity": 20
+          }
+        ]
+      },
+      "items": [
+        {
+          "id": "schematic",
+          "name": "Revealed schematic",
+          "rarity": "reward",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "hero",
+          "name": "Revealed hero",
+          "rarity": "reward",
+          "weight": 1
+        },
+        {
+          "id": "materials",
+          "name": "Material bundle",
+          "rarity": "reward",
+          "weight": 1
+        }
+      ],
+      "provenance": {
+        "packs": {
+          "kind": "cited-shape",
+          "source": "https://www.fortnite.com/news/loot-unboxing",
+          "asOf": "2019-01-25"
+        },
+        "rates": {
+          "kind": "synthetic",
+          "source": "Known illustrative offer; no random opening or live pool."
+        }
+      }
+    }
+  },
+  "history": [],
+  "settings": {
+    "goal": {
+      "type": "targets",
+      "targets": [
+        {
+          "itemId": "schematic",
+          "count": 1
+        },
+        {
+          "itemId": "hero",
+          "count": 1
+        }
+      ]
+    },
+    "trials": 1000,
+    "seed": 20260823,
+    "sparkPolicy": "if-needed",
+    "maxPulls": 30,
+    "actionMode": "pack"
+  }
+}

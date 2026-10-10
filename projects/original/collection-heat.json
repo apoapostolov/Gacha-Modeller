@@ -1,0 +1,315 @@
+{
+  "format": "gacha-modeller-project",
+  "version": 1,
+  "id": "collection-heat",
+  "name": "Collection Heat",
+  "baseline": {
+    "schemaVersion": 1,
+    "id": "collection-heat-snapshot-0",
+    "hash": "3eadac9810e95db015e7288ff7b711cec60cabdcccb78017da1d3c01dc39d060",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "id": "collection-heat",
+      "name": "Collection Heat",
+      "family": "original",
+      "blurb": "The set has 16 stickers. Missing stickers get 40% more weight.",
+      "source": "original",
+      "notes": [
+        "Each pull gives you one sticker. There is no rarity ladder; the goal is to fill the album.",
+        "Unowned stickers get 1.4 times their base weight, so the more of the set you own, the less often you draw duplicates.",
+        "This can be presented as fair because you are more likely to get a sticker you are missing. It still encourages players to complete the set.",
+        "The goal is a full album. The simulator also runs the pool with heat turned off, so you can compare duplicate rates."
+      ],
+      "pullCost": {
+        "amount": 1,
+        "currency": "pack"
+      },
+      "rarities": [
+        {
+          "id": "sticker",
+          "name": "Sticker",
+          "baseRate": 1,
+          "color": "#d4b483"
+        }
+      ],
+      "pity": [],
+      "items": [
+        {
+          "id": "sticker-1",
+          "name": "Sticker 1",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-2",
+          "name": "Sticker 2",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-3",
+          "name": "Sticker 3",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-4",
+          "name": "Sticker 4",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-5",
+          "name": "Sticker 5",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-6",
+          "name": "Sticker 6",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-7",
+          "name": "Sticker 7",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-8",
+          "name": "Sticker 8",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-9",
+          "name": "Sticker 9",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-10",
+          "name": "Sticker 10",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-11",
+          "name": "Sticker 11",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-12",
+          "name": "Sticker 12",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-13",
+          "name": "Sticker 13",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-14",
+          "name": "Sticker 14",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-15",
+          "name": "Sticker 15",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-16",
+          "name": "Sticker 16",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        }
+      ],
+      "mechanics": {
+        "collectionHeat": 0.4
+      }
+    }
+  },
+  "candidate": {
+    "schemaVersion": 1,
+    "id": "collection-heat-snapshot-1",
+    "hash": "1ef6cddf8f5f95297238ae0f2aa409052d7ac8cbaeae8548ade76199ae3ba555",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "id": "collection-heat-candidate",
+      "name": "Collection Heat candidate",
+      "family": "original",
+      "blurb": "The set has 16 stickers. Missing stickers get 40% more weight.",
+      "source": "original",
+      "notes": [
+        "Each pull gives you one sticker. There is no rarity ladder; the goal is to fill the album.",
+        "Unowned stickers get 1.4 times their base weight, so the more of the set you own, the less often you draw duplicates.",
+        "This can be presented as fair because you are more likely to get a sticker you are missing. It still encourages players to complete the set.",
+        "The goal is a full album. The simulator also runs the pool with heat turned off, so you can compare duplicate rates."
+      ],
+      "pullCost": {
+        "amount": 1,
+        "currency": "pack"
+      },
+      "rarities": [
+        {
+          "id": "sticker",
+          "name": "Sticker",
+          "baseRate": 1,
+          "color": "#d4b483"
+        }
+      ],
+      "pity": [],
+      "items": [
+        {
+          "id": "sticker-1",
+          "name": "Sticker 1",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-2",
+          "name": "Sticker 2",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-3",
+          "name": "Sticker 3",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-4",
+          "name": "Sticker 4",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-5",
+          "name": "Sticker 5",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-6",
+          "name": "Sticker 6",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-7",
+          "name": "Sticker 7",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-8",
+          "name": "Sticker 8",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-9",
+          "name": "Sticker 9",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-10",
+          "name": "Sticker 10",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-11",
+          "name": "Sticker 11",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-12",
+          "name": "Sticker 12",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-13",
+          "name": "Sticker 13",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-14",
+          "name": "Sticker 14",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-15",
+          "name": "Sticker 15",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sticker-16",
+          "name": "Sticker 16",
+          "rarity": "sticker",
+          "weight": 1,
+          "featured": false
+        }
+      ],
+      "mechanics": {
+        "collectionHeat": 0.4
+      }
+    }
+  },
+  "history": [],
+  "settings": {
+    "goal": {
+      "type": "collection"
+    },
+    "trials": 1000,
+    "seed": 20260823,
+    "sparkPolicy": "if-needed",
+    "maxPulls": 1000,
+    "actionMode": "single"
+  }
+}

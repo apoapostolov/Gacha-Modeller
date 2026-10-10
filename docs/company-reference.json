@@ -1,0 +1,75 @@
+{
+  "projectId": "synthetic-company-pilot",
+  "baselineHash": "f39bb31103ba3b18b42631f15f46b941b1d270593dba1fb09e5896f29e3794d7",
+  "candidateHash": "827e21cb9f83fd30937fc434341c090a145014eba7759e846e598fa61f4720fd",
+  "evidenceHash": "1a18f30ea9a0dcd11feb2f6527f0cae69be2ad63454386b56c1f49067738327b",
+  "report": {
+    "engineVersion": "company-evidence-6",
+    "evidence": "synthetic",
+    "quality": {
+      "inputRows": 300,
+      "acceptedRows": 300,
+      "duplicates": 0,
+      "late": 0,
+      "unavailable": 0,
+      "unreconciled": 0,
+      "immature": 0,
+      "missingExposure": 0
+    },
+    "blockers": [],
+    "warnings": [
+      "Synthetic evidence tests the workflow. It cannot authorize a company adoption decision."
+    ],
+    "calibrations": [
+      {
+        "cohort": "new",
+        "trainingUnits": 50,
+        "holdoutUnits": 50,
+        "attendance": 0.6885714285714286,
+        "purchase": 0.06714285714285714,
+        "holdoutAttendance": 0.6957142857142857,
+        "holdoutPurchase": 0.08571428571428572,
+        "attendanceError": 0.0071428571428571175,
+        "purchaseError": 0.018571428571428572
+      },
+      {
+        "cohort": "returning",
+        "trainingUnits": 50,
+        "holdoutUnits": 50,
+        "attendance": 0.7,
+        "purchase": 0.06428571428571428,
+        "holdoutAttendance": 0.7142857142857143,
+        "holdoutPurchase": 0.07,
+        "attendanceError": 0.014285714285714346,
+        "purchaseError": 0.005714285714285727
+      }
+    ],
+    "experiment": {
+      "kind": "A/B",
+      "baselineUnits": 50,
+      "candidateUnits": 50,
+      "srmP": 1,
+      "baselineMeanMinor": 1705.96,
+      "candidateMeanMinor": 1825.74,
+      "differenceMinor": 119.77999999999997,
+      "attendanceDifference": 0.027142857142857135,
+      "ci": {
+        "cash": [
+          -506.94000000000005,
+          818.9600000000003
+        ],
+        "attendance": [
+          -0.02571428571428569,
+          0.07714285714285718
+        ],
+        "replicates": 1000,
+        "seed": 42
+      },
+      "winsorDifference": 68.41999999999985,
+      "topShare": 0.1784126624571736,
+      "plannedTotal": 1131
+    },
+    "readiness": "inconclusive",
+    "meetsCriteria": false
+  }
+}

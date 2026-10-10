@@ -1,0 +1,185 @@
+{
+  "format": "gacha-modeller-project",
+  "version": 1,
+  "id": "crate-lootbox",
+  "name": "Independent Crate",
+  "baseline": {
+    "schemaVersion": 1,
+    "id": "crate-lootbox-snapshot-0",
+    "hash": "18595a5ca793aad12019681e5c05da81c11943bc148a7219e77129c6fe9705c3",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "id": "crate-lootbox",
+      "name": "Independent Crate",
+      "family": "studied",
+      "blurb": "No pity. Covert drops about 0.64% of the time.",
+      "source": "Based on independent rarity rolls in CS-style weapon crates, where Covert drops are around 0.64%. No live table is copied; this is the no-pity baseline.",
+      "notes": [
+        "Each crate is an independent roll, with no soft pity, hard pity, or spark.",
+        "At a 0.64% rate, it takes about 156 crates on average to get a Covert. The 95th percentile is much higher.",
+        "Use this as a tougher baseline when you test pity or social caps."
+      ],
+      "pullCost": {
+        "amount": 2.5,
+        "currency": "usd-like"
+      },
+      "rarities": [
+        {
+          "id": "covert",
+          "name": "Covert",
+          "baseRate": 0.0064,
+          "color": "#e05d38"
+        },
+        {
+          "id": "classified",
+          "name": "Classified",
+          "baseRate": 0.032,
+          "color": "#d4b483"
+        },
+        {
+          "id": "restricted",
+          "name": "Restricted",
+          "baseRate": 0.16,
+          "color": "#7ea36a"
+        },
+        {
+          "id": "milspec",
+          "name": "Mil-spec",
+          "baseRate": 0,
+          "color": "#6b6458"
+        }
+      ],
+      "pity": [],
+      "featured": {
+        "rarity": "covert",
+        "chance": 1,
+        "capturing": false
+      },
+      "items": [
+        {
+          "id": "covert-a",
+          "name": "Covert skin",
+          "rarity": "covert",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "class-a",
+          "name": "Classified skin",
+          "rarity": "classified",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rest-a",
+          "name": "Restricted skin",
+          "rarity": "restricted",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "mil-a",
+          "name": "Mil-spec skin",
+          "rarity": "milspec",
+          "weight": 1,
+          "featured": false
+        }
+      ]
+    }
+  },
+  "candidate": {
+    "schemaVersion": 1,
+    "id": "crate-lootbox-snapshot-1",
+    "hash": "f7edc6646c032dbc46f8d98ffe6f21bc8cb1454778c6c0fbf3c944a843849a98",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "id": "crate-lootbox-candidate",
+      "name": "Independent Crate candidate",
+      "family": "original",
+      "blurb": "No pity. Covert drops about 0.64% of the time.",
+      "source": "original",
+      "notes": [
+        "Each crate is an independent roll, with no soft pity, hard pity, or spark.",
+        "At a 0.64% rate, it takes about 156 crates on average to get a Covert. The 95th percentile is much higher.",
+        "Use this as a tougher baseline when you test pity or social caps."
+      ],
+      "pullCost": {
+        "amount": 2.5,
+        "currency": "usd-like"
+      },
+      "rarities": [
+        {
+          "id": "covert",
+          "name": "Covert",
+          "baseRate": 0.0064,
+          "color": "#e05d38"
+        },
+        {
+          "id": "classified",
+          "name": "Classified",
+          "baseRate": 0.032,
+          "color": "#d4b483"
+        },
+        {
+          "id": "restricted",
+          "name": "Restricted",
+          "baseRate": 0.16,
+          "color": "#7ea36a"
+        },
+        {
+          "id": "milspec",
+          "name": "Mil-spec",
+          "baseRate": 0,
+          "color": "#6b6458"
+        }
+      ],
+      "pity": [],
+      "featured": {
+        "rarity": "covert",
+        "chance": 1,
+        "capturing": false
+      },
+      "items": [
+        {
+          "id": "covert-a",
+          "name": "Covert skin",
+          "rarity": "covert",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "class-a",
+          "name": "Classified skin",
+          "rarity": "classified",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rest-a",
+          "name": "Restricted skin",
+          "rarity": "restricted",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "mil-a",
+          "name": "Mil-spec skin",
+          "rarity": "milspec",
+          "weight": 1,
+          "featured": false
+        }
+      ]
+    }
+  },
+  "history": [],
+  "settings": {
+    "goal": {
+      "type": "first-featured"
+    },
+    "trials": 1000,
+    "seed": 20260823,
+    "sparkPolicy": "if-needed",
+    "maxPulls": 1000,
+    "actionMode": "single"
+  }
+}

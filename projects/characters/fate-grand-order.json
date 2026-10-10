@@ -1,0 +1,189 @@
+{
+  "format": "gacha-modeller-project",
+  "version": 1,
+  "id": "fate-grand-order",
+  "name": "FGO-like Story Banner",
+  "baseline": {
+    "schemaVersion": 1,
+    "id": "fate-grand-order-snapshot-0",
+    "hash": "e2ca82b968b601bcfd8217ec69bcc053062cb194e7570241728668b1a7120472",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "id": "fate-grand-order",
+      "name": "FGO-like Story Banner",
+      "family": "studied",
+      "blurb": "A 1% SSR rate, with a 0.8% rate-up and a guarantee at 330 summons. An off-banner SSR does not guarantee the next one.",
+      "source": "Based on Fate/Grand Order's published rates (1% SSR, 3% SR) and the 330-summon rate-up pity added in 2022. This model gives a single rate-up 80% of SSR hits.",
+      "notes": [
+        "SSR drops at 1%. A single rate-up gets 80% of those drops: 0.8% featured and 0.2% off-banner.",
+        "An off-banner SSR does not guarantee that the next SSR will be the rate-up.",
+        "At 330 summons, the rate-up SSR is guaranteed. The SSR rate does not ramp before then.",
+        "The 11-pull is a shop bundle; the simulator still resolves it as 11 individual summons."
+      ],
+      "pullCost": {
+        "amount": 3,
+        "currency": "saint-quartz-like"
+      },
+      "rarities": [
+        {
+          "id": "ssr",
+          "name": "SSR",
+          "baseRate": 0.01,
+          "color": "#d4b483"
+        },
+        {
+          "id": "sr",
+          "name": "SR",
+          "baseRate": 0.03,
+          "color": "#7ea36a"
+        },
+        {
+          "id": "r",
+          "name": "R",
+          "baseRate": 0,
+          "color": "#6b6458"
+        }
+      ],
+      "pity": [],
+      "featured": {
+        "rarity": "ssr",
+        "chance": 0.8,
+        "capturing": false,
+        "hardAt": 330
+      },
+      "spark": {
+        "cost": 330
+      },
+      "multiPull": {
+        "size": 11
+      },
+      "items": [
+        {
+          "id": "rate-ssr",
+          "name": "Rate-up SSR",
+          "rarity": "ssr",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "off-ssr",
+          "name": "Off-banner SSR",
+          "rarity": "ssr",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sr-a",
+          "name": "SR A",
+          "rarity": "sr",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "r-a",
+          "name": "R junk",
+          "rarity": "r",
+          "weight": 1,
+          "featured": false
+        }
+      ]
+    }
+  },
+  "candidate": {
+    "schemaVersion": 1,
+    "id": "fate-grand-order-snapshot-1",
+    "hash": "7d10cdfe014887fd5075f1a566e4adf7d7bfc2f6f00fda6c13da67a27bc4199c",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "id": "fate-grand-order-candidate",
+      "name": "FGO-like Story Banner candidate",
+      "family": "original",
+      "blurb": "A 1% SSR rate, with a 0.8% rate-up and a guarantee at 330 summons. An off-banner SSR does not guarantee the next one.",
+      "source": "original",
+      "notes": [
+        "SSR drops at 1%. A single rate-up gets 80% of those drops: 0.8% featured and 0.2% off-banner.",
+        "An off-banner SSR does not guarantee that the next SSR will be the rate-up.",
+        "At 330 summons, the rate-up SSR is guaranteed. The SSR rate does not ramp before then.",
+        "The 11-pull is a shop bundle; the simulator still resolves it as 11 individual summons."
+      ],
+      "pullCost": {
+        "amount": 3,
+        "currency": "saint-quartz-like"
+      },
+      "rarities": [
+        {
+          "id": "ssr",
+          "name": "SSR",
+          "baseRate": 0.01,
+          "color": "#d4b483"
+        },
+        {
+          "id": "sr",
+          "name": "SR",
+          "baseRate": 0.03,
+          "color": "#7ea36a"
+        },
+        {
+          "id": "r",
+          "name": "R",
+          "baseRate": 0,
+          "color": "#6b6458"
+        }
+      ],
+      "pity": [],
+      "featured": {
+        "rarity": "ssr",
+        "chance": 0.8,
+        "capturing": false,
+        "hardAt": 330
+      },
+      "spark": {
+        "cost": 330
+      },
+      "multiPull": {
+        "size": 11
+      },
+      "items": [
+        {
+          "id": "rate-ssr",
+          "name": "Rate-up SSR",
+          "rarity": "ssr",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "off-ssr",
+          "name": "Off-banner SSR",
+          "rarity": "ssr",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "sr-a",
+          "name": "SR A",
+          "rarity": "sr",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "r-a",
+          "name": "R junk",
+          "rarity": "r",
+          "weight": 1,
+          "featured": false
+        }
+      ]
+    }
+  },
+  "history": [],
+  "settings": {
+    "goal": {
+      "type": "first-featured"
+    },
+    "trials": 1000,
+    "seed": 20260823,
+    "sparkPolicy": "if-needed",
+    "maxPulls": 1000,
+    "actionMode": "single"
+  }
+}

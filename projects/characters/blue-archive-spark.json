@@ -1,0 +1,189 @@
+{
+  "format": "gacha-modeller-project",
+  "version": 1,
+  "id": "blue-archive-spark",
+  "name": "Blue Archive-like Spark",
+  "baseline": {
+    "schemaVersion": 1,
+    "id": "blue-archive-spark-snapshot-0",
+    "hash": "c05c4411d03466bbc17bc1b9f79d4fa8100b5c2b2832cd1ad794672157f73c4c",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "family": "studied",
+      "pullCost": {
+        "amount": 120,
+        "currency": "pyroxene-like"
+      },
+      "rarities": [
+        {
+          "id": "three",
+          "name": "3-star",
+          "baseRate": 0.03,
+          "color": "#d4b483"
+        },
+        {
+          "id": "two",
+          "name": "2-star",
+          "baseRate": 0.185,
+          "color": "#7ea36a"
+        },
+        {
+          "id": "one",
+          "name": "1-star",
+          "baseRate": 0,
+          "color": "#6b6458"
+        }
+      ],
+      "pity": [],
+      "featured": {
+        "rarity": "three",
+        "chance": 0.23333333333333334,
+        "capturing": false
+      },
+      "multiPull": {
+        "size": 10,
+        "guaranteeRarity": "two"
+      },
+      "items": [
+        {
+          "id": "pickup",
+          "name": "Pickup 3-star",
+          "rarity": "three",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "off-three",
+          "name": "Off-banner 3-star",
+          "rarity": "three",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "two-star",
+          "name": "2-star",
+          "rarity": "two",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "one-star",
+          "name": "1-star",
+          "rarity": "one",
+          "weight": 1,
+          "featured": false
+        }
+      ],
+      "id": "blue-archive-spark",
+      "name": "Blue Archive-like Spark",
+      "blurb": "A 0.7% pickup rate, 3% chance of a 3-star, and a 200-point spark. A natural pickup does not reset the meter.",
+      "source": "Based on Blue Archive's published rates (3% for a 3-star, 0.7% pickup, 120 pyroxene) and its pre-5.5 Recruitment Points spark at 200. Dual banners shared points. At a banner's end, points converted to keystones and did not carry over.",
+      "notes": [
+        "Pickup is 0.7% on its own, not half of all 3-stars. Given a 3-star, the pickup is about 23.3%.",
+        "Each pull adds one Recruitment Point. At 200 points, you can trade them for the pickup. A natural pickup does not reset the meter.",
+        "On a dual banner, getting pickup A early still leaves enough points to spark B at 200. JP 5.5 replaced that system.",
+        "The spark is a shop purchase. Global still used this system when JP introduced Recruitment Charge; JP used it until 29 July 2026."
+      ],
+      "spark": {
+        "cost": 200
+      }
+    }
+  },
+  "candidate": {
+    "schemaVersion": 1,
+    "id": "blue-archive-spark-snapshot-1",
+    "hash": "ad1a86a063f0035368fbbe5063aba81372c48758a413b131fff9e83da50cb939",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "family": "original",
+      "pullCost": {
+        "amount": 120,
+        "currency": "pyroxene-like"
+      },
+      "rarities": [
+        {
+          "id": "three",
+          "name": "3-star",
+          "baseRate": 0.03,
+          "color": "#d4b483"
+        },
+        {
+          "id": "two",
+          "name": "2-star",
+          "baseRate": 0.185,
+          "color": "#7ea36a"
+        },
+        {
+          "id": "one",
+          "name": "1-star",
+          "baseRate": 0,
+          "color": "#6b6458"
+        }
+      ],
+      "pity": [],
+      "featured": {
+        "rarity": "three",
+        "chance": 0.23333333333333334,
+        "capturing": false
+      },
+      "multiPull": {
+        "size": 10,
+        "guaranteeRarity": "two"
+      },
+      "items": [
+        {
+          "id": "pickup",
+          "name": "Pickup 3-star",
+          "rarity": "three",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "off-three",
+          "name": "Off-banner 3-star",
+          "rarity": "three",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "two-star",
+          "name": "2-star",
+          "rarity": "two",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "one-star",
+          "name": "1-star",
+          "rarity": "one",
+          "weight": 1,
+          "featured": false
+        }
+      ],
+      "id": "blue-archive-spark-candidate",
+      "name": "Blue Archive-like Spark candidate",
+      "blurb": "A 0.7% pickup rate, 3% chance of a 3-star, and a 200-point spark. A natural pickup does not reset the meter.",
+      "source": "original",
+      "notes": [
+        "Pickup is 0.7% on its own, not half of all 3-stars. Given a 3-star, the pickup is about 23.3%.",
+        "Each pull adds one Recruitment Point. At 200 points, you can trade them for the pickup. A natural pickup does not reset the meter.",
+        "On a dual banner, getting pickup A early still leaves enough points to spark B at 200. JP 5.5 replaced that system.",
+        "The spark is a shop purchase. Global still used this system when JP introduced Recruitment Charge; JP used it until 29 July 2026."
+      ],
+      "spark": {
+        "cost": 200
+      }
+    }
+  },
+  "history": [],
+  "settings": {
+    "goal": {
+      "type": "first-featured"
+    },
+    "trials": 1000,
+    "seed": 20260823,
+    "sparkPolicy": "if-needed",
+    "maxPulls": 1000,
+    "actionMode": "single"
+  }
+}

@@ -4,9 +4,11 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --port=3018 --host=0.0.0.0 --strictPort",
+    "dev": "vite --port=3018 --host=127.0.0.1 --strictPort",
+    "start": "node --experimental-transform-types scripts/server.ts",
+    "project:create": "node --experimental-transform-types scripts/create-project.ts",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview --port=3018 --host=0.0.0.0 --strictPort",
+    "preview": "vite preview --port=3018 --host=127.0.0.1 --strictPort",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",

@@ -1,0 +1,8 @@
+{
+  "format": "reward-model-section",
+  "version": 1,
+  "id": "company",
+  "title": "Company",
+  "description": "Editable synthetic extracts, experiment diagnostics and decision records.",
+  "order": 0
+}

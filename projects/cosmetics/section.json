@@ -1,0 +1,8 @@
+{
+  "format": "reward-model-section",
+  "version": 1,
+  "id": "cosmetics",
+  "title": "Cosmetic loot boxes",
+  "description": "Cosmetic collections and box layouts with explicit model boundaries.",
+  "order": 20
+}

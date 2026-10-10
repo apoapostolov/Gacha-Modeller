@@ -15,10 +15,35 @@ button:disabled { cursor: not-allowed; opacity: .5; }
 .eyebrow, .save-status, .role-label, .evidence-label { font: 11px var(--mono); color: var(--mute); }
 .eyebrow { display: block; margin-bottom: 4px; text-transform: uppercase; letter-spacing: .12em; }
 .save-status { color: var(--ok); }
+.save-status[data-saved="false"] { color: var(--brass); }
 .workspace { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 20px; align-items: start; }
 .workspace-content { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
 .catalog { position: sticky; top: 16px; max-height: calc(100dvh - 32px); overflow-y: auto; }
 .pick { overflow-wrap: anywhere; }
+.catalog-intro p, .catalog-group p { font-size: 13px; line-height: 1.55; }
+.catalog-group h3 { font-size: 15px; margin: 16px 0 8px; }
+.catalog-heading { display: flex; gap: 8px; align-items: center; padding: 12px 0; }
+.catalog-heading::before { content: '▸'; }
+details[open] > .catalog-heading::before { content: '▾'; }
+.catalog-heading h3 { display: inline; margin: 0; color: var(--ink); }
+.project-search { margin: 18px 0 8px; }
+.project-search input { min-width: 0; width: 100%; }
+.catalog-group li { font-size: 12px; overflow-wrap: anywhere; }
+.company-workbench { min-width: 0; }
+.workspace-modules { display: flex; flex-wrap: wrap; gap: 10px; }
+.workspace-modules [aria-pressed="true"] { border-color: var(--brass); color: var(--brass); }
+.company-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 20px 0; }
+.company-summary strong, .company-summary span { display: block; }
+.company-summary strong { font: 22px var(--mono); margin-bottom: 6px; }
+.company-summary span { font-size: 12px; color: var(--mute); }
+.company-metrics { display: grid; grid-template-columns: minmax(160px, 1fr) 1fr; gap: 10px 20px; font-size: 13px; }
+.company-metrics div { grid-column: 1 / -1; }
+.company-metrics dt { color: var(--mute); }
+.company-metrics dd { margin: 0; overflow-wrap: anywhere; }
+.company-csv { width: 100%; min-height: 240px; font: 12px var(--mono); white-space: pre; overflow: auto; }
+.calibration-controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; }
+.quality-errors { border-left: 2px solid var(--brass); padding-left: 16px; font-size: 13px; }
+@media (max-width: 600px) { .company-summary { grid-template-columns: 1fr; } .company-metrics { grid-template-columns: 1fr; gap: 6px; } .company-metrics dd { margin-bottom: 12px; } .company-workbench .section-heading { flex-wrap: wrap; } }
 .model-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .model-details { min-width: 0; }
 .model-details h3 { font-size: 24px; margin-top: 12px; line-height: 1.15; overflow-wrap: anywhere; }

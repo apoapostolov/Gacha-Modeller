@@ -1,9 +1,10 @@
 import path from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { projectLibrary } from './server/plugin.ts';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), projectLibrary()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
@@ -11,7 +12,7 @@ export default defineConfig({
   },
   server: {
     port: 3018,
-    host: '0.0.0.0',
+    host: '127.0.0.1',
     strictPort: true,
     watch: {
       usePolling: true,
@@ -23,7 +24,7 @@ export default defineConfig({
   },
   preview: {
     port: 3018,
-    host: '0.0.0.0',
+    host: '127.0.0.1',
     strictPort: true,
   },
 });

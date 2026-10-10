@@ -1,0 +1,147 @@
+{
+  "format": "gacha-modeller-project",
+  "version": 2,
+  "id": "fortnite-historical-blind-like",
+  "name": "Fortnite-like historical blind llama",
+  "baseline": {
+    "schemaVersion": 2,
+    "id": "fortnite-historical-blind-like-snapshot-0",
+    "hash": "6cbad2e0b1d73370a02a48bf45cda11097cb0f39ccc9dde72b30094be0b46b42",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "id": "fortnite-historical-blind-like",
+      "name": "Fortnite-like historical blind llama",
+      "family": "studied",
+      "blurb": "A historical blind-pack contrast with synthetic random rewards and ticket price.",
+      "source": "Epic Save the World X-Ray announcement (2019) and store changes (2022): https://www.fortnite.com/news/loot-unboxing and https://www.fortnite.com/news/changes-to-save-the-world-store-and-llama-shop",
+      "notes": [
+        "Historical contrast to pre-2019 blind llamas, not the current Save the World store.",
+        "All item probabilities and ticket costs are synthetic. No live tables or real-money sales are asserted."
+      ],
+      "pullCost": {
+        "amount": 33.333333333333336,
+        "currency": "earned X-Ray-like tickets"
+      },
+      "rarities": [
+        {
+          "id": "reward",
+          "name": "Revealed reward",
+          "baseRate": 0,
+          "color": "#d4b483"
+        }
+      ],
+      "pity": [],
+      "multiPull": {
+        "size": 3
+      },
+      "items": [
+        {
+          "id": "schematic",
+          "name": "Revealed schematic",
+          "rarity": "reward",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "hero",
+          "name": "Revealed hero",
+          "rarity": "reward",
+          "weight": 1
+        },
+        {
+          "id": "materials",
+          "name": "Material bundle",
+          "rarity": "reward",
+          "weight": 1
+        }
+      ],
+      "provenance": {
+        "packs": {
+          "kind": "cited-shape",
+          "source": "https://www.fortnite.com/news/loot-unboxing",
+          "asOf": "2019-01-25"
+        },
+        "rates": {
+          "kind": "synthetic",
+          "source": "Equal-weight illustrative pool."
+        }
+      }
+    }
+  },
+  "candidate": {
+    "schemaVersion": 2,
+    "id": "fortnite-historical-blind-like-snapshot-1",
+    "hash": "178fba9348564a1e70c963869c0bc1cf4d9347fa894de9439f4b73772f139b22",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "id": "fortnite-historical-blind-like-candidate",
+      "name": "Fortnite-like historical blind llama candidate",
+      "family": "original",
+      "blurb": "A historical blind-pack contrast with synthetic random rewards and ticket price.",
+      "source": "original",
+      "notes": [
+        "Historical contrast to pre-2019 blind llamas, not the current Save the World store.",
+        "All item probabilities and ticket costs are synthetic. No live tables or real-money sales are asserted."
+      ],
+      "pullCost": {
+        "amount": 33.333333333333336,
+        "currency": "earned X-Ray-like tickets"
+      },
+      "rarities": [
+        {
+          "id": "reward",
+          "name": "Revealed reward",
+          "baseRate": 0,
+          "color": "#d4b483"
+        }
+      ],
+      "pity": [],
+      "multiPull": {
+        "size": 3
+      },
+      "items": [
+        {
+          "id": "schematic",
+          "name": "Revealed schematic",
+          "rarity": "reward",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "hero",
+          "name": "Revealed hero",
+          "rarity": "reward",
+          "weight": 1
+        },
+        {
+          "id": "materials",
+          "name": "Material bundle",
+          "rarity": "reward",
+          "weight": 1
+        }
+      ],
+      "provenance": {
+        "packs": {
+          "kind": "cited-shape",
+          "source": "https://www.fortnite.com/news/loot-unboxing",
+          "asOf": "2019-01-25"
+        },
+        "rates": {
+          "kind": "synthetic",
+          "source": "Equal-weight illustrative pool."
+        }
+      }
+    }
+  },
+  "history": [],
+  "settings": {
+    "goal": {
+      "type": "first-featured"
+    },
+    "trials": 1000,
+    "seed": 20260823,
+    "sparkPolicy": "if-needed",
+    "maxPulls": 90,
+    "actionMode": "pack"
+  }
+}

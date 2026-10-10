@@ -84,7 +84,7 @@ export function ModelEditor({ draft, onChange, onClose, onSave, busy, error }: {
     <details className="editor-group"><summary>Pack purchase</summary>
       <label className="check-label"><input type="checkbox" checked={!!draft.multiPull} onChange={(e) => patch((c) => { c.multiPull = e.target.checked ? { size: 10 } : undefined; })} />Enable whole-pack action</label>
       {draft.multiPull && <div className="editor-grid"><NumberField label="Pack size" value={draft.multiPull.size} min={1} max={1000} step={1} onChange={(v) => patch((c) => { c.multiPull!.size = v!; if (c.multiPull!.slots && Number.isSafeInteger(v) && v! >= 1 && v! <= 1000) c.multiPull!.slots = Array.from({ length: v! }, (_, i) => c.multiPull!.slots![i] ?? { quantity: 1 }); })} />{tiers('Pack minimum tier', draft.multiPull.guaranteeRarity ?? '', (v) => patch((c) => { c.multiPull!.guaranteeRarity = v || undefined; }), true)}</div>}
-      <p className="run-note">Whole packs are purchased <Help label="Supported pack rules">Choose slot layouts and sampling in Pack slots &amp; correlations. Every paid slot costs the declared per-pull price. Batch discounts are not represented.</Help></p>
+      <p className="run-note">Complete packs execute as one action <Help label="Supported pack rules">Choose slot layouts and sampling in Pack slots &amp; correlations. Each reward slot costs the declared per-pull price. Batch discounts are not represented.</Help></p>
     </details>
     <details className="editor-group"><summary>Item catalogue</summary>
       {draft.items.map((item, i) => <div className="editor-row" key={i}><div className="editor-grid"><TextField label={`Item ${i + 1} ID`} value={item.id} onChange={(v) => patch((c) => { const old = c.items[i]!.id; c.items[i]!.id = v;

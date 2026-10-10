@@ -88,11 +88,24 @@ Corresponds to D01-D04 and C01-C05. Customer interviews and company data are ext
 - [ ] M6.1 Select a pilot company decision, authoritative configuration and ownership.
 - [ ] M6.2 Agree lawful data access, metric definitions, maturity windows and holdout period.
 - [ ] M6.3 Local extract mapping, deduplication, state/ledger reconciliation and quality diagnostics.
-- [ ] M6.4 Baseline behavioural calibration and temporal holdout validation.
-- [ ] M6.5 Experiment specification, assignment/exposure checks, A/A and SRM diagnostics.
-- [ ] M6.6 Heavy-tail/group uncertainty and preregistered decision criteria.
-- [ ] M6.7 Executive decision record linking evidence, alternatives, constraints and next experiment.
+- [x] M6.3a Local aggregate CSV mapping, deduplication, wallet/inventory reconciliation and quality diagnostics under the synthetic panel contract. Production protection-state adapters remain open under M6.3.
+- [x] M6.4 Baseline attendance/purchase frequency estimates, explicit policy application and temporal holdout errors under synthetic acceptance. Real company calibration remains pending.
+- [x] M6.5 Experiment specification, assignment/exposure checks, A/A and exact allocation diagnostics under the local declared contract.
+- [x] M6.6 Independent-group bootstrap intervals, heavy-tail sensitivity and declared fixed-horizon criteria. Production preregistration and dependence review remain external gates.
+- [x] M6.7 Executive decision record linking hashed evidence/models, alternatives, constraints and next experiment; synthetic/blocked adoption requests become holds.
 - [ ] M6.8 Validate repeat company usage and commercial value through a second real decision.
+
+Additional user-requested modularity:
+
+- [x] Directory-backed project files, runtime section.json discovery and visible invalid-file diagnostics.
+- [x] Conflict-aware file saves, previous-save backups and preserved browser-library migration.
+- [x] Shared local API for development, preview and production execution.
+- [x] Project authoring skill and validated create/inspect CLI.
+- [x] Overwatch-like legendary cosmetic boxes, Fortnite-like revealed/historical llamas and original collectible card packs with source boundaries.
+- [x] Editable company synthetic assumptions, CSV extracts, mappings and decision narratives.
+- [x] Separate interface comprehension/accessibility rounds, formal labels and narrow layout checks.
+
+See the [M6 contract](docs/milestone-6.md) and [exported evidence reference](docs/company-reference.json). M6.1/M6.2/M6.8 and the production-state portion of M6.3 are not represented as completed by synthetic fixtures.
 
 ## Milestone 7: specialist and enterprise expansion
 
@@ -180,3 +193,11 @@ Verification: 159 tests across 13 suites, including expanded semantic axe covera
 The synthetic no-response pilot increases D90 completion from 53.65% to 68.85%, while cash contribution decreases from USD 18.354455 to USD 18.187295 per eligible player. The interface presents this as a tradeoff. Assumed attendance and subjective utility are not observed retention or excitement. See the [reference output](docs/economy-reference.json), [desktop report](docs/assets/economy-workbench.png) and [mobile help/drawer](docs/assets/economy-mobile.png).
 
 Milestone 6 is next: company decision ownership, approved financial/data contracts, observational calibration and experimentation. The current delivery remains local and synthetic.
+
+### 10 October 2026: directory projects and editable company evidence
+
+Delivered the local M6 acceptance scope: runtime section/project discovery, conflict-aware saves and backups, preserved browser migration, a validated authoring skill/CLI, named-game examples with explicit fidelity limits, and editable synthetic company extracts. The company module adds aggregate reconciliation, training/holdout estimates, assignment and exposure diagnostics, independent-group bootstrap intervals, tail sensitivity and hashed decision exports.
+
+Verification: 182 tests across 16 suites; TypeScript and production build; exact Node replay of the browser-exported company reference; production service discovery; real browser writes, CSV remapping, regeneration, invalid-JSON recovery and migration of 11 prior browser projects. Browser checks covered the cosmetic box and revealed llama models, keyboard focus/Help dismissal, fixed drawer footer and no page overflow at 390 × 844. Final fresh loading had no new console warnings/errors. Screenshots: [company report](docs/assets/company-workbench.png) and [phone company settings](docs/assets/company-mobile.png). Browser coverage is Codex Chromium.
+
+The synthetic reference has 100 independent groups and 300 aggregate rows. Its contribution interval is USD -5.07 to USD 8.19 per assigned group, so the decision remains inconclusive. Synthetic evidence does not complete company ownership, lawful access, production protection-state reconciliation or repeat commercial validation. See the [M6 contract](docs/milestone-6.md).

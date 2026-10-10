@@ -1,0 +1,279 @@
+{
+  "format": "gacha-modeller-project",
+  "version": 1,
+  "id": "audience-spark",
+  "name": "Audience Spark",
+  "baseline": {
+    "schemaVersion": 1,
+    "id": "audience-spark-snapshot-0",
+    "hash": "0bc8c5d1b6246907c1d0c740638d03dbc0689f1ec72be72df2248f90d30307b2",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "id": "audience-spark",
+      "name": "Audience Spark",
+      "family": "original",
+      "blurb": "A stream overlay adds 0.25 spark per pull from the audience, bringing the 180-point guarantee to about 144 pulls.",
+      "source": "original",
+      "notes": [
+        "Uses the same 50/50 and 180-pull spark as the Genshin-like model.",
+        "Each pull adds 1.25 points to the spark meter. If you miss the featured item each time, the 180-point spark arrives at about pull 144.",
+        "The audience adds progress to the spark meter while viewers pull.",
+        "This lowers the cost of a long dry streak without changing the base drop rate."
+      ],
+      "pullCost": {
+        "amount": 160,
+        "currency": "primogem-like"
+      },
+      "rarities": [
+        {
+          "id": "five",
+          "name": "5-star",
+          "baseRate": 0.006,
+          "color": "#d4b483"
+        },
+        {
+          "id": "four",
+          "name": "4-star",
+          "baseRate": 0.051,
+          "color": "#7ea36a"
+        },
+        {
+          "id": "three",
+          "name": "3-star",
+          "baseRate": 0,
+          "color": "#6b6458"
+        }
+      ],
+      "pity": [
+        {
+          "rarity": "five",
+          "hardAt": 90,
+          "softStart": 74,
+          "softStep": 0.06,
+          "resetAlso": [
+            "four"
+          ]
+        },
+        {
+          "rarity": "four",
+          "hardAt": 10
+        }
+      ],
+      "featured": {
+        "rarity": "five",
+        "chance": 0.5,
+        "capturing": true
+      },
+      "spark": {
+        "cost": 180
+      },
+      "multiPull": {
+        "size": 10,
+        "guaranteeRarity": "four"
+      },
+      "items": [
+        {
+          "id": "featured-five",
+          "name": "Featured 5-star",
+          "rarity": "five",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "std-a",
+          "name": "Standard 5-star A",
+          "rarity": "five",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "std-b",
+          "name": "Standard 5-star B",
+          "rarity": "five",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "std-c",
+          "name": "Standard 5-star C",
+          "rarity": "five",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rate-four",
+          "name": "Rate-up 4-star",
+          "rarity": "four",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "four-a",
+          "name": "4-star A",
+          "rarity": "four",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "four-b",
+          "name": "4-star B",
+          "rarity": "four",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "three-a",
+          "name": "3-star junk",
+          "rarity": "three",
+          "weight": 1,
+          "featured": false
+        }
+      ],
+      "mechanics": {
+        "audienceSparkPerPull": 0.25
+      }
+    }
+  },
+  "candidate": {
+    "schemaVersion": 1,
+    "id": "audience-spark-snapshot-1",
+    "hash": "48621f275a33ee7f9ff28321924864913d6b0f38b53dde895bcff48ce79833f2",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "id": "audience-spark-candidate",
+      "name": "Audience Spark candidate",
+      "family": "original",
+      "blurb": "A stream overlay adds 0.25 spark per pull from the audience, bringing the 180-point guarantee to about 144 pulls.",
+      "source": "original",
+      "notes": [
+        "Uses the same 50/50 and 180-pull spark as the Genshin-like model.",
+        "Each pull adds 1.25 points to the spark meter. If you miss the featured item each time, the 180-point spark arrives at about pull 144.",
+        "The audience adds progress to the spark meter while viewers pull.",
+        "This lowers the cost of a long dry streak without changing the base drop rate."
+      ],
+      "pullCost": {
+        "amount": 160,
+        "currency": "primogem-like"
+      },
+      "rarities": [
+        {
+          "id": "five",
+          "name": "5-star",
+          "baseRate": 0.006,
+          "color": "#d4b483"
+        },
+        {
+          "id": "four",
+          "name": "4-star",
+          "baseRate": 0.051,
+          "color": "#7ea36a"
+        },
+        {
+          "id": "three",
+          "name": "3-star",
+          "baseRate": 0,
+          "color": "#6b6458"
+        }
+      ],
+      "pity": [
+        {
+          "rarity": "five",
+          "hardAt": 90,
+          "softStart": 74,
+          "softStep": 0.06,
+          "resetAlso": [
+            "four"
+          ]
+        },
+        {
+          "rarity": "four",
+          "hardAt": 10
+        }
+      ],
+      "featured": {
+        "rarity": "five",
+        "chance": 0.5,
+        "capturing": true
+      },
+      "spark": {
+        "cost": 180
+      },
+      "multiPull": {
+        "size": 10,
+        "guaranteeRarity": "four"
+      },
+      "items": [
+        {
+          "id": "featured-five",
+          "name": "Featured 5-star",
+          "rarity": "five",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "std-a",
+          "name": "Standard 5-star A",
+          "rarity": "five",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "std-b",
+          "name": "Standard 5-star B",
+          "rarity": "five",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "std-c",
+          "name": "Standard 5-star C",
+          "rarity": "five",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rate-four",
+          "name": "Rate-up 4-star",
+          "rarity": "four",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "four-a",
+          "name": "4-star A",
+          "rarity": "four",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "four-b",
+          "name": "4-star B",
+          "rarity": "four",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "three-a",
+          "name": "3-star junk",
+          "rarity": "three",
+          "weight": 1,
+          "featured": false
+        }
+      ],
+      "mechanics": {
+        "audienceSparkPerPull": 0.25
+      }
+    }
+  },
+  "history": [],
+  "settings": {
+    "goal": {
+      "type": "first-featured"
+    },
+    "trials": 1000,
+    "seed": 20260823,
+    "sparkPolicy": "if-needed",
+    "maxPulls": 1000,
+    "actionMode": "single"
+  }
+}

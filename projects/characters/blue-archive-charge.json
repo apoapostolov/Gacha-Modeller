@@ -1,0 +1,195 @@
+{
+  "format": "gacha-modeller-project",
+  "version": 1,
+  "id": "blue-archive-charge",
+  "name": "Blue Archive-like Charge",
+  "baseline": {
+    "schemaVersion": 1,
+    "id": "blue-archive-charge-snapshot-0",
+    "hash": "e73b5370136a274605ca87206dc224a5c8705b50b32f1d08a978433f058f1659",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "family": "studied",
+      "pullCost": {
+        "amount": 120,
+        "currency": "pyroxene-like"
+      },
+      "rarities": [
+        {
+          "id": "three",
+          "name": "3-star",
+          "baseRate": 0.03,
+          "color": "#d4b483"
+        },
+        {
+          "id": "two",
+          "name": "2-star",
+          "baseRate": 0.185,
+          "color": "#7ea36a"
+        },
+        {
+          "id": "one",
+          "name": "1-star",
+          "baseRate": 0,
+          "color": "#6b6458"
+        }
+      ],
+      "pity": [],
+      "featured": {
+        "rarity": "three",
+        "chance": 0.23333333333333334,
+        "capturing": false
+      },
+      "multiPull": {
+        "size": 10,
+        "guaranteeRarity": "two"
+      },
+      "items": [
+        {
+          "id": "pickup",
+          "name": "Pickup 3-star",
+          "rarity": "three",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "off-three",
+          "name": "Off-banner 3-star",
+          "rarity": "three",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "two-star",
+          "name": "2-star",
+          "rarity": "two",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "one-star",
+          "name": "1-star",
+          "rarity": "one",
+          "weight": 1,
+          "featured": false
+        }
+      ],
+      "id": "blue-archive-charge",
+      "name": "Blue Archive-like Charge",
+      "blurb": "Both banners have a 0.7% pickup rate. At 100 points, you get a 3-star with a 50% pickup chance; at 200, the pickup is guaranteed. A pickup resets the meter, and same-type banners share points.",
+      "source": "Based on Blue Archive JP 5.5 Recruitment Charge (29 July 2026) and the Wiki/Yostar/Inven write-up: at 100 charge, a 3-star is guaranteed with a 50% pickup chance; at 200, the pickup is guaranteed. A pickup on this banner resets charge. Regular and limited banners use separate pools, and banners of the same type share charge. This model does not copy a live drop table.",
+      "notes": [
+        "Every pull adds charge. An off-banner 3-star does not reset it. Any pickup on this banner does, including a natural 0.7% hit.",
+        "When charge reaches 100, the roll is a 3-star with a 50% chance of the pickup. If you miss, the next 3-star is not guaranteed to be the pickup.",
+        "At 200 charge, the pickup is guaranteed and the meter resets to 0.",
+        "Regular and limited banners have separate meters. Banners of the same type share one, so getting A resets the progress you had toward B.",
+        "The 5.5 livestream announced the change a few days before it launched in JP. Producer Kim Yong-ha apologised, and recent Steam reviews fell to 'Overwhelmingly Negative.' Those write-ups did not announce a Global release date."
+      ],
+      "charge": {
+        "midAt": 100,
+        "midFeaturedChance": 0.5,
+        "hardAt": 200
+      }
+    }
+  },
+  "candidate": {
+    "schemaVersion": 1,
+    "id": "blue-archive-charge-snapshot-1",
+    "hash": "03cc955c54060ad58a8a6a7cdb3e2ca65906bf05b1d96be3d5e6fd2bdae83d3a",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "family": "original",
+      "pullCost": {
+        "amount": 120,
+        "currency": "pyroxene-like"
+      },
+      "rarities": [
+        {
+          "id": "three",
+          "name": "3-star",
+          "baseRate": 0.03,
+          "color": "#d4b483"
+        },
+        {
+          "id": "two",
+          "name": "2-star",
+          "baseRate": 0.185,
+          "color": "#7ea36a"
+        },
+        {
+          "id": "one",
+          "name": "1-star",
+          "baseRate": 0,
+          "color": "#6b6458"
+        }
+      ],
+      "pity": [],
+      "featured": {
+        "rarity": "three",
+        "chance": 0.23333333333333334,
+        "capturing": false
+      },
+      "multiPull": {
+        "size": 10,
+        "guaranteeRarity": "two"
+      },
+      "items": [
+        {
+          "id": "pickup",
+          "name": "Pickup 3-star",
+          "rarity": "three",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "off-three",
+          "name": "Off-banner 3-star",
+          "rarity": "three",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "two-star",
+          "name": "2-star",
+          "rarity": "two",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "one-star",
+          "name": "1-star",
+          "rarity": "one",
+          "weight": 1,
+          "featured": false
+        }
+      ],
+      "id": "blue-archive-charge-candidate",
+      "name": "Blue Archive-like Charge candidate",
+      "blurb": "Both banners have a 0.7% pickup rate. At 100 points, you get a 3-star with a 50% pickup chance; at 200, the pickup is guaranteed. A pickup resets the meter, and same-type banners share points.",
+      "source": "original",
+      "notes": [
+        "Every pull adds charge. An off-banner 3-star does not reset it. Any pickup on this banner does, including a natural 0.7% hit.",
+        "When charge reaches 100, the roll is a 3-star with a 50% chance of the pickup. If you miss, the next 3-star is not guaranteed to be the pickup.",
+        "At 200 charge, the pickup is guaranteed and the meter resets to 0.",
+        "Regular and limited banners have separate meters. Banners of the same type share one, so getting A resets the progress you had toward B.",
+        "The 5.5 livestream announced the change a few days before it launched in JP. Producer Kim Yong-ha apologised, and recent Steam reviews fell to 'Overwhelmingly Negative.' Those write-ups did not announce a Global release date."
+      ],
+      "charge": {
+        "midAt": 100,
+        "midFeaturedChance": 0.5,
+        "hardAt": 200
+      }
+    }
+  },
+  "history": [],
+  "settings": {
+    "goal": {
+      "type": "first-featured"
+    },
+    "trials": 1000,
+    "seed": 20260823,
+    "sparkPolicy": "if-needed",
+    "maxPulls": 1000,
+    "actionMode": "single"
+  }
+}

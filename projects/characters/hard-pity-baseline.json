@@ -1,0 +1,141 @@
+{
+  "format": "gacha-modeller-project",
+  "version": 1,
+  "id": "hard-pity-baseline",
+  "name": "1% + Hard Pity 100",
+  "baseline": {
+    "schemaVersion": 1,
+    "id": "hard-pity-baseline-snapshot-0",
+    "hash": "9eda8f90ee4356071fc6d1de67c7a4755f11784ebd6c470391c2f99a9f2f370d",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "id": "hard-pity-baseline",
+      "name": "1% + Hard Pity 100",
+      "family": "studied",
+      "blurb": "A 1% chase rate with hard pity at 100. No rate ramp or 50/50.",
+      "source": "A textbook 1% geometric drop rate with a hard cap. Useful as a baseline for comparing rate ramps and featured guarantees.",
+      "notes": [
+        "Without pity, a 1% drop takes 100 pulls on average. Guaranteeing it by pull 100 cuts the long tail and brings the average below 100.",
+        "There is no 50/50: every chase-rarity hit is the featured prize."
+      ],
+      "pullCost": {
+        "amount": 1,
+        "currency": "ticket"
+      },
+      "rarities": [
+        {
+          "id": "chase",
+          "name": "Chase",
+          "baseRate": 0.01,
+          "color": "#d4b483"
+        },
+        {
+          "id": "junk",
+          "name": "Junk",
+          "baseRate": 0,
+          "color": "#6b6458"
+        }
+      ],
+      "pity": [
+        {
+          "rarity": "chase",
+          "hardAt": 100
+        }
+      ],
+      "featured": {
+        "rarity": "chase",
+        "chance": 1,
+        "capturing": false
+      },
+      "items": [
+        {
+          "id": "chase",
+          "name": "Chase prize",
+          "rarity": "chase",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "junk",
+          "name": "Junk",
+          "rarity": "junk",
+          "weight": 1,
+          "featured": false
+        }
+      ]
+    }
+  },
+  "candidate": {
+    "schemaVersion": 1,
+    "id": "hard-pity-baseline-snapshot-1",
+    "hash": "9b826b51374ca1fc6dfa03e48c0b61e6a16567005ad053ae2096e62cac7ba03b",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "id": "hard-pity-baseline-candidate",
+      "name": "1% + Hard Pity 100 candidate",
+      "family": "original",
+      "blurb": "A 1% chase rate with hard pity at 100. No rate ramp or 50/50.",
+      "source": "original",
+      "notes": [
+        "Without pity, a 1% drop takes 100 pulls on average. Guaranteeing it by pull 100 cuts the long tail and brings the average below 100.",
+        "There is no 50/50: every chase-rarity hit is the featured prize."
+      ],
+      "pullCost": {
+        "amount": 1,
+        "currency": "ticket"
+      },
+      "rarities": [
+        {
+          "id": "chase",
+          "name": "Chase",
+          "baseRate": 0.01,
+          "color": "#d4b483"
+        },
+        {
+          "id": "junk",
+          "name": "Junk",
+          "baseRate": 0,
+          "color": "#6b6458"
+        }
+      ],
+      "pity": [
+        {
+          "rarity": "chase",
+          "hardAt": 100
+        }
+      ],
+      "featured": {
+        "rarity": "chase",
+        "chance": 1,
+        "capturing": false
+      },
+      "items": [
+        {
+          "id": "chase",
+          "name": "Chase prize",
+          "rarity": "chase",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "junk",
+          "name": "Junk",
+          "rarity": "junk",
+          "weight": 1,
+          "featured": false
+        }
+      ]
+    }
+  },
+  "history": [],
+  "settings": {
+    "goal": {
+      "type": "first-featured"
+    },
+    "trials": 1000,
+    "seed": 20260823,
+    "sparkPolicy": "if-needed",
+    "maxPulls": 1000,
+    "actionMode": "single"
+  }
+}

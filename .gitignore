@@ -7,6 +7,10 @@ dist
 .DS_Store
 .vite
 coverage
+projects/**/*.backup
+projects/**/*.tmp
+projects/workspace/*.json
+!projects/workspace/section.json
 *.local
 
 # Local mechanic scratch. Do not commit.

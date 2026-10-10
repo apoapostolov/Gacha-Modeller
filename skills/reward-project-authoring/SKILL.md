@@ -1,0 +1,15 @@
+---
+name: reward-project-authoring
+description: Create and validate directory-backed reward-model projects in Gacha Modeller, including new section folders, cosmetic loot boxes, card packs, revealed offers, acquisition models and company synthetic evidence. Use when the user asks to add, author, fork or organize a project or section in this workspace.
+---
+
+# Reward project authoring
+
+1. Locate the Gacha-Modeller repository and read its AGENTS.md. Inspect `projects/*/section.json` and an existing project in the relevant section. Read `docs/milestone-6.md` for file and evidence contracts. Keep probability logic outside React; folder metadata determines the sidebar.
+2. Establish the reward unit, action size, eligible pool, acquisition goal, duplicates, protection resets, resource origin and observation horizon. Research named game rules using official dated sources. Use “-like” names, synthetic item pools and mechanism provenance. Box occurrence probabilities are not slot probabilities. Do not imply that earned rewards are cash sales. For unsupported rules, clearly bound the example rather than invent an implementation.
+3. Prepare a model envelope `{format: "gacha-modeller-model", version: 1 or 2, model: ...}` or use an existing complete project as input. Read `src/engine/types.ts`, `src/engine/validation.ts` and `src/project/project.ts` for supported fields. Use the current importer to compute snapshots; never invent hashes. Put draft inputs in an OS temporary directory so they are not mistaken for library projects.
+4. Run from the repository: `npm run project:create -- --input <absolute-json-file> --section <folder-id> --name "Descriptive project name"`. This creates a new identity without overwriting the source. New folders additionally require `--section-title` and `--section-description`. Folder ids use lowercase letters, numbers and hyphens; metadata ids match directory names. Do not hand-edit locked snapshot content or hashes.
+5. If required, attach company evidence through Company settings. Synthetic assumptions and the aggregate CSV are editable there; regeneration replaces only the draft extract. Company data approval is an actual external decision, never an agent inference. Follow temporal boundaries and independent group contracts. Synthetic records cannot authorize adoption.
+6. Run `npm run project:create -- --validate`, `npm run typecheck` and the relevant mechanical tests. In the app, Refresh library, select the project, verify a comparison, candidate save and reload. Check source boundaries, goal terminology, keyboard help and narrow layouts. Preserve browser migration data and exported backups. Report the actual path, configured assumptions and any unsupported game rules.
+
+The CLI reads input models/projects, validates immutable hashes, creates unique project files and can create section metadata. Files above 5 MB, symbolic links, duplicate identities, external edits and unsupported formats are rejected by the local library. Runtime project files live directly in section folders; `.backup` files are recovery copies, not loaded projects.

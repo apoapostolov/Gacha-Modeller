@@ -1,0 +1,8 @@
+{
+  "format": "reward-model-section",
+  "version": 1,
+  "id": "workspace",
+  "title": "Workspace",
+  "description": "Imported and company-authored projects.",
+  "order": 60
+}

@@ -4,9 +4,10 @@ import { validateInitial } from '../engine/initial.ts';
 import { validateAnalysis, type AnalysisSettings } from '../engine/analysis.ts';
 import { validateEconomy } from '../economy/config.ts';
 import type { EconomyConfig } from '../economy/types.ts';
+import { assertEvidence, type CompanyEvidence } from '../company/types.ts';
 export interface RunSettings extends TrialOptions { economy?: EconomyConfig; analysis?: AnalysisSettings; goal: Goal; trials: number; seed: number; sparkPolicy: SparkPolicy; maxPulls: number; actionMode: 'single' | 'pack' }
 export interface ModelSnapshot { schemaVersion: 1 | 2; id: string; hash: string; createdAt: string; model: Banner }
-export interface Project { format: 'gacha-modeller-project'; version: 1 | 2 | 3 | 4; id: string; name: string; baseline: ModelSnapshot; candidate: ModelSnapshot; history: ModelSnapshot[]; settings: RunSettings }
+export interface Project { format: 'gacha-modeller-project'; version: 1 | 2 | 3 | 4 | 5; id: string; name: string; baseline: ModelSnapshot; candidate: ModelSnapshot; history: ModelSnapshot[]; settings: RunSettings; company?: CompanyEvidence }
 export interface Change { path: string; before: unknown; after: unknown }
 export interface StoragePort { getItem(key: string): string | null; setItem(key: string, value: string): void }
 const PRIMARY = 'gacha-modeller.library.v1';
@@ -144,8 +145,9 @@ export async function importProject(value: unknown): Promise<Project> {
     return importProject(value.model);
   }
   if (!record(value) || value.format !== 'gacha-modeller-project') { assertSupportedModel(value); return createProject(value); }
-  keys(value, ['format','version','id','name','baseline','candidate','history','settings'], 'project');
-  if (value.version !== 1 && value.version !== 2 && value.version !== 3 && value.version !== 4) throw new Error('project.version: Unsupported project version.');
+  keys(value, ['format','version','id','name','baseline','candidate','history','settings','company'], 'project');
+  if (value.version !== 1 && value.version !== 2 && value.version !== 3 && value.version !== 4 && value.version !== 5) throw new Error('project.version: Unsupported project version.');
+  if (value.company !== undefined) { assertEvidence(value.company); if (value.version < 5) throw new Error('project.version: Company evidence needs version 5.'); }
   nonempty(value.id, 'project.id'); nonempty(value.name, 'project.name');
   if (!Array.isArray(value.history)) throw new Error('project.history: Provide an array of snapshots.');
   const baseline = await readSnapshot(value.baseline, 'project.baseline');

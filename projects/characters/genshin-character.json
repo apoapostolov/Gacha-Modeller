@@ -1,0 +1,273 @@
+{
+  "format": "gacha-modeller-project",
+  "version": 1,
+  "id": "genshin-character",
+  "name": "Genshin-like Character",
+  "baseline": {
+    "schemaVersion": 1,
+    "id": "genshin-character-snapshot-0",
+    "hash": "dfbdef00e1d0368530869a07a315a5a51ba416d4df79abeafca4a148759e5095",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "id": "genshin-character",
+      "name": "Genshin-like Character",
+      "family": "studied",
+      "blurb": "A 0.6% 5-star rate with soft pity from pull 74. A 5-star is guaranteed by pull 90; if you miss, the next 5-star is guaranteed featured. Spark costs 180 pulls.",
+      "source": "A community-consensus model based on published Character Event Wish rates (0.6% base, hard pity at 90). Soft pity uses the commonly cited 6-percentage-point increase from pull 74. This is not an official table.",
+      "notes": [
+        "The 5-star base rate is 0.6%. From pull 74, it rises by 6 percentage points per pull; a 5-star is guaranteed by pull 90.",
+        "Each 5-star has a 50% chance to be featured. If you miss, your next 5-star is guaranteed featured.",
+        "The 4-star base rate is 5.1%, with a guarantee every 10 pulls. Any 5-star resets that counter too.",
+        "At 180 pulls, you can buy the featured item from the spark shop (Radiant Primo and similar items)."
+      ],
+      "pullCost": {
+        "amount": 160,
+        "currency": "primogem-like"
+      },
+      "rarities": [
+        {
+          "id": "five",
+          "name": "5-star",
+          "baseRate": 0.006,
+          "color": "#d4b483"
+        },
+        {
+          "id": "four",
+          "name": "4-star",
+          "baseRate": 0.051,
+          "color": "#7ea36a"
+        },
+        {
+          "id": "three",
+          "name": "3-star",
+          "baseRate": 0,
+          "color": "#6b6458"
+        }
+      ],
+      "pity": [
+        {
+          "rarity": "five",
+          "hardAt": 90,
+          "softStart": 74,
+          "softStep": 0.06,
+          "resetAlso": [
+            "four"
+          ]
+        },
+        {
+          "rarity": "four",
+          "hardAt": 10
+        }
+      ],
+      "featured": {
+        "rarity": "five",
+        "chance": 0.5,
+        "capturing": true
+      },
+      "spark": {
+        "cost": 180
+      },
+      "multiPull": {
+        "size": 10,
+        "guaranteeRarity": "four"
+      },
+      "items": [
+        {
+          "id": "featured-five",
+          "name": "Featured 5-star",
+          "rarity": "five",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "std-a",
+          "name": "Standard 5-star A",
+          "rarity": "five",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "std-b",
+          "name": "Standard 5-star B",
+          "rarity": "five",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "std-c",
+          "name": "Standard 5-star C",
+          "rarity": "five",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rate-four",
+          "name": "Rate-up 4-star",
+          "rarity": "four",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "four-a",
+          "name": "4-star A",
+          "rarity": "four",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "four-b",
+          "name": "4-star B",
+          "rarity": "four",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "three-a",
+          "name": "3-star junk",
+          "rarity": "three",
+          "weight": 1,
+          "featured": false
+        }
+      ]
+    }
+  },
+  "candidate": {
+    "schemaVersion": 1,
+    "id": "genshin-character-snapshot-1",
+    "hash": "7f888b9ce55cfcaf294e3f11c51a6a4dd6e37d19b2a90b6f3a2278529c7b4c85",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "id": "genshin-character-candidate",
+      "name": "Genshin-like Character candidate",
+      "family": "original",
+      "blurb": "A 0.6% 5-star rate with soft pity from pull 74. A 5-star is guaranteed by pull 90; if you miss, the next 5-star is guaranteed featured. Spark costs 180 pulls.",
+      "source": "original",
+      "notes": [
+        "The 5-star base rate is 0.6%. From pull 74, it rises by 6 percentage points per pull; a 5-star is guaranteed by pull 90.",
+        "Each 5-star has a 50% chance to be featured. If you miss, your next 5-star is guaranteed featured.",
+        "The 4-star base rate is 5.1%, with a guarantee every 10 pulls. Any 5-star resets that counter too.",
+        "At 180 pulls, you can buy the featured item from the spark shop (Radiant Primo and similar items)."
+      ],
+      "pullCost": {
+        "amount": 160,
+        "currency": "primogem-like"
+      },
+      "rarities": [
+        {
+          "id": "five",
+          "name": "5-star",
+          "baseRate": 0.006,
+          "color": "#d4b483"
+        },
+        {
+          "id": "four",
+          "name": "4-star",
+          "baseRate": 0.051,
+          "color": "#7ea36a"
+        },
+        {
+          "id": "three",
+          "name": "3-star",
+          "baseRate": 0,
+          "color": "#6b6458"
+        }
+      ],
+      "pity": [
+        {
+          "rarity": "five",
+          "hardAt": 90,
+          "softStart": 74,
+          "softStep": 0.06,
+          "resetAlso": [
+            "four"
+          ]
+        },
+        {
+          "rarity": "four",
+          "hardAt": 10
+        }
+      ],
+      "featured": {
+        "rarity": "five",
+        "chance": 0.5,
+        "capturing": true
+      },
+      "spark": {
+        "cost": 180
+      },
+      "multiPull": {
+        "size": 10,
+        "guaranteeRarity": "four"
+      },
+      "items": [
+        {
+          "id": "featured-five",
+          "name": "Featured 5-star",
+          "rarity": "five",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "std-a",
+          "name": "Standard 5-star A",
+          "rarity": "five",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "std-b",
+          "name": "Standard 5-star B",
+          "rarity": "five",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "std-c",
+          "name": "Standard 5-star C",
+          "rarity": "five",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rate-four",
+          "name": "Rate-up 4-star",
+          "rarity": "four",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "four-a",
+          "name": "4-star A",
+          "rarity": "four",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "four-b",
+          "name": "4-star B",
+          "rarity": "four",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "three-a",
+          "name": "3-star junk",
+          "rarity": "three",
+          "weight": 1,
+          "featured": false
+        }
+      ]
+    }
+  },
+  "history": [],
+  "settings": {
+    "goal": {
+      "type": "first-featured"
+    },
+    "trials": 1000,
+    "seed": 20260823,
+    "sparkPolicy": "if-needed",
+    "maxPulls": 1000,
+    "actionMode": "single"
+  }
+}

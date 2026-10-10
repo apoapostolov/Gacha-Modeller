@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+- Added runtime section-folder/project discovery, local file persistence with conflict checks/backups, browser migration and a shared development/production API.
+- Added a validated project-authoring CLI and reusable reward-project-authoring skill.
+- Expanded the library with dated Overwatch-like legendary cosmetic boxes, Fortnite-like revealed/historical llamas and original collectible card packs.
+- Added editable company synthetic/CSV evidence, temporal calibration diagnostics, allocation/exposure/A/A checks, group bootstrap intervals, tail sensitivity and hashed decision exports.
+- Added version-5 project evidence, separate workspace modules, descriptive mapping labels, focused errors and the [M6 implementation and external acceptance contract](docs/milestone-6.md).
+
 - Replaced promotional and instructional headings with formal subject labels and concise descriptive explanations.
 - Added calendar-based economy comparisons with paid/earned/promotional wallets, atomic cash/resource/inventory/shard events, delayed refunds and complete aggregate reconciliation.
 - Added bundles, exact top-ups, attendance subscriptions, grants, expiry, season/banner/target migrations and four transparent policy families with hard budgets and session limits.

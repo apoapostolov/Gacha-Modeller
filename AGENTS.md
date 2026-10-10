@@ -27,6 +27,8 @@ Project contract. Wins over `/mnt/c/git/defaults/AGENTS.md`.
 - Pity, capturing, spark, and mean windows need a vitest. If you change `pull.ts`, run `npm test`.
 - Seeded RNG only (`mulberry32`). No `Math.random` in the engine.
 - Local-only. No accounts, no telemetry, no remote banners.
+- Saved projects live in `projects/<section>/`, with `section.json` metadata. Sidebar sections/projects come from the local file service; do not add hardcoded UI preset lists. Workspace JSON remains ignored by Git unless explicitly selected for publication.
+- Company evidence is a separate pure module. Preserve synthetic/observed provenance, quality gates and decision export hashes. Do not infer finance/data approval from a fixture.
 - `/mnt/c` watchers poll. Vite already polls at 300ms.
 - Do not onboard a systemd unit on 10001+ unless Apo asks for daily use.
 

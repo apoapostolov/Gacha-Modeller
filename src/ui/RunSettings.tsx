@@ -17,7 +17,7 @@ export function RunSettings({ value, onChange, onClose, onRun, packAvailable, bu
     <div className="settings-fields">
       {number('Trials', 'trials', 1, 50000, 'Trials per model. More trials reduce sampling noise and take longer. Maximum: 50,000.', 'More simulated players give steadier estimates.')}
       {number('Seed', 'seed', 0, 4294967295, 'Unsigned 32-bit seed. The same immutable models, settings and engine version replay the same results. Streams are indexed by trial and event, independently of worker batching.', 'A fixed seed reproduces the sample; another seed produces an independent sample.')}
-      {number('Pull horizon', 'maxPulls', 1, 100000, 'Maximum purchased pulls per trial. Unfinished goals remain in the population denominator. A pack is purchased only when all its slots fit.', 'Players stop here if they have not reached their goal.')}
+      {number('Pull horizon', 'maxPulls', 1, 100000, 'Maximum reward slots per trial. Unfinished goals remain in the population denominator. A pack is purchased only when all its slots fit.', 'Players stop here if they have not reached their goal.')}
       <div className="field"><label htmlFor="setting-goal">Goal</label><select id="setting-goal" value={value.goal.type} onChange={(e) => {
         const type = e.target.value as Settings['goal']['type'];
         onChange({ ...value, goal: type === 'budget' ? { type, pulls: 90 } : type === 'copies' || type === 'unique-featured' ? { type, count: 1 } : type === 'targets' ? { type, targets: models[1]?.items[0] ? [{ itemId: models[1].items[0].id, count: 1 }] : [] } : { type } });

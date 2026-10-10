@@ -1,0 +1,279 @@
+{
+  "format": "gacha-modeller-project",
+  "version": 1,
+  "id": "pool-share",
+  "name": "Pool Share (guild pity)",
+  "baseline": {
+    "schemaVersion": 1,
+    "id": "pool-share-snapshot-0",
+    "hash": "cd85c86ccd3c2671cb3c31d2dd4c0ad626661d5b0be00380499ad4410a5b9f09",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "id": "pool-share",
+      "name": "Pool Share (guild pity)",
+      "family": "original",
+      "blurb": "The Genshin-like rates, with one shared 5-star pity counter for four players.",
+      "source": "original",
+      "notes": [
+        "Players share one pity counter, so players who do not spend can benefit from progress made by those who do.",
+        "At the same total pull count, four players sharing pity get more 5-stars on average than four players with separate counters. Shared pity preserves progress that would otherwise be lost between sessions.",
+        "By default, the player who rolls an item keeps it. The group needs a separate rule if someone else should be able to claim it.",
+        "The comparison uses four players with 90 pulls each, once with shared pity and once with separate counters."
+      ],
+      "pullCost": {
+        "amount": 160,
+        "currency": "primogem-like"
+      },
+      "rarities": [
+        {
+          "id": "five",
+          "name": "5-star",
+          "baseRate": 0.006,
+          "color": "#d4b483"
+        },
+        {
+          "id": "four",
+          "name": "4-star",
+          "baseRate": 0.051,
+          "color": "#7ea36a"
+        },
+        {
+          "id": "three",
+          "name": "3-star",
+          "baseRate": 0,
+          "color": "#6b6458"
+        }
+      ],
+      "pity": [
+        {
+          "rarity": "five",
+          "hardAt": 90,
+          "softStart": 74,
+          "softStep": 0.06,
+          "resetAlso": [
+            "four"
+          ]
+        },
+        {
+          "rarity": "four",
+          "hardAt": 10
+        }
+      ],
+      "featured": {
+        "rarity": "five",
+        "chance": 0.5,
+        "capturing": true
+      },
+      "spark": {
+        "cost": 180
+      },
+      "multiPull": {
+        "size": 10,
+        "guaranteeRarity": "four"
+      },
+      "items": [
+        {
+          "id": "featured-five",
+          "name": "Featured 5-star",
+          "rarity": "five",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "std-a",
+          "name": "Standard 5-star A",
+          "rarity": "five",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "std-b",
+          "name": "Standard 5-star B",
+          "rarity": "five",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "std-c",
+          "name": "Standard 5-star C",
+          "rarity": "five",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rate-four",
+          "name": "Rate-up 4-star",
+          "rarity": "four",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "four-a",
+          "name": "4-star A",
+          "rarity": "four",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "four-b",
+          "name": "4-star B",
+          "rarity": "four",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "three-a",
+          "name": "3-star junk",
+          "rarity": "three",
+          "weight": 1,
+          "featured": false
+        }
+      ],
+      "mechanics": {
+        "poolSharePlayers": 4
+      }
+    }
+  },
+  "candidate": {
+    "schemaVersion": 1,
+    "id": "pool-share-snapshot-1",
+    "hash": "0341993abd89da15242beb10e4433a88201dc1c06187dd353cde1ca0854af658",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "id": "pool-share-candidate",
+      "name": "Pool Share (guild pity) candidate",
+      "family": "original",
+      "blurb": "The Genshin-like rates, with one shared 5-star pity counter for four players.",
+      "source": "original",
+      "notes": [
+        "Players share one pity counter, so players who do not spend can benefit from progress made by those who do.",
+        "At the same total pull count, four players sharing pity get more 5-stars on average than four players with separate counters. Shared pity preserves progress that would otherwise be lost between sessions.",
+        "By default, the player who rolls an item keeps it. The group needs a separate rule if someone else should be able to claim it.",
+        "The comparison uses four players with 90 pulls each, once with shared pity and once with separate counters."
+      ],
+      "pullCost": {
+        "amount": 160,
+        "currency": "primogem-like"
+      },
+      "rarities": [
+        {
+          "id": "five",
+          "name": "5-star",
+          "baseRate": 0.006,
+          "color": "#d4b483"
+        },
+        {
+          "id": "four",
+          "name": "4-star",
+          "baseRate": 0.051,
+          "color": "#7ea36a"
+        },
+        {
+          "id": "three",
+          "name": "3-star",
+          "baseRate": 0,
+          "color": "#6b6458"
+        }
+      ],
+      "pity": [
+        {
+          "rarity": "five",
+          "hardAt": 90,
+          "softStart": 74,
+          "softStep": 0.06,
+          "resetAlso": [
+            "four"
+          ]
+        },
+        {
+          "rarity": "four",
+          "hardAt": 10
+        }
+      ],
+      "featured": {
+        "rarity": "five",
+        "chance": 0.5,
+        "capturing": true
+      },
+      "spark": {
+        "cost": 180
+      },
+      "multiPull": {
+        "size": 10,
+        "guaranteeRarity": "four"
+      },
+      "items": [
+        {
+          "id": "featured-five",
+          "name": "Featured 5-star",
+          "rarity": "five",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "std-a",
+          "name": "Standard 5-star A",
+          "rarity": "five",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "std-b",
+          "name": "Standard 5-star B",
+          "rarity": "five",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "std-c",
+          "name": "Standard 5-star C",
+          "rarity": "five",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rate-four",
+          "name": "Rate-up 4-star",
+          "rarity": "four",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "four-a",
+          "name": "4-star A",
+          "rarity": "four",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "four-b",
+          "name": "4-star B",
+          "rarity": "four",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "three-a",
+          "name": "3-star junk",
+          "rarity": "three",
+          "weight": 1,
+          "featured": false
+        }
+      ],
+      "mechanics": {
+        "poolSharePlayers": 4
+      }
+    }
+  },
+  "history": [],
+  "settings": {
+    "goal": {
+      "type": "first-featured"
+    },
+    "trials": 1000,
+    "seed": 20260823,
+    "sparkPolicy": "if-needed",
+    "maxPulls": 1000,
+    "actionMode": "single"
+  }
+}

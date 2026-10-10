@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reward Project Authoring"
+  short_description: "Author reward models and directory-based projects"
+  default_prompt: "Use $reward-project-authoring to create and validate a reward-model project in this workspace."

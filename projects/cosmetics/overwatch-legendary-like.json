@@ -1,0 +1,650 @@
+{
+  "format": "gacha-modeller-project",
+  "version": 2,
+  "id": "overwatch-legendary-like",
+  "name": "Overwatch-like legendary cosmetic box",
+  "baseline": {
+    "schemaVersion": 2,
+    "id": "overwatch-legendary-like-snapshot-0",
+    "hash": "296261e8b06e00679c395939a84b6201f196a83ae1bc11d57ac851a11f052a14",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "id": "overwatch-legendary-like",
+      "name": "Overwatch-like legendary cosmetic box",
+      "family": "studied",
+      "blurb": "Four cosmetic rewards with one guaranteed legendary slot. Remaining rates and rewards are synthetic.",
+      "source": "Blizzard Season 15 patch notes, February 2025: https://overwatch.blizzard.com/en-gb/news/patch-notes/live/2025/02/",
+      "notes": [
+        "Dated shape study: four items and at least one legendary in a Legendary Loot Box. No live reward table is copied.",
+        "Regular boxes have separate 5-box epic and 20-box legendary guarantees. This example models the legendary-box variant only; those regular-box counters are not implemented here.",
+        "Published 5.1% / 21.93% values are box-level occurrence probabilities. They are not used as per-slot rates.",
+        "Duplicate protection stays within rarity. Exhausted tiers discard overflow here; Blizzard bonus-box progress and season auto-opening are outside this example.",
+        "Slot cost is 0.25 earned boxes, so one four-slot action costs one box. It is not a cash price."
+      ],
+      "pullCost": {
+        "amount": 0.25,
+        "currency": "earned boxes"
+      },
+      "rarities": [
+        {
+          "id": "legendary",
+          "name": "Legendary cosmetic",
+          "baseRate": 0.01,
+          "color": "#d4b483"
+        },
+        {
+          "id": "epic",
+          "name": "Epic cosmetic",
+          "baseRate": 0.07,
+          "color": "#a59cd5"
+        },
+        {
+          "id": "rare",
+          "name": "Rare cosmetic",
+          "baseRate": 0.25,
+          "color": "#90b7d5"
+        },
+        {
+          "id": "common",
+          "name": "Common cosmetic",
+          "baseRate": 0,
+          "color": "#aaa594"
+        }
+      ],
+      "pity": [],
+      "multiPull": {
+        "size": 4,
+        "slots": [
+          {
+            "rarity": "legendary",
+            "quantity": 1
+          },
+          {
+            "quantity": 1
+          },
+          {
+            "quantity": 1
+          },
+          {
+            "quantity": 1
+          }
+        ]
+      },
+      "items": [
+        {
+          "id": "legendary-0",
+          "name": "Legendary skin 1",
+          "rarity": "legendary",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "legendary-1",
+          "name": "Legendary skin 2",
+          "rarity": "legendary",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "legendary-2",
+          "name": "Legendary skin 3",
+          "rarity": "legendary",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "legendary-3",
+          "name": "Legendary skin 4",
+          "rarity": "legendary",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "legendary-4",
+          "name": "Legendary skin 5",
+          "rarity": "legendary",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "legendary-5",
+          "name": "Legendary skin 6",
+          "rarity": "legendary",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "legendary-6",
+          "name": "Legendary skin 7",
+          "rarity": "legendary",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "legendary-7",
+          "name": "Legendary skin 8",
+          "rarity": "legendary",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "epic-0",
+          "name": "Emote 1",
+          "rarity": "epic",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "epic-1",
+          "name": "Emote 2",
+          "rarity": "epic",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "epic-2",
+          "name": "Emote 3",
+          "rarity": "epic",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "epic-3",
+          "name": "Emote 4",
+          "rarity": "epic",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "epic-4",
+          "name": "Emote 5",
+          "rarity": "epic",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "epic-5",
+          "name": "Emote 6",
+          "rarity": "epic",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "epic-6",
+          "name": "Emote 7",
+          "rarity": "epic",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "epic-7",
+          "name": "Emote 8",
+          "rarity": "epic",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-0",
+          "name": "Icon 1",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-1",
+          "name": "Icon 2",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-2",
+          "name": "Icon 3",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-3",
+          "name": "Icon 4",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-4",
+          "name": "Icon 5",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-5",
+          "name": "Icon 6",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-6",
+          "name": "Icon 7",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-7",
+          "name": "Icon 8",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-0",
+          "name": "Spray 1",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-1",
+          "name": "Spray 2",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-2",
+          "name": "Spray 3",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-3",
+          "name": "Spray 4",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-4",
+          "name": "Spray 5",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-5",
+          "name": "Spray 6",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-6",
+          "name": "Spray 7",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-7",
+          "name": "Spray 8",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        }
+      ],
+      "duplicates": {
+        "cap": 1,
+        "protection": "same-rarity",
+        "overflow": "discard",
+        "salvagePerCopy": 0
+      },
+      "provenance": {
+        "packs": {
+          "kind": "cited-shape",
+          "source": "https://overwatch.blizzard.com/en-gb/news/patch-notes/live/2025/02/",
+          "asOf": "2025-02-18"
+        },
+        "rates": {
+          "kind": "synthetic",
+          "source": "Synthetic remaining-slot rates; box probabilities are not slot probabilities."
+        },
+        "duplicates": {
+          "kind": "synthetic",
+          "source": "Within-tier protection; exhausted tiers discard instead of granting bonus-box progress."
+        }
+      }
+    }
+  },
+  "candidate": {
+    "schemaVersion": 2,
+    "id": "overwatch-legendary-like-snapshot-1",
+    "hash": "ec83610bc24c4a39d74c3848e4599e2453788b3697c69bf507fbf44dec9e91cd",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "id": "overwatch-legendary-like-candidate",
+      "name": "Overwatch-like legendary cosmetic box candidate",
+      "family": "original",
+      "blurb": "Four cosmetic rewards with one guaranteed legendary slot. Remaining rates and rewards are synthetic.",
+      "source": "original",
+      "notes": [
+        "Dated shape study: four items and at least one legendary in a Legendary Loot Box. No live reward table is copied.",
+        "Regular boxes have separate 5-box epic and 20-box legendary guarantees. This example models the legendary-box variant only; those regular-box counters are not implemented here.",
+        "Published 5.1% / 21.93% values are box-level occurrence probabilities. They are not used as per-slot rates.",
+        "Duplicate protection stays within rarity. Exhausted tiers discard overflow here; Blizzard bonus-box progress and season auto-opening are outside this example.",
+        "Slot cost is 0.25 earned boxes, so one four-slot action costs one box. It is not a cash price."
+      ],
+      "pullCost": {
+        "amount": 0.25,
+        "currency": "earned boxes"
+      },
+      "rarities": [
+        {
+          "id": "legendary",
+          "name": "Legendary cosmetic",
+          "baseRate": 0.01,
+          "color": "#d4b483"
+        },
+        {
+          "id": "epic",
+          "name": "Epic cosmetic",
+          "baseRate": 0.07,
+          "color": "#a59cd5"
+        },
+        {
+          "id": "rare",
+          "name": "Rare cosmetic",
+          "baseRate": 0.25,
+          "color": "#90b7d5"
+        },
+        {
+          "id": "common",
+          "name": "Common cosmetic",
+          "baseRate": 0,
+          "color": "#aaa594"
+        }
+      ],
+      "pity": [],
+      "multiPull": {
+        "size": 4,
+        "slots": [
+          {
+            "rarity": "legendary",
+            "quantity": 1
+          },
+          {
+            "quantity": 1
+          },
+          {
+            "quantity": 1
+          },
+          {
+            "quantity": 1
+          }
+        ]
+      },
+      "items": [
+        {
+          "id": "legendary-0",
+          "name": "Legendary skin 1",
+          "rarity": "legendary",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "legendary-1",
+          "name": "Legendary skin 2",
+          "rarity": "legendary",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "legendary-2",
+          "name": "Legendary skin 3",
+          "rarity": "legendary",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "legendary-3",
+          "name": "Legendary skin 4",
+          "rarity": "legendary",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "legendary-4",
+          "name": "Legendary skin 5",
+          "rarity": "legendary",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "legendary-5",
+          "name": "Legendary skin 6",
+          "rarity": "legendary",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "legendary-6",
+          "name": "Legendary skin 7",
+          "rarity": "legendary",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "legendary-7",
+          "name": "Legendary skin 8",
+          "rarity": "legendary",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "epic-0",
+          "name": "Emote 1",
+          "rarity": "epic",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "epic-1",
+          "name": "Emote 2",
+          "rarity": "epic",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "epic-2",
+          "name": "Emote 3",
+          "rarity": "epic",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "epic-3",
+          "name": "Emote 4",
+          "rarity": "epic",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "epic-4",
+          "name": "Emote 5",
+          "rarity": "epic",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "epic-5",
+          "name": "Emote 6",
+          "rarity": "epic",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "epic-6",
+          "name": "Emote 7",
+          "rarity": "epic",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "epic-7",
+          "name": "Emote 8",
+          "rarity": "epic",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-0",
+          "name": "Icon 1",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-1",
+          "name": "Icon 2",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-2",
+          "name": "Icon 3",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-3",
+          "name": "Icon 4",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-4",
+          "name": "Icon 5",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-5",
+          "name": "Icon 6",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-6",
+          "name": "Icon 7",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-7",
+          "name": "Icon 8",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-0",
+          "name": "Spray 1",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-1",
+          "name": "Spray 2",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-2",
+          "name": "Spray 3",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-3",
+          "name": "Spray 4",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-4",
+          "name": "Spray 5",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-5",
+          "name": "Spray 6",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-6",
+          "name": "Spray 7",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-7",
+          "name": "Spray 8",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        }
+      ],
+      "duplicates": {
+        "cap": 1,
+        "protection": "same-rarity",
+        "overflow": "discard",
+        "salvagePerCopy": 0
+      },
+      "provenance": {
+        "packs": {
+          "kind": "cited-shape",
+          "source": "https://overwatch.blizzard.com/en-gb/news/patch-notes/live/2025/02/",
+          "asOf": "2025-02-18"
+        },
+        "rates": {
+          "kind": "synthetic",
+          "source": "Synthetic remaining-slot rates; box probabilities are not slot probabilities."
+        },
+        "duplicates": {
+          "kind": "synthetic",
+          "source": "Within-tier protection; exhausted tiers discard instead of granting bonus-box progress."
+        }
+      }
+    }
+  },
+  "history": [],
+  "settings": {
+    "goal": {
+      "type": "unique-featured",
+      "count": 8
+    },
+    "trials": 1000,
+    "seed": 20260823,
+    "sparkPolicy": "if-needed",
+    "maxPulls": 200,
+    "actionMode": "pack"
+  }
+}

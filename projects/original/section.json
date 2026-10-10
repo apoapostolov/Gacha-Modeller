@@ -1,0 +1,8 @@
+{
+  "format": "reward-model-section",
+  "version": 1,
+  "id": "original",
+  "title": "Original systems",
+  "description": "Synthetic mechanisms for comparative design studies.",
+  "order": 50
+}

@@ -63,7 +63,8 @@ describe('specialist financial contracts',()=>{
   });
   it('imports v6 profiles and refuses silent downgrade or dropped fields',async()=>{
     const project=await importProject(JSON.parse(await readFile('projects/digital-packs/collectible-card-pack.json','utf8')));
-    const p={...project,version:6,specialist:defaultSpecialist('collectible')};expect((await importProject(p)).specialist).toEqual(p.specialist);
+    const { overview: _overview, ...legacy } = project;
+    const p={...legacy,version:6,specialist:defaultSpecialist('collectible')};expect((await importProject(p)).specialist).toEqual(p.specialist);
     await expect(importProject({...p,version:5})).rejects.toThrow('version 6');
   });
 });

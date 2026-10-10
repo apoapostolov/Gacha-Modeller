@@ -1,6 +1,6 @@
 {
   "format": "gacha-modeller-project",
-  "version": 1,
+  "version": 7,
   "id": "hard-pity-baseline",
   "name": "1% + Hard Pity 100",
   "baseline": {
@@ -137,5 +137,12 @@
     "sparkPolicy": "if-needed",
     "maxPulls": 1000,
     "actionMode": "single"
+  },
+  "overview": {
+    "context": "Synthetic character acquisition reference",
+    "summary": "A simple 1% chase chance with a reward guarantee at pull 100.",
+    "distinctive": "The rate stays constant until the hard guarantee.",
+    "strength": "A clear cap makes long waits easy to interpret.",
+    "analysis": "Use as a reference when testing rate ramps, caps and featured guarantees."
   }
 }

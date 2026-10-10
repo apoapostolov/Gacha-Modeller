@@ -1,6 +1,6 @@
 {
   "format": "gacha-modeller-project",
-  "version": 5,
+  "version": 7,
   "id": "synthetic-company-pilot",
   "name": "Synthetic company pilot",
   "baseline": {
@@ -511,5 +511,12 @@
       "nextExperiment": "Company-approved A/A, then a fixed-horizon randomized A/B with a second independent decision.",
       "rationale": "Review quality gates, uncertainty and tail sensitivity before proposing a live test."
     }
+  },
+  "overview": {
+    "context": "Synthetic company pilot",
+    "summary": "Editable company extracts and decision records for a controlled reward-model study.",
+    "distinctive": "Company evidence and acquisition assumptions are stored separately.",
+    "strength": "Calibration and quality checks make the synthetic decision trail inspectable.",
+    "analysis": "Inspect holdout fit, experiment balance and contribution; real-company validation remains pending."
   }
 }

@@ -1,6 +1,6 @@
 {
   "format": "gacha-modeller-project",
-  "version": 2,
+  "version": 7,
   "id": "collectible-card-pack",
   "name": "Synthetic collectible card pack",
   "baseline": {
@@ -376,5 +376,12 @@
     "maxPulls": 500,
     "actionMode": "pack",
     "craftPolicy": "missing-targets"
+  },
+  "overview": {
+    "context": "Synthetic digital card game",
+    "summary": "A five-card pack with a rare-tier guarantee, duplicate salvage and crafting.",
+    "distinctive": "Pack guarantees and duplicate conversion provide separate reward routes.",
+    "strength": "Salvage can turn extra copies into progress toward an eligible card.",
+    "analysis": "Compare collection speed, duplicate frequency and the cost of crafting."
   }
 }

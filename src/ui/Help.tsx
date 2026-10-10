@@ -6,6 +6,7 @@ export function Help({ label, children }: { label: string; children: ReactNode }
   const id = useId();
   const trigger = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLDivElement>(null);
+  const focusRequested = useRef(false);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const [open, setOpen] = useState(false);
   const [position, setPosition] = useState({ left: 0, top: 0 });
@@ -24,6 +25,7 @@ export function Help({ label, children }: { label: string; children: ReactNode }
     const height = Math.min(panel.current.scrollHeight + 2, window.innerHeight - 32);
     const top = rect.bottom + 8 + height <= window.innerHeight - 16 ? rect.bottom + 8 : Math.max(16, rect.top - height - 8);
     setPosition((current) => current.top === top ? current : { ...current, top });
+    if (focusRequested.current) { focusRequested.current = false; panel.current.focus({ preventScroll: true }); }
   }, [open]);
   useEffect(() => {
     if (!open) return;
@@ -39,7 +41,7 @@ export function Help({ label, children }: { label: string; children: ReactNode }
   }, [open]);
   useEffect(() => () => clearTimeout(timer.current), []);
   return <>
-    <button type="button" className="help-trigger" ref={trigger} aria-label={`About ${label}`} aria-keyshortcuts="ArrowDown" aria-expanded={open} aria-describedby={open ? id : undefined} onKeyDown={(e) => { if (e.key === 'ArrowDown' && open) { e.preventDefault(); panel.current?.focus(); } }} onMouseEnter={reveal} onMouseLeave={hideSoon} onFocus={reveal} onBlur={hideSoon} onClick={reveal}>?</button>
+    <button type="button" className="help-trigger" ref={trigger} aria-label={`About ${label}`} aria-keyshortcuts="ArrowDown" aria-expanded={open} aria-describedby={open ? id : undefined} onKeyDown={(e) => { if (e.key === 'ArrowDown') { e.preventDefault(); if (open) panel.current?.focus({ preventScroll: true }); else { focusRequested.current = true; reveal(); } } }} onMouseEnter={reveal} onMouseLeave={hideSoon} onFocus={reveal} onBlur={hideSoon} onClick={reveal}>?</button>
     {open && createPortal(<div id={id} ref={panel} role="tooltip" tabIndex={0} className="help-panel" style={{ left: position.left, top: position.top, maxHeight: `calc(100dvh - ${position.top + 16}px)` }} onFocus={() => clearTimeout(timer.current)} onBlur={hideSoon} onMouseEnter={() => clearTimeout(timer.current)} onMouseLeave={hideSoon}>
       <strong>{label}</strong><div>{children}</div>
       <p className="help-keyboard-hint">↓ Focus details · Esc Close</p>

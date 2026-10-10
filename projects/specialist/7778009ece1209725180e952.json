@@ -1,6 +1,6 @@
 {
   "format": "gacha-modeller-project",
-  "version": 6,
+  "version": 7,
   "id": "a9308f3e-f00c-44be-bda3-1799d3cd71b3",
   "name": "Synthetic payout distribution",
   "baseline": {
@@ -476,5 +476,12 @@
         }
       ]
     }
+  },
+  "overview": {
+    "context": "Synthetic cash-payout study",
+    "summary": "A payout distribution with session, player-loss and treasury assumptions.",
+    "distinctive": "Stake returns, profitable plays and net session profits are separate outcomes.",
+    "strength": "Explicit payout weights support calculation of expected return and contribution.",
+    "analysis": "Compare volatility, session length, player outcomes and reserve exposure."
   }
 }

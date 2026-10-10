@@ -1,6 +1,6 @@
 {
   "format": "gacha-modeller-project",
-  "version": 1,
+  "version": 7,
   "id": "fate-grand-order",
   "name": "FGO-like Story Banner",
   "baseline": {
@@ -185,5 +185,12 @@
     "sparkPolicy": "if-needed",
     "maxPulls": 1000,
     "actionMode": "single"
+  },
+  "overview": {
+    "context": "Fate/Grand Order-like character acquisition",
+    "summary": "A simplified rate-up model with a rare-character rate and a featured guarantee.",
+    "distinctive": "Off-banner rare rewards do not arm featured protection.",
+    "strength": "The configured summon cap provides featured-reward protection.",
+    "analysis": "Compare the long waiting-time tail, guarantee scope and off-banner rewards."
   }
 }

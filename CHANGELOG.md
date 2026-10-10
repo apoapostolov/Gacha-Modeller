@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+- Reorganized the workspace into a compact Projects/Companies library and a project header scoped to the content column. Search expands matching folders; refresh is a borderless glyph with a fixed target and contrasting foreground.
+- Added explicit candidate loading and unloading, historical-revision comparison, and on-request acquisition/specialist execution. Opening or refreshing a project does not start a comparison.
+- Added format-7 project overviews for all 17 shipped examples, describing context, mechanics, reward support and analysis questions while preserving immutable model hashes.
+- Reduced visible technical detail, clarified rarity/featured labels, repaired nested sample-help controls, and verified keyboard tabs, focus, responsive layouts and module-save compatibility.
+
 - Added independent collectible/payout financial contracts, worker execution, cancellation, static RTP/volatility, stopped-player horizons, shared treasury portfolios and supply/liability scenarios.
 - Added local PlayFab V2, Unity SDK and customer identity/name adapter subsets, explicit mappings, candidate revisions and hashed mapping reviews.
 - Added format-6 specialist/catalogue project modules, directory examples, scoped review declarations with stale-hash diagnostics and [M7 research, acceptance and hosted-enterprise checklist](docs/milestone-7.md).

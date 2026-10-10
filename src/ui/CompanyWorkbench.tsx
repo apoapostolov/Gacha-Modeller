@@ -35,7 +35,7 @@ export function CompanyWorkbench({ project, onSave, onCalibrate }: { project: Pr
       </details>
       <details className="editor-group"><summary>Executive decision record</summary><p>{project.company!.contract.decision}</p><p className="run-note">Owner: {project.company!.contract.owner}. Requested disposition: {project.company!.decision.status}. Synthetic adoption requests export as a hold.</p><dl className="company-metrics">{Object.entries(project.company!.decision).filter(([key]) => key !== 'status').map(([key, value]) => <div key={key}><dt>{({ alternatives: 'Alternatives', constraints: 'Constraints', unresolved: 'Unresolved questions', nextExperiment: 'Next experiment', rationale: 'Rationale' } as Record<string, string>)[key]}</dt><dd>{value}</dd></div>)}</dl><button className="secondary" onClick={() => void decisionRecord(project).then((record) => download(record, `${project.id}-decision.json`)).catch((failure) => setError((failure as Error).message))}>Export decision record</button></details>
     </>}
-    {open && <CompanyEditor initial={project.company ?? defaultEvidence()} onClose={() => setOpen(false)} onSave={async (company) => { await onSave({ ...project, version: 5, company }); setOpen(false); }} />}
+    {open && <CompanyEditor initial={project.company ?? defaultEvidence()} onClose={() => setOpen(false)} onSave={async (company) => { await onSave({ ...project, version: Math.max(project.version, 5) as Project['version'], company }); setOpen(false); }} />}
   </section>;
 }
 export function CompanyEditor({ initial, onSave, onClose }: { initial: CompanyEvidence; onSave: (company: CompanyEvidence) => Promise<void>; onClose: () => void }) {

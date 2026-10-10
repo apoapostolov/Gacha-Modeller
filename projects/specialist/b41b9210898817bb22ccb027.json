@@ -1,6 +1,6 @@
 {
   "format": "gacha-modeller-project",
-  "version": 6,
+  "version": 7,
   "id": "b9c15842-512c-407a-b4fa-5dcd2259fe6f",
   "name": "Synthetic collectible market",
   "baseline": {
@@ -501,5 +501,12 @@
         }
       ]
     }
+  },
+  "overview": {
+    "context": "Synthetic collectible market",
+    "summary": "A collectible study with bounded supply, reward allocation and market assumptions.",
+    "distinctive": "Collectible supply and financial values have their own contract.",
+    "strength": "Explicit supply constraints support availability and funding checks.",
+    "analysis": "Compare supply depletion, player allocations, market assumptions and treasury exposure."
   }
 }

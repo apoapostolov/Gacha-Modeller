@@ -1,6 +1,6 @@
 {
   "format": "gacha-modeller-project",
-  "version": 1,
+  "version": 7,
   "id": "audience-spark",
   "name": "Audience Spark",
   "baseline": {
@@ -275,5 +275,12 @@
     "sparkPolicy": "if-needed",
     "maxPulls": 1000,
     "actionMode": "single"
+  },
+  "overview": {
+    "context": "Original audience-assisted reward model",
+    "summary": "Audience activity contributes exchange progress alongside player draws.",
+    "distinctive": "Additional point accrual advances the configured exchange milestone.",
+    "strength": "Shared contribution reduces the draws required to reach the exchange.",
+    "analysis": "Test milestone timing and resource cost under different contribution assumptions."
   }
 }

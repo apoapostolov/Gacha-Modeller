@@ -13,6 +13,11 @@ import { EconomyResults } from '../src/ui/EconomyResults.tsx';
 import { defaultEconomy } from '../src/economy/config.ts';
 import { CompanyWorkbench, CompanyEditor } from '../src/ui/CompanyWorkbench.tsx';
 import { ProjectLibrary } from '../src/ui/ProjectLibrary.tsx';
+import { ProjectOverview } from '../src/ui/ProjectOverview.tsx';
+import { CandidatePicker } from '../src/ui/CandidatePicker.tsx';
+import { ModelDetails } from '../src/ui/ModelDetails.tsx';
+import { ModelEditor } from '../src/ui/ModelEditor.tsx';
+import { RunSettings } from '../src/ui/RunSettings.tsx';
 import { defaultEvidence } from '../src/company/synthetic.ts';
 import { SpecialistEditor, SpecialistResults } from '../src/ui/SpecialistWorkbench.tsx';
 import { IntegrationWorkbench } from '../src/ui/IntegrationWorkbench.tsx';
@@ -28,6 +33,18 @@ async function check(markup: string) {
   expect(results.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.html).join('; ')}`)).toEqual([]);
 }
 describe('analysis interface semantics', () => {
+  it('labels project overviews, optional candidate selection and model disclosures', async () => {
+    const project = await createProject(hardPityBaseline);
+    await check(renderToStaticMarkup(<ProjectOverview project={project} />));
+    await check(renderToStaticMarkup(<CandidatePicker project={project} loaded={null} disabled={false} onLoad={() => {}} onUnload={() => {}} />));
+    await check(renderToStaticMarkup(<CandidatePicker project={project} loaded={project.candidate} disabled={false} onLoad={() => {}} onUnload={() => {}} />));
+    await check(renderToStaticMarkup(<ModelDetails model={project.baseline.model} role="Baseline" hash={project.baseline.hash} seed={42} actionMode="single" />));
+  });
+  it('keeps candidate and run-settings disclosure summaries separate from help buttons', async () => {
+    const project = await createProject(hardPityBaseline);
+    await check(renderToStaticMarkup(<ModelEditor draft={structuredClone(project.candidate.model)} onChange={() => {}} onClose={() => {}} onSave={() => {}} busy={false} error={null} />));
+    await check(renderToStaticMarkup(<RunSettings value={project.settings} onChange={() => {}} onClose={() => {}} onRun={() => {}} packAvailable={false} models={[project.baseline.model, project.candidate.model]} busy={false} error={null} />));
+  });
   it('labels specialist cash, supply, payout, review and catalogue controls',async()=>{
     for(const kind of ['collectible','payout'] as const){const p=defaultSpecialist(kind);p.run.trials=10;
       await check(renderToStaticMarkup(<SpecialistEditor initial={p} onSave={async()=>{}} onClose={()=>{}}/>));

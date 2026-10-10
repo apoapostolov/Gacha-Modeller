@@ -1,6 +1,6 @@
 {
   "format": "gacha-modeller-project",
-  "version": 2,
+  "version": 7,
   "id": "fortnite-historical-blind-like",
   "name": "Fortnite-like historical blind llama",
   "baseline": {
@@ -143,5 +143,12 @@
     "sparkPolicy": "if-needed",
     "maxPulls": 90,
     "actionMode": "pack"
+  },
+  "overview": {
+    "context": "Fortnite: Save the World-like historical blind llama",
+    "summary": "A historical contrast example with unknown rewards before purchase.",
+    "distinctive": "Each pack uses a synthetic random pool and ticket price.",
+    "strength": "Multiple reward slots support collection progress in one action.",
+    "analysis": "Compare reward uncertainty and resource use with the revealed X-Ray example."
   }
 }

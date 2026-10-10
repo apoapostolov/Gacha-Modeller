@@ -38,7 +38,7 @@ export function ModelEditor({ draft, onChange, onClose, onSave, busy, error }: {
       <label className="field full-width">Description<textarea value={draft.blurb} onChange={(e) => patch((c) => { c.blurb = e.target.value; })} /></label>
       <label className="field full-width">Model notes<textarea value={draft.notes.join('\n')} onChange={(e) => patch((c) => { c.notes = e.target.value.split('\n'); })} /></label>
     </div></details>
-    <details className="editor-group" open><summary>Rarities & rates <Help label="Rarity rates">Enter probabilities as fractions: 0.01 is 1%. Listed order sets rarity priority. The final tier is filler and receives the remaining interval. Reordering can change mechanic precedence.</Help></summary>
+    <details className="editor-group" open><summary>Rarities and rates</summary><p className="field-hint">Enter rates as fractions; 0.01 represents 1%. <Help label="Rarity rates">Listed order sets rarity priority. The final tier receives the remaining interval. Reordering can change mechanic precedence.</Help></p>
       {draft.rarities.map((rarity, i) => <div className="editor-row" key={i}><div className="editor-grid">
         <TextField label={`Tier ${i + 1} ID`} value={rarity.id} onChange={(v) => patch((c) => renameTier(c, i, v))} />
         <TextField label={`Tier ${i + 1} name`} value={rarity.name} onChange={(v) => patch((c) => { c.rarities[i]!.name = v; })} />

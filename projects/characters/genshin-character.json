@@ -1,6 +1,6 @@
 {
   "format": "gacha-modeller-project",
-  "version": 1,
+  "version": 7,
   "id": "genshin-character",
   "name": "Genshin-like Character",
   "baseline": {
@@ -269,5 +269,12 @@
     "sparkPolicy": "if-needed",
     "maxPulls": 1000,
     "actionMode": "single"
+  },
+  "overview": {
+    "context": "Genshin Impact-like character acquisition",
+    "summary": "A rare-character model with rising late-pull odds and protection after a missed featured reward.",
+    "distinctive": "Soft pity, hard pity and featured protection interact with a synthetic point exchange.",
+    "strength": "Progress guarantees bound long waits for the configured rewards.",
+    "analysis": "Separate rarity access from featured access; test pity timing and exchange cost."
   }
 }

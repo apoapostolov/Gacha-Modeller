@@ -4,6 +4,19 @@ import { hardPityBaseline } from '../src/presets/index.ts';
 import { runMonteCarlo } from '../src/engine/index.ts';
 
 describe('versioned company projects', () => {
+  it('preserves optional project descriptions without changing immutable model hashes', async () => {
+    const original = await createProject(hardPityBaseline);
+    const overview = { context: 'Synthetic character model', summary: 'A reference model.', distinctive: 'A fixed reward rate.', strength: 'A guaranteed rarity.', analysis: 'Long waits and reward access.' };
+    const project = await importProject({ ...original, version: 7, overview });
+    expect(project.overview).toEqual(overview);
+    expect(project.baseline.hash).toBe(original.baseline.hash);
+    expect(project.candidate.hash).toBe(original.candidate.hash);
+    await expect(importProject({ ...original, overview })).rejects.toThrow(/version 7/);
+    await expect(importProject({ ...project, overview: { ...overview, context: '' } })).rejects.toThrow(/context/);
+    await expect(importProject({ ...project, overview: { ...overview, summary: 'x'.repeat(1201) } })).rejects.toThrow(/1,200/);
+    const candidate = structuredClone(project.candidate.model); candidate.pity[0]!.hardAt = 80;
+    expect((await saveCandidate(project, candidate)).overview).toEqual(overview);
+  });
   it('forks a frozen baseline and keeps old candidate revisions intact', async () => {
     const project = await createProject(hardPityBaseline);
     const draft = structuredClone(project.candidate.model);

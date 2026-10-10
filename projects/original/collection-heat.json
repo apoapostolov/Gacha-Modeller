@@ -1,6 +1,6 @@
 {
   "format": "gacha-modeller-project",
-  "version": 1,
+  "version": 7,
   "id": "collection-heat",
   "name": "Collection Heat",
   "baseline": {
@@ -311,5 +311,12 @@
     "sparkPolicy": "if-needed",
     "maxPulls": 1000,
     "actionMode": "single"
+  },
+  "overview": {
+    "context": "Original sticker collection model",
+    "summary": "Missing stickers receive extra selection weight in a synthetic 16-item set.",
+    "distinctive": "Selection probabilities depend on the player’s current collection.",
+    "strength": "Missing-item weighting favours incomplete parts of the collection.",
+    "analysis": "Compare duplicate frequency, full-set completion and the final missing items."
   }
 }

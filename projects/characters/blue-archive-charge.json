@@ -1,6 +1,6 @@
 {
   "format": "gacha-modeller-project",
-  "version": 1,
+  "version": 7,
   "id": "blue-archive-charge",
   "name": "Blue Archive-like Charge",
   "baseline": {
@@ -191,5 +191,12 @@
     "sparkPolicy": "if-needed",
     "maxPulls": 1000,
     "actionMode": "single"
+  },
+  "overview": {
+    "context": "Blue Archive-like Recruitment Charge",
+    "summary": "A character model with rewards at two charge checkpoints.",
+    "distinctive": "A featured reward resets charge, unlike a point exchange that keeps accumulating.",
+    "strength": "Checkpoint rewards provide a route to the featured character.",
+    "analysis": "Compare early success, meter resets and long waits against the spark example."
   }
 }

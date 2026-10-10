@@ -1,6 +1,6 @@
 {
   "format": "gacha-modeller-project",
-  "version": 1,
+  "version": 7,
   "id": "pool-share",
   "name": "Pool Share (guild pity)",
   "baseline": {
@@ -275,5 +275,12 @@
     "sparkPolicy": "if-needed",
     "maxPulls": 1000,
     "actionMode": "single"
+  },
+  "overview": {
+    "context": "Original guild reward model",
+    "summary": "Four players share the configured rare-reward progress counter.",
+    "distinctive": "Group progress changes when the next rare-reward guarantee occurs.",
+    "strength": "A shared counter makes group activity contribute to the milestone.",
+    "analysis": "Check reward allocation and per-player waits alongside aggregate group progress."
   }
 }

@@ -1,6 +1,6 @@
 {
   "format": "gacha-modeller-project",
-  "version": 1,
+  "version": 7,
   "id": "crate-lootbox",
   "name": "Independent Crate",
   "baseline": {
@@ -181,5 +181,12 @@
     "sparkPolicy": "if-needed",
     "maxPulls": 1000,
     "actionMode": "single"
+  },
+  "overview": {
+    "context": "CS-style independent cosmetic crate",
+    "summary": "An independent rarity draw with a low chance of the top configured tier.",
+    "distinctive": "Draws have no pity or accumulated exchange progress.",
+    "strength": "Independent draws provide a simple reference for rarity probabilities.",
+    "analysis": "Inspect unsuccessful-player shares, long waits and cumulative resource costs."
   }
 }

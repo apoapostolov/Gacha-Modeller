@@ -1,6 +1,6 @@
 {
   "format": "gacha-modeller-project",
-  "version": 1,
+  "version": 7,
   "id": "blue-archive-spark",
   "name": "Blue Archive-like Spark",
   "baseline": {
@@ -185,5 +185,12 @@
     "sparkPolicy": "if-needed",
     "maxPulls": 1000,
     "actionMode": "single"
+  },
+  "overview": {
+    "context": "Blue Archive-like Recruitment Points",
+    "summary": "A character model that combines random recruitment with an accumulated point exchange.",
+    "distinctive": "Natural featured rewards preserve progress toward the exchange.",
+    "strength": "The exchange gives repeated recruitment a predictable reward route.",
+    "analysis": "Test exchange cost, extra copies and progress lost at a banner boundary."
   }
 }

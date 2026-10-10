@@ -1,6 +1,6 @@
 {
   "format": "gacha-modeller-project",
-  "version": 6,
+  "version": 7,
   "id": "92d56167-adfd-4588-81f3-5c9effc18547",
   "name": "Synthetic PlayFab catalogue mapping",
   "baseline": {
@@ -575,5 +575,12 @@
         "modelItemId": "mythic-1"
       }
     ]
+  },
+  "overview": {
+    "context": "Synthetic PlayFab catalogue integration",
+    "summary": "A local catalogue mapping example based on the synthetic card-pack model.",
+    "distinctive": "External catalogue names map to stable model item identities.",
+    "strength": "Name mappings preserve the configured reward probabilities.",
+    "analysis": "Check unmapped items and catalogue conflicts before comparing the reward models."
   }
 }

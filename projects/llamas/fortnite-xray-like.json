@@ -1,6 +1,6 @@
 {
   "format": "gacha-modeller-project",
-  "version": 2,
+  "version": 7,
   "id": "fortnite-xray-like",
   "name": "Fortnite-like revealed X-Ray llama",
   "baseline": {
@@ -185,5 +185,12 @@
     "sparkPolicy": "if-needed",
     "maxPulls": 30,
     "actionMode": "pack"
+  },
+  "overview": {
+    "context": "Fortnite: Save the World-like X-Ray llama",
+    "summary": "A revealed offer with a known schematic, hero and material reward.",
+    "distinctive": "Reward contents are fixed and visible before selection.",
+    "strength": "Known contents let a player assess the offer before spending tickets.",
+    "analysis": "Compare offer value and collection fit; randomized purchase choice is outside this model."
   }
 }

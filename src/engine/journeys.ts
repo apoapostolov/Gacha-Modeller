@@ -6,7 +6,7 @@ export function traceTrial(model: Banner, goal: Goal, seed: number, trialIndex: 
   if (!Number.isSafeInteger(limit) || limit < 1 || limit > 2000) throw new Error('trace.limit: Use 1 to 2000 events.');
   const events: JourneyEvent[] = []; let totalEvents = 0;
   const result = runTrial(model, goal, createTrialRng(seed, trialIndex), sparkPolicy, options, (event) => { totalEvents++; if (events.length < limit) events.push(event); });
-  return { engineVersion: 'mechanics-3', randomPolicy: 'event-streams-v1', seed, trialIndex, model: structuredClone(model), goal: structuredClone(goal), sparkPolicy, options: structuredClone(options), result, events, totalEvents, truncated: totalEvents > limit };
+  return { engineVersion: options.initialState ? 'analysis-4' : 'mechanics-3', randomPolicy: 'event-streams-v1', seed, trialIndex, model: structuredClone(model), goal: structuredClone(goal), sparkPolicy, options: structuredClone(options), result, events, totalEvents, truncated: totalEvents > limit };
 }
 
 /** Completed-subgroup percentiles plus the first incomplete population member. */

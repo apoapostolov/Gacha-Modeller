@@ -1,17 +1,22 @@
 import type { Banner } from '../engine/index.ts';
+import { useEffect, useRef } from 'react';
+import { AnalysisSettings } from './AnalysisSettings.tsx';
 import { JourneySettings } from './JourneySettings.tsx';
 import type { RunSettings as Settings } from '../project/project.ts';
 import { Drawer } from './Drawer.tsx';
 import { Help } from './Help.tsx';
 export function RunSettings({ value, onChange, onClose, onRun, packAvailable, busy, error, models }: { value: Settings; onChange: (next: Settings) => void; onClose: () => void; onRun: () => void; packAvailable: boolean; models: Banner[]; busy: boolean; error: string | null }) {
-  const number = (label: string, key: 'trials' | 'seed' | 'maxPulls', min: number, max: number, hint: string) => <div className="field"><div className="field-heading"><label htmlFor={`setting-${key}`}>{label}</label><Help label={label}>{hint}</Help></div><input id={`setting-${key}`} type="number" min={min} max={max} step={1} value={Number.isNaN(value[key]) ? '' : value[key]} onChange={(e) => onChange({ ...value, [key]: e.target.valueAsNumber })} /></div>;
+  const errorSummary = useRef<HTMLParagraphElement>(null);
+  useEffect(() => { if (error) errorSummary.current?.focus(); }, [error]);
+  const number = (label: string, key: 'trials' | 'seed' | 'maxPulls', min: number, max: number, hint: string, short: string) => <div className="field"><div className="field-heading"><label htmlFor={`setting-${key}`}>{label}</label><Help label={label}>{hint}</Help></div><input id={`setting-${key}`} type="number" min={min} max={max} aria-describedby={`hint-${key}`} step={1} value={Number.isNaN(value[key]) ? '' : value[key]} onChange={(e) => onChange({ ...value, [key]: e.target.valueAsNumber })} /><p id={`hint-${key}`} className="field-hint">{short}</p></div>;
   return <Drawer title="Run settings" onClose={onClose} footer={<><span className="run-note">Applies to both models</span><button className="primary" disabled={busy} onClick={onRun}>Run comparison</button></>}>
-    <p className="run-note">Changes take effect on the next run.</p>
-    {error && <p role="alert" className="run-error">{error}</p>}
+    <p className="run-note">Choose a player goal and a fair stopping point. These controls apply to both models on the next run.</p>
+    {error && <p role="alert" tabIndex={-1} ref={errorSummary} className="run-error">{error}</p>}
+    {value.initialState && <p className="run-note">This imported run starts with existing player progress. <Help label="Imported starting state">{JSON.stringify(value.initialState)}</Help><button className="text-button" onClick={() => onChange({ ...value, initialState: undefined })}>Start fresh instead</button></p>}
     <div className="settings-fields">
-      {number('Trials', 'trials', 1, 50000, 'Trials per model. More trials reduce sampling noise and take longer. Maximum: 50,000.')}
-      {number('Seed', 'seed', 0, 4294967295, 'Unsigned 32-bit seed. The same immutable models, settings and engine version replay the same results. Streams are indexed by trial and event, independently of worker batching.')}
-      {number('Pull horizon', 'maxPulls', 1, 100000, 'Maximum purchased pulls per trial. Unfinished goals remain in the population denominator. A pack is purchased only when all its slots fit.')}
+      {number('Trials', 'trials', 1, 50000, 'Trials per model. More trials reduce sampling noise and take longer. Maximum: 50,000.', 'More simulated players give steadier estimates.')}
+      {number('Seed', 'seed', 0, 4294967295, 'Unsigned 32-bit seed. The same immutable models, settings and engine version replay the same results. Streams are indexed by trial and event, independently of worker batching.', 'Keep the seed to repeat a run; change it to check another sample.')}
+      {number('Pull horizon', 'maxPulls', 1, 100000, 'Maximum purchased pulls per trial. Unfinished goals remain in the population denominator. A pack is purchased only when all its slots fit.', 'Players stop here if they have not reached their goal.')}
       <div className="field"><label htmlFor="setting-goal">Goal</label><select id="setting-goal" value={value.goal.type} onChange={(e) => {
         const type = e.target.value as Settings['goal']['type'];
         onChange({ ...value, goal: type === 'budget' ? { type, pulls: 90 } : type === 'copies' || type === 'unique-featured' ? { type, count: 1 } : type === 'targets' ? { type, targets: models[1]?.items[0] ? [{ itemId: models[1].items[0].id, count: 1 }] : [] } : { type } });
@@ -22,5 +27,6 @@ export function RunSettings({ value, onChange, onClose, onRun, packAvailable, bu
       <div className="field"><div className="field-heading"><label htmlFor="setting-spark">Exchange policy</label><Help label="Exchange policy">Use a ready exchange between complete actions when a featured goal still needs a reward. Budget and collection goals do not auto-exchange.</Help></div><select id="setting-spark" value={value.sparkPolicy} onChange={(e) => onChange({ ...value, sparkPolicy: e.target.value as Settings['sparkPolicy'] })}><option value="if-needed">Use if needed</option><option value="never">Leave closed</option></select></div>
     </div>
     <JourneySettings value={value} onChange={onChange} models={models} />
+    <AnalysisSettings value={value} onChange={onChange} models={models} />
   </Drawer>;
 }

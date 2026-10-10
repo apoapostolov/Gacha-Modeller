@@ -1,4 +1,5 @@
 import { diagnoseGoal } from './reachability.ts';
+import { stateFromInitial, validateInitial } from './initial.ts';
 import { mulberry32 } from './rng.ts';
 import {
   createState,
@@ -50,6 +51,7 @@ export function goalMet(banner: Banner, state: PullState, goal: Goal): boolean {
 }
 
 function definitelyImpossible(banner: Banner, goal: Goal, sparkPolicy: SparkPolicy, options: TrialOptions): boolean {
+  if (options.initialState && (options.initialState.featuredArmed || (options.initialState.salvage ?? 0) > 0 || Object.values(options.initialState.inventory ?? {}).some((count) => count > 0))) return false;
   return diagnoseGoal(banner, goal, sparkPolicy, options).definitelyImpossible;
 }
 
@@ -63,7 +65,7 @@ function runValidatedTrial(
   observer?: (event: JourneyEvent) => void,
 ): TrialResult {
   let active = banner;
-  let state = createState(banner, options.targetId);
+  let state = stateFromInitial(banner, options.targetId, options.initialState);
   let cost = 0;
   const transitions = [...options.transitions ?? []].sort((a, b) => a.atPull - b.atPull);
   let transitionIndex = 0;
@@ -138,6 +140,7 @@ function runValidatedTrial(
 }
 
 function validateScenario(banner: Banner, goal: Goal, sparkPolicy: SparkPolicy, options: TrialOptions, trials = 1, seed = 0) {
+  if (options.initialState) validateInitial(options.initialState, banner);
   assertValidBanner(banner);
   validateRun(goal, sparkPolicy, options, trials, seed);
   if (options.actionMode === 'pack' && !banner.multiPull) throw new Error('actionMode: This model has no pack rule.');
@@ -208,7 +211,7 @@ export function summarizeTrials(banner: Banner, goal: Goal, seed: number, sparkP
     completedPulls: attained.length ? summarize(attained) : null,
     acquisitionQuantiles: { p50: populationQuantile(0.5), p90: populationQuantile(0.9), p95: populationQuantile(0.95) },
     manifest: {
-      engineVersion: modelSchemaVersion(banner) === 2 || advancedRun(goal, options) ? 'mechanics-3' : rngPolicy === 'legacy-sequential' ? 'foundation-1' : 'workbench-2', rngPolicy, rarityPolicy: 'priority', model: structuredClone(banner),
+      engineVersion: options.initialState ? 'analysis-4' : modelSchemaVersion(banner) === 2 || advancedRun(goal, options) ? 'mechanics-3' : rngPolicy === 'legacy-sequential' ? 'foundation-1' : 'workbench-2', rngPolicy, rarityPolicy: 'priority', model: structuredClone(banner),
       options: { ...structuredClone(options), maxPulls: options.maxPulls ?? HARD_CAP, actionMode: options.actionMode ?? 'single' },
     },
     bannerId: banner.id,

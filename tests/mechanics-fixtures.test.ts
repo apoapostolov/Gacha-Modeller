@@ -10,7 +10,7 @@ describe('mechanics-3 portable fixtures', () => {
     const project = await importProject(fixture('company-slots'));
     const settings = { ...project.settings, trials: 10, goal: { type: 'targets' as const, targets: [{ itemId: 'rare', count: 1 }] }, actionMode: 'pack' as const, craftPolicy: 'missing-targets' as const, maxPulls: 3 };
     const report = await compareProject(withSettings(project, settings), settings);
-    expect(report).toMatchObject({ version: 2, engineVersion: 'mechanics-3' });
+    expect(report).toMatchObject({ version: 3, engineVersion: 'analysis-4' });
     expect(report.baseline.attainmentRate).toBe(1);
     expect(report.baseline.duplicateSummary).toMatchObject({ salvageEarned: { mean: 6 }, salvageSpent: { mean: 6 }, salvageRemaining: { mean: 0 }, crafted: { mean: 1 } });
     const imported = await importProject(JSON.parse(JSON.stringify(report)));

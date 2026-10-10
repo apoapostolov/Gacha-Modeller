@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+- Added bounded exact acquisition probabilities, honest solver fallbacks and analytical checks.
+- Added simulation intervals, paired/independent error references, starting progress and weighted player groups.
+- Added one/two-axis candidate experiments, spending break-even surfaces and bounded Pareto tradeoffs with a separate validation seed.
+- Added version 3 projects/comparisons and [M4 fixtures and methodology](docs/milestone-4.md), plus a reproducible engine benchmark.
+- Revisited interface comprehension after each pass: visible explanations, keyboard-scrollable help, focused errors and a readable experiment summary.
+- Added semantic accessibility checks and updated test tooling to clear dependency advisories.
+
 - Added per-field banner/family/account protection scopes and explicit reset rules for banner, season and target changes.
 - Added selected targets, one-time guarantees, player-selected shops and multi-item/copy goals.
 - Packs support fixed slot rewards, quantities, no-replacement sampling and shared-item correlation, with incompatible combinations rejected.

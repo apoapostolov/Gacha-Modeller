@@ -196,12 +196,24 @@ export interface TrialResult {
 export type TrialTermination = 'goal' | 'horizon' | 'budget' | 'impossible';
 
 export interface TrialOptions {
+  initialState?: InitialState;
   maxPulls?: number;
   actionMode?: 'single' | 'pack';
   targetId?: string;
   exchangeItemId?: string;
   craftPolicy?: 'never' | 'missing-targets';
   transitions?: ScheduledTransition[];
+}
+
+export interface InitialState {
+  counters?: Record<string, number>;
+  featuredArmed?: boolean;
+  sinceFeatured?: number;
+  sparkProgress?: number;
+  targetProgress?: number;
+  onceGuaranteeUsed?: boolean;
+  inventory?: Record<string, number>;
+  salvage?: number;
 }
 
 export interface Summary {
@@ -231,7 +243,7 @@ export interface SimReport {
   completedPulls: Summary | null;
   acquisitionQuantiles: { p50: number | null; p90: number | null; p95: number | null };
   manifest: {
-    engineVersion: 'foundation-1' | 'workbench-2' | 'mechanics-3';
+    engineVersion: 'foundation-1' | 'workbench-2' | 'mechanics-3' | 'analysis-4';
     rngPolicy: 'legacy-sequential' | 'event-streams-v1';
     rarityPolicy: 'priority';
     model: Banner;
@@ -264,7 +276,7 @@ export interface JourneyEvent {
   before: TraceState; after: TraceState; outcome?: PullOutcome; transition?: Transition; purchaseCost?: number;
 }
 export interface JourneyTrace {
-  engineVersion: 'mechanics-3'; randomPolicy: 'event-streams-v1'; seed: number; trialIndex: number;
+  engineVersion: 'mechanics-3' | 'analysis-4'; randomPolicy: 'event-streams-v1'; seed: number; trialIndex: number;
   model: Banner; goal: Goal; sparkPolicy: SparkPolicy; options: TrialOptions; result: TrialResult;
   events: JourneyEvent[]; totalEvents: number; truncated: boolean;
 }

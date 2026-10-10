@@ -27,7 +27,7 @@ export function Help({ label, children }: { label: string; children: ReactNode }
   }, [open]);
   useEffect(() => {
     if (!open) return;
-    const dismiss = (event: KeyboardEvent) => { if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); setOpen(false); } };
+    const dismiss = (event: KeyboardEvent) => { if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); if (panel.current?.contains(document.activeElement)) trigger.current?.focus(); setOpen(false); } };
     const outside = (event: PointerEvent) => { if (!trigger.current?.contains(event.target as Node) && !panel.current?.contains(event.target as Node)) setOpen(false); };
     const move = () => setOpen(false);
     const scroll = (event: Event) => { if (!panel.current?.contains(event.target as Node)) move(); };
@@ -39,9 +39,10 @@ export function Help({ label, children }: { label: string; children: ReactNode }
   }, [open]);
   useEffect(() => () => clearTimeout(timer.current), []);
   return <>
-    <button type="button" className="help-trigger" ref={trigger} aria-label={`About ${label}`} aria-expanded={open} aria-describedby={open ? id : undefined} onMouseEnter={reveal} onMouseLeave={hideSoon} onFocus={reveal} onBlur={hideSoon} onClick={reveal}>?</button>
-    {open && createPortal(<div id={id} ref={panel} role="tooltip" className="help-panel" style={{ left: position.left, top: position.top, maxHeight: `calc(100dvh - ${position.top + 16}px)` }} onMouseEnter={() => clearTimeout(timer.current)} onMouseLeave={hideSoon}>
+    <button type="button" className="help-trigger" ref={trigger} aria-label={`About ${label}`} aria-keyshortcuts="ArrowDown" aria-expanded={open} aria-describedby={open ? id : undefined} onKeyDown={(e) => { if (e.key === 'ArrowDown' && open) { e.preventDefault(); panel.current?.focus(); } }} onMouseEnter={reveal} onMouseLeave={hideSoon} onFocus={reveal} onBlur={hideSoon} onClick={reveal}>?</button>
+    {open && createPortal(<div id={id} ref={panel} role="tooltip" tabIndex={0} className="help-panel" style={{ left: position.left, top: position.top, maxHeight: `calc(100dvh - ${position.top + 16}px)` }} onFocus={() => clearTimeout(timer.current)} onBlur={hideSoon} onMouseEnter={() => clearTimeout(timer.current)} onMouseLeave={hideSoon}>
       <strong>{label}</strong><div>{children}</div>
+      <p className="help-keyboard-hint">↓ Focus details · Esc Close</p>
     </div>, trigger.current?.closest('dialog') ?? document.body)}
   </>;
 }

@@ -106,7 +106,7 @@ export function App() {
     {error && !settingsOpen && !editorOpen && <p className="run-error" role="alert">{error}</p>}
     {notice && <p className="status-line" role="status">{notice}</p>}
     {changed && <p className="status-line">Model or settings changed. Results below show the last completed comparison.</p>}
-    {busy && <div className="job-progress" role="status"><progress max={1} value={progress} aria-label="Comparison progress" /><span>{Math.round(progress * 100)}% · comparing both models</span></div>}
+    {busy && <div className="job-progress" role="status"><progress max={1} value={progress} aria-label="Comparison progress" /><span>{Math.round(progress * 100)}% · {settings?.analysis ? 'simulating models and analysis' : 'comparing both models'}</span></div>}
     <button className="secondary library-toggle" aria-expanded={libraryOpen} aria-controls="model-library" onClick={() => setLibraryOpen(!libraryOpen)}>Models & projects</button>
     <main className="workspace" id="workspace" tabIndex={-1}>
       <aside id="model-library" className={`panel catalog ${libraryOpen ? 'is-open' : ''}`} aria-label="Model library">
@@ -123,7 +123,7 @@ export function App() {
         </>}
       </div>
     </main>
-    {settingsOpen && settings && <RunSettings value={settings} onChange={setSettings} onClose={() => setSettingsOpen(false)} packAvailable={packAvailable} models={project ? [project.baseline.model, project.candidate.model] : []} busy={busy} error={error} onRun={() => { if (run()) setSettingsOpen(false); }} />}
+    {settingsOpen && settings && <RunSettings value={settings} onChange={(next) => { setSettings(next); setError(null); }} onClose={() => setSettingsOpen(false)} packAvailable={packAvailable} models={project ? [project.baseline.model, project.candidate.model] : []} busy={busy} error={error} onRun={() => { if (run()) setSettingsOpen(false); }} />}
     {editorOpen && draft && <ModelEditor draft={draft} onChange={setDraft} onClose={() => setEditorOpen(false)} onSave={() => void commit()} busy={operation} error={error} />}
     <p className="foot">Local modelling lab · studied presets are like-models <Help label="Scope of the lab">Models describe cited probability shapes, not licensed live tables. Monte Carlo resource use does not establish revenue, engagement or retention uplift. Company evidence and economy models are later milestones.</Help></p>
   </div>;

@@ -25,8 +25,10 @@ Store pages talk in rates. You live in the tail: the 90th percentile, the spark 
 
 ## What you can do
 
-The [company workbench guide](docs/company-workbench.md) walks through local import, immutable baseline/candidate edits, comparison, learning cards and replay exports. The [development checklist](DEVELOPMENT.md) tracks the remaining exact-math, economy and company-evidence phases.
+The [company workbench guide](docs/company-workbench.md) walks through local import, immutable baseline/candidate edits, comparison, learning cards and replay exports. The [development checklist](DEVELOPMENT.md) tracks the remaining economy and company-evidence phases. The [M4 guide](docs/milestone-4.md) explains mathematical checks and bounded experiments.
 
+- **Check the mathematics and sampling noise.** Compare supported exact probabilities with simulation and inspect paired confidence intervals.
+- **Explore declared player groups and candidate ranges.** Carry starting progress, weight population shares and validate bounded tradeoffs with a second seed.
 - **Change a company model without editing code.** Author scopes, target guarantees, shops, pack slots, duplicate caps and crafting in the candidate drawer.
 - **Follow a player's journey.** Step through actual completed or incomplete trials, inspect before/after state, and export the exact replay.
 - **Compare pack composition.** Study quantities, distinct-ID sampling and shared-item packs with declared resource flows.

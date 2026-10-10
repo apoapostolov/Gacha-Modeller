@@ -32,6 +32,8 @@ Project contract. Wins over `/mnt/c/git/defaults/AGENTS.md`.
 
 ## Work loop
 
+After every development pass, take a separate interface comprehension and accessibility pass. Explain the purpose of controls and results in short visible sentences; put additional technical detail in accessible help panels. Check keyboard use, narrow layouts and misleading or unexplained labels before moving to the next pass.
+
 ```bash
 npm test
 npm run typecheck

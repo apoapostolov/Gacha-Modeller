@@ -119,3 +119,7 @@ Crafting spends a fixed shard amount on declared recipes, with one retained copy
 `diagnoseGoal` proves only missing acquisition channels and finite copy bounds, accounting for fixed slots, selected shops, one-time quantities and caps. Crafting channels are conservative; their existence does not prove a sufficient shard supply. Scheduled transitions return an unresolved diagnosis rather than an initial-model impossibility claim. Interacting counters can still make a goal unreachable. Horizon failures stay separate from proven impossibility.
 
 Representative journeys replay actual trial indices, with the same event streams as the population run. Lucky/median/unlucky are completed-subgroup illustrations; incomplete is an unfinished member. Stored traces stop at 200 events by default, but execution continues to its full final result. `traceTrial` accepts up to 2,000 stored events. See the [workbench guide](company-workbench.md) for export/replay examples and three reproducible fixtures.
+
+## M4 exact and statistical analysis
+
+The [M4 methodology and delivery contract](milestone-4.md) describes probability-state propagation, truncation-aware exact means, supported pool shapes, Wilson/Bonferroni completion bounds, large-sample paired/independent mean errors, starting-state ledgers, fixed cohort weights, seed namespaces and two-seed bounded Pareto experiments. Reports label exact enumeration, simulation sampling error and assumed populations separately. Their resource measures do not establish observed engagement, revenue or profit.

@@ -1,3 +1,7 @@
+import { solveExact } from '../engine/exact.ts';
+import { comparisonUncertainty } from '../engine/uncertainty.ts';
+import { compareCohorts, runExperiment, trialOptions, type CohortReport, type ExperimentReport } from './analysis.ts';
+import { grid } from '../engine/analysis.ts';
 import { runTrialBatch, reportFromSamples } from '../engine/batch.ts';
 import type { SimReport, TrialSample, JourneyTrace, Representative, TrialOptions } from '../engine/types.ts';
 import { simulatePoolShare, runMonteCarloTwoPickup, representativeJourneys, type PoolShareReport } from '../engine/index.ts';
@@ -5,8 +9,11 @@ import { PRESETS } from '../presets/index.ts';
 import { importProject, semanticDiff, withSettings, type Change, type Project, type RunSettings } from '../project/project.ts';
 
 export interface ComparisonReport {
-  format: 'gacha-modeller-comparison'; version: 2; engineVersion: 'mechanics-3'; randomPolicy: 'event-streams-v1';
+  format: 'gacha-modeller-comparison'; version: 3; engineVersion: 'analysis-4'; randomPolicy: 'event-streams-v1';
   project: Project; settings: RunSettings; baseline: SimReport; candidate: SimReport; diff: Change[]; assumptions: string[]; completedAt: string;
+  uncertainty: ReturnType<typeof comparisonUncertainty>;
+  exact: { baseline: ReturnType<typeof solveExact>; candidate: ReturnType<typeof solveExact> };
+  cohorts?: CohortReport; experiment?: ExperimentReport;
   learning?: LearningScenarios;
   journeys: { baseline: Record<Representative, JourneyTrace | null>; candidate: Record<Representative, JourneyTrace | null> };
 }
@@ -47,34 +54,34 @@ export async function compareProject(projectInput: Project, settings: RunSetting
   const options = trialOptions(settings);
   const rows: [TrialSample[], TrialSample[]] = [[], []];
   const models = [project.baseline.model, project.candidate.model];
+  const total = settings.trials * 2 + (settings.analysis?.cohorts?.length ?? 0) * settings.trials * 2 + (settings.analysis?.experiment ? (grid(settings.analysis.experiment).length + 1) * settings.analysis.experiment.trials * 2 : 0);
   let completed = 0;
+  const advance = (count: number) => { completed += count; progress(completed, total); };
   for (let side = 0; side < 2; side++) {
     for (let start = 0; start < settings.trials; start += 100) {
       const count = Math.min(100, settings.trials - start);
       rows[side]!.push(...runTrialBatch(models[side]!, settings.goal, count, settings.seed, settings.sparkPolicy, options, start));
-      completed += count; progress(completed, settings.trials * 2);
+      advance(count);
       // Keep progress messages timely and allow the worker event loop to service diagnostics.
       await new Promise<void>((resolve) => setTimeout(resolve, 0));
     }
   }
+  const exact = { baseline: solveExact(models[0]!, settings.goal, settings.sparkPolicy, options), candidate: solveExact(models[1]!, settings.goal, settings.sparkPolicy, options) };
+  const cohorts = settings.analysis?.cohorts ? await compareCohorts(models, settings, settings.analysis.cohorts, advance) : undefined;
+  const experiment = settings.analysis?.experiment ? await runExperiment(models, settings, settings.analysis.experiment, advance) : undefined;
   const learning = await learningScenarios(project, settings);
   const journeys = {
     baseline: representativeJourneys(models[0]!, settings.goal, settings.seed, settings.sparkPolicy, options, rows[0]),
     candidate: representativeJourneys(models[1]!, settings.goal, settings.seed, settings.sparkPolicy, options, rows[1]),
   };
   return {
-    format: 'gacha-modeller-comparison', version: 2, engineVersion: 'mechanics-3', randomPolicy: 'event-streams-v1', project,
+    format: 'gacha-modeller-comparison', version: 3, engineVersion: 'analysis-4', randomPolicy: 'event-streams-v1', project,
     settings: structuredClone(settings),
     baseline: reportFromSamples(models[0]!, settings.goal, settings.seed, settings.sparkPolicy, options, rows[0]),
     candidate: reportFromSamples(models[1]!, settings.goal, settings.seed, settings.sparkPolicy, options, rows[1]),
     diff: semanticDiff(models[0], models[1]), completedAt: new Date().toISOString(),
     learning,
-    journeys,
-    assumptions: ['Scheduled transitions apply identically to both sides, at complete purchase boundaries. A switched destination is an embedded immutable model.', 'Salvage and crafting are resource flows. Representative journeys are conditional examples, stored to 200 events with a full final result.', 'Fresh player state in every trial.', 'Same goal, seed, horizon, spark policy and action mode on both models.', 'Common random streams indexed by trial, purchased pull and event; model metadata does not change random streams.', 'Whole packs are purchased; first attainment may occur before their final slot.', 'Currency consumed is a resource measure, not revenue, profit, engagement or retention.', 'Monte Carlo estimates have sampling error. Confidence intervals and behavioural/economy calibration are not included.'],
+    journeys, exact, cohorts, experiment, uncertainty: comparisonUncertainty(rows[0], rows[1]),
+    assumptions: ['Scheduled transitions apply identically to both sides, at complete purchase boundaries. A switched destination is an embedded immutable model.', 'Salvage and crafting are resource flows. Representative journeys are conditional examples, stored to 200 events with a full final result.', settings.initialState ? 'Each trial starts with the declared existing progress. Purchases and earned/spent resources count from this run only.' : 'Main comparison starts from fresh player state; optional groups are reported separately with explicit shares.', 'Same goal, seed, horizon, spark policy and action mode on both models.', 'Common random streams indexed by trial, purchased pull and event; model metadata does not change random streams.', 'Whole packs are purchased; first attainment may occur before their final slot.', 'Currency consumed is a resource measure, not revenue, profit, engagement or retention.', '95% simulation intervals describe sampling noise under these fixed rules. Wilson/Bonferroni score bounds are approximate; mean-difference intervals use large-sample normal estimates and are omitted for fewer than 30 or constant paired observations. Independent references ignore pairing and are diagnostic only. They do not quantify real-world behavioural uncertainty.'],
   };
-}
-
-function trialOptions(settings: RunSettings): TrialOptions {
-  const { goal: _goal, trials: _trials, seed: _seed, sparkPolicy: _sparkPolicy, ...options } = settings;
-  return options;
 }

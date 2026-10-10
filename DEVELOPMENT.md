@@ -52,13 +52,13 @@ Corresponds to the remaining A01/A03/A04/A06/A10 and later E07/E08.
 
 Corresponds to A08/A09 and C04.
 
-- [ ] M4.1 Exact independent/capped-hazard solver and analytical reference fixtures.
-- [ ] M4.2 Small-state capture/checkpoint solver, state-space limits and documented fallback.
-- [ ] M4.3 Attainment confidence intervals, paired/independent differences and sampling-error estimates.
-- [ ] M4.4 Initial-state distributions and stable cohort-weighted comparisons.
-- [ ] M4.5 One/two-dimensional sweeps, break-even surfaces and validation seeds.
-- [ ] M4.6 Bounded Pareto search after objective/constraint validation.
-- [ ] M4.7 Benchmark memory/events/latency on a documented reference machine.
+- [x] M4.1 Exact independent/capped-hazard solver and analytical reference fixtures.
+- [x] M4.2 Small-state capture/checkpoint solver, state-space limits and documented fallback.
+- [x] M4.3 Attainment confidence intervals, paired/independent differences and sampling-error estimates.
+- [x] M4.4 Initial-state distributions and stable cohort-weighted comparisons.
+- [x] M4.5 One/two-dimensional sweeps, break-even surfaces and validation seeds.
+- [x] M4.6 Bounded Pareto search after objective/constraint validation.
+- [x] M4.7 Benchmark memory/events/latency on a documented reference machine.
 
 ## Milestone 5: economy and player-time scenarios
 
@@ -149,3 +149,13 @@ Seven rule cards classify source assumptions. Representative journeys replay rea
 Verification: 110 tests across ten suites, TypeScript, production build and Git whitespace checks. Browser checks covered v2 import, candidate authoring, resource conservation, a comparison export/import numerical replay, season resets, incomplete journey export, distinct/shared packs, unsupported-combination rejection and source metadata. At 390 x 844, the drawer scrolls with its footer visible, help remains within the viewport, and the page has no horizontal overflow. These browser checks used the Codex Chromium in-app browser; other browser engines and physical devices remain unverified.
 
 The [M3 delivery contract](docs/milestone-3.md), [workbench examples](docs/company-workbench.md#m3-fixtures), and [methodology](docs/methodology.md#m3-state-and-acquisition-semantics) describe boundaries. Milestone 4 is next; confidence intervals, exact solvers, economy modelling and behavioural calibration are still open.
+
+### 10 October 2026: exact mathematics and comparison quality
+
+Delivered M4.1–M4.7 with bounded exact hazard/state propagation, simulation intervals and paired/independent error references, declared starting progress and weighted player groups, one/two-axis experiments, spending break-even surfaces, a fixed exploratory Pareto selection with a second validation seed, and a reproducible hardware benchmark. The [M4 delivery contract](docs/milestone-4.md) gives supported solver shapes, work bounds, interval assumptions, fixtures and limitations.
+
+Interface passes replaced label-only help with visible explanations, clarified conditional featured rates, expanded atlas descriptions, provided keyboard scrolling in long help, focused run errors and condensed experiment results into a surface and selected-tradeoff summary with a full review table. This loop is now recorded in AGENTS.md.
+
+Verification: 128 tests across 12 suites, including expanded semantic axe checks; TypeScript and production build; real worker runs, parsed version-3 exports and replay; carried progress with exact population shares; keyboard/error recovery and responsive checks. The dependency audit reports zero advisories after updating Vitest and source-map-js. See the [reference benchmark](docs/benchmark-reference.json), [experiment surface](docs/assets/analysis-surface.png), [player groups](docs/assets/analysis-cohorts.png) and [narrow drawer](docs/assets/analysis-mobile.png).
+
+Current boundaries: exact first-featured/single-pull analysis supports small declared pools and falls back explicitly on other cases. Mean intervals use a large-sample approximation; declared player shares and objective limits are assumptions. Pareto selection covers only the tested grid and resource objectives. Company finance, player-time policies, engagement and retention remain M5/M6. Milestone 5 is next.

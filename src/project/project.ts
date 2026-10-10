@@ -1,8 +1,10 @@
 import { assertValidBanner, featuredPool, exchangePool, defaultGoal, validateRun, modelSchemaVersion, advancedRun, type Banner, type Goal, type SparkPolicy, type TrialOptions } from '../engine/index.ts';
 
-export interface RunSettings extends TrialOptions { goal: Goal; trials: number; seed: number; sparkPolicy: SparkPolicy; maxPulls: number; actionMode: 'single' | 'pack' }
+import { validateInitial } from '../engine/initial.ts';
+import { validateAnalysis, type AnalysisSettings } from '../engine/analysis.ts';
+export interface RunSettings extends TrialOptions { analysis?: AnalysisSettings; goal: Goal; trials: number; seed: number; sparkPolicy: SparkPolicy; maxPulls: number; actionMode: 'single' | 'pack' }
 export interface ModelSnapshot { schemaVersion: 1 | 2; id: string; hash: string; createdAt: string; model: Banner }
-export interface Project { format: 'gacha-modeller-project'; version: 1 | 2; id: string; name: string; baseline: ModelSnapshot; candidate: ModelSnapshot; history: ModelSnapshot[]; settings: RunSettings }
+export interface Project { format: 'gacha-modeller-project'; version: 1 | 2 | 3; id: string; name: string; baseline: ModelSnapshot; candidate: ModelSnapshot; history: ModelSnapshot[]; settings: RunSettings }
 export interface Change { path: string; before: unknown; after: unknown }
 export interface StoragePort { getItem(key: string): string | null; setItem(key: string, value: string): void }
 const PRIMARY = 'gacha-modeller.library.v1';
@@ -58,7 +60,9 @@ async function snapshot(model: unknown): Promise<ModelSnapshot> {
   return freeze({ schemaVersion: modelSchemaVersion(copy), id: crypto.randomUUID(), hash: await contentHash(copy), createdAt: new Date().toISOString(), model: copy });
 }
 export function validateSettings(value: unknown): asserts value is RunSettings {
-  keys(value, ['goal','trials','seed','sparkPolicy','maxPulls','actionMode','targetId','exchangeItemId','craftPolicy','transitions'], 'settings');
+  keys(value, ['goal','trials','seed','sparkPolicy','maxPulls','actionMode','targetId','exchangeItemId','craftPolicy','transitions','initialState','analysis'], 'settings');
+  if (value.initialState !== undefined) validateInitial(value.initialState);
+  if (value.analysis !== undefined) validateAnalysis(value.analysis, value as unknown as RunSettings);
   keys(value.goal, ['type','count','pulls','targets'], 'settings.goal');
   if (Array.isArray(value.goal.targets)) value.goal.targets.forEach((target, i) => keys(target, ['itemId','count'], `settings.goal.targets[${i}]`));
   validateRun(value.goal as Goal, value.sparkPolicy as SparkPolicy, value as TrialOptions, value.trials as number, value.seed as number);
@@ -85,12 +89,18 @@ export async function createProject(model: Banner): Promise<Project> {
 export async function saveCandidate(project: Project, model: unknown): Promise<Project> {
   const next = await snapshot(model);
   if (next.hash === project.candidate.hash) return project;
-  return freeze({ ...project, version: Math.max(project.version, next.schemaVersion) as 1 | 2, candidate: next, history: [...project.history, project.candidate] });
+  return freeze({ ...project, version: Math.max(project.version, next.schemaVersion) as 1 | 2 | 3, candidate: next, history: [...project.history, project.candidate] });
 }
 export function withSettings(project: Project, settings: RunSettings): Project {
   validateSettings(settings);
   if (settings.actionMode === 'pack' && (!project.baseline.model.multiPull || !project.candidate.model.multiPull)) throw new Error('settings.actionMode: Both models need a pack rule for a pack comparison.');
-  return freeze({ ...project, version: advancedRun(settings.goal, settings) ? 2 : project.version, settings: structuredClone(settings) });
+  if (settings.analysis) {
+    validateAnalysis(settings.analysis, settings, project.candidate.model);
+    for (const group of settings.analysis.cohorts ?? []) validateInitial(group.initialState, project.baseline.model);
+    if (settings.analysis.experiment && project.baseline.model.pullCost.currency !== project.candidate.model.pullCost.currency) throw new Error('analysis.experiment: Both models need the same currency unit.');
+  }
+  for (const model of [project.baseline.model, project.candidate.model]) if (settings.initialState) validateInitial(settings.initialState, model);
+  return freeze({ ...project, version: Math.max(project.version, settings.analysis || settings.initialState ? 3 : advancedRun(settings.goal, settings) ? 2 : 1) as 1 | 2 | 3, settings: structuredClone(settings) });
 }
 async function readSnapshot(value: unknown, path: string): Promise<ModelSnapshot> {
   keys(value, ['schemaVersion','id','hash','createdAt','model'], path);
@@ -104,9 +114,9 @@ async function readSnapshot(value: unknown, path: string): Promise<ModelSnapshot
 }
 export async function importProject(value: unknown): Promise<Project> {
   if (record(value) && value.format === 'gacha-modeller-comparison') {
-    keys(value, ['format','version','project','settings','baseline','candidate','diff','assumptions','completedAt','engineVersion','randomPolicy','learning','journeys'], 'comparison');
-    if (value.version !== 1 && value.version !== 2) throw new Error('comparison.version: Unsupported version.');
-    if (value.engineVersion !== (value.version === 1 ? 'workbench-2' : 'mechanics-3') || value.randomPolicy !== 'event-streams-v1') throw new Error('comparison: Unsupported engine or random policy for replay.');
+    keys(value, ['format','version','project','settings','baseline','candidate','diff','assumptions','completedAt','engineVersion','randomPolicy','learning','journeys','uncertainty','exact','cohorts','experiment'], 'comparison');
+    if (value.version !== 1 && value.version !== 2 && value.version !== 3) throw new Error('comparison.version: Unsupported version.');
+    if (value.engineVersion !== (value.version === 1 ? 'workbench-2' : value.version === 2 ? 'mechanics-3' : 'analysis-4') || value.randomPolicy !== 'event-streams-v1') throw new Error('comparison: Unsupported engine or random policy for replay.');
     validateSettings(value.settings);
     return withSettings(await importProject(value.project), value.settings);
   }
@@ -127,7 +137,7 @@ export async function importProject(value: unknown): Promise<Project> {
   }
   if (!record(value) || value.format !== 'gacha-modeller-project') { assertSupportedModel(value); return createProject(value); }
   keys(value, ['format','version','id','name','baseline','candidate','history','settings'], 'project');
-  if (value.version !== 1 && value.version !== 2) throw new Error('project.version: Unsupported project version.');
+  if (value.version !== 1 && value.version !== 2 && value.version !== 3) throw new Error('project.version: Unsupported project version.');
   nonempty(value.id, 'project.id'); nonempty(value.name, 'project.name');
   if (!Array.isArray(value.history)) throw new Error('project.history: Provide an array of snapshots.');
   const baseline = await readSnapshot(value.baseline, 'project.baseline');
@@ -136,6 +146,7 @@ export async function importProject(value: unknown): Promise<Project> {
   for (let i = 0; i < value.history.length; i++) history.push(await readSnapshot(value.history[i], `project.history[${i}]`));
   validateSettings(value.settings);
   if (value.version === 1 && (baseline.schemaVersion === 2 || candidate.schemaVersion === 2 || history.some((row) => row.schemaVersion === 2) || advancedRun(value.settings.goal, value.settings))) throw new Error('project.version: These mechanics or settings need version 2.');
+  if (value.version < 3 && (value.settings.analysis || value.settings.initialState)) throw new Error('project.version: Starting progress and analysis settings need version 3.');
   const project = freeze({ ...structuredClone(value), baseline, candidate, history } as unknown as Project);
   return withSettings(project, project.settings);
 }

@@ -1,0 +1,218 @@
+{
+  "format": "gacha-modeller-project",
+  "version": 3,
+  "id": "e89f8eea-c3e2-4fc0-993d-6a317e61c3d7",
+  "name": "Carried progress reference fixture",
+  "baseline": {
+    "schemaVersion": 1,
+    "id": "5a5c8609-795f-4a5d-b893-c42eae6ca29f",
+    "hash": "c9cc56ce95a9e3973d3b4d03f6a7dbb21243b18736128979e1b90f8a44e0c593",
+    "createdAt": "2026-10-10T10:27:31.682Z",
+    "model": {
+      "id": "company-banner-fixture",
+      "name": "Company banner fixture",
+      "family": "original",
+      "source": "original",
+      "blurb": "A synthetic 1% chase banner with a 100-pull cap.",
+      "notes": [
+        "Acceptance fixture: fork a candidate and change the cap to 80."
+      ],
+      "pullCost": {
+        "amount": 1,
+        "currency": "ticket"
+      },
+      "rarities": [
+        {
+          "id": "chase",
+          "name": "Chase",
+          "baseRate": 0.01,
+          "color": "#d4b483"
+        },
+        {
+          "id": "filler",
+          "name": "Filler",
+          "baseRate": 0,
+          "color": "#837863"
+        }
+      ],
+      "pity": [
+        {
+          "rarity": "chase",
+          "hardAt": 100
+        }
+      ],
+      "featured": {
+        "rarity": "chase",
+        "chance": 1,
+        "capturing": false
+      },
+      "items": [
+        {
+          "id": "target",
+          "name": "Chase prize",
+          "rarity": "chase",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "common",
+          "name": "Common reward",
+          "rarity": "filler",
+          "weight": 1
+        }
+      ]
+    }
+  },
+  "candidate": {
+    "schemaVersion": 1,
+    "id": "2b1078cc-fb2e-418f-b025-d6347829fb67",
+    "hash": "21174dba38405488a775f88842127f50b3322bcd9b4195a618157f9c82e35032",
+    "createdAt": "2026-10-10T10:27:40.230Z",
+    "model": {
+      "id": "company-banner-fixture-candidate",
+      "name": "Company banner fixture candidate",
+      "family": "original",
+      "source": "original",
+      "blurb": "A synthetic 1% chase banner with a 100-pull cap.",
+      "notes": [
+        "Acceptance fixture: fork a candidate and change the cap to 80."
+      ],
+      "pullCost": {
+        "amount": 1,
+        "currency": "ticket"
+      },
+      "rarities": [
+        {
+          "id": "chase",
+          "name": "Chase",
+          "baseRate": 0.01,
+          "color": "#d4b483"
+        },
+        {
+          "id": "filler",
+          "name": "Filler",
+          "baseRate": 0,
+          "color": "#837863"
+        }
+      ],
+      "pity": [
+        {
+          "rarity": "chase",
+          "hardAt": 80
+        }
+      ],
+      "featured": {
+        "rarity": "chase",
+        "chance": 1,
+        "capturing": false
+      },
+      "items": [
+        {
+          "id": "target",
+          "name": "Chase prize",
+          "rarity": "chase",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "common",
+          "name": "Common reward",
+          "rarity": "filler",
+          "weight": 1
+        }
+      ]
+    }
+  },
+  "history": [
+    {
+      "schemaVersion": 1,
+      "id": "08b4d4f2-7afb-4e1b-843d-eeb9c84f31d8",
+      "hash": "493550b912a9961d4908f8a7dd625ddc9f5c308f507fcc82cff2d2344009dc9b",
+      "createdAt": "2026-10-10T10:27:31.682Z",
+      "model": {
+        "id": "company-banner-fixture-candidate",
+        "name": "Company banner fixture candidate",
+        "family": "original",
+        "source": "original",
+        "blurb": "A synthetic 1% chase banner with a 100-pull cap.",
+        "notes": [
+          "Acceptance fixture: fork a candidate and change the cap to 80."
+        ],
+        "pullCost": {
+          "amount": 1,
+          "currency": "ticket"
+        },
+        "rarities": [
+          {
+            "id": "chase",
+            "name": "Chase",
+            "baseRate": 0.01,
+            "color": "#d4b483"
+          },
+          {
+            "id": "filler",
+            "name": "Filler",
+            "baseRate": 0,
+            "color": "#837863"
+          }
+        ],
+        "pity": [
+          {
+            "rarity": "chase",
+            "hardAt": 100
+          }
+        ],
+        "featured": {
+          "rarity": "chase",
+          "chance": 1,
+          "capturing": false
+        },
+        "items": [
+          {
+            "id": "target",
+            "name": "Chase prize",
+            "rarity": "chase",
+            "weight": 1,
+            "featured": true
+          },
+          {
+            "id": "common",
+            "name": "Common reward",
+            "rarity": "filler",
+            "weight": 1
+          }
+        ]
+      }
+    }
+  ],
+  "settings": {
+    "goal": {
+      "type": "first-featured"
+    },
+    "trials": 1000,
+    "seed": 42,
+    "sparkPolicy": "if-needed",
+    "maxPulls": 20,
+    "actionMode": "single",
+    "analysis": {
+      "cohorts": [
+        {
+          "id": "group-1",
+          "name": "Newcomers",
+          "weight": 1,
+          "initialState": {}
+        },
+        {
+          "id": "group-2",
+          "name": "Returning players",
+          "weight": 3,
+          "initialState": {
+            "counters": {
+              "chase": 79
+            }
+          }
+        }
+      ]
+    }
+  }
+}

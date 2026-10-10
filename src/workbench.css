@@ -130,3 +130,38 @@ td, th { border-bottom: 1px solid var(--line); padding: 12px 10px; vertical-alig
   .journey-controls button { font-size: 13px; padding: 10px 8px; }
   .journey-viewer > .section-heading { align-items: flex-start; flex-wrap: wrap; }
 }
+
+.field-hint { margin: .4rem 0 0; color: var(--mute); font-size: .875rem; line-height: 1.5; }
+.model-hints > span { display: block; line-height: 1.6; max-width: 65ch; }
+.state-change { font-size: .8rem; color: var(--mute); }
+
+.analysis-results { margin-top: 2rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+.analysis-results > h3 { margin: 2rem 0 .5rem; }
+.analysis-results p { max-width: 70ch; line-height: 1.6; }
+.analysis-results caption { text-align: left; padding: .6rem 0; color: var(--mute); font-size: .875rem; }
+.analysis-group { border: 1px solid var(--line); border-radius: .6rem; padding: 1rem; margin: 1rem 0; min-width: 0; }
+.analysis-group legend { color: var(--brass); padding: 0 .35rem; }
+.analysis-group details > summary { margin: .6rem 0; }
+.analysis-group .settings-fields { margin-top: .75rem; }
+.exact-pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 1rem; }
+.analysis-card { border: 1px solid var(--line); background: var(--paper-2); padding: 1rem; border-radius: .6rem; }
+.analysis-card h4 { margin: 0 0 .5rem; }
+.surface-table td span { display: block; font-size: .8rem; color: var(--mute); }
+.surface-table td[data-saving=true] { border-bottom: 2px solid var(--ok); }
+.table-scroll:focus-visible { outline: 2px solid var(--brass); outline-offset: 4px; }
+.analysis-settings .check-field { display: flex; align-items: start; gap: .5rem; margin: .75rem 0; line-height: 1.5; }
+@media (pointer: coarse) { .analysis-settings input[type=checkbox] { min-width: 24px; min-height: 24px; } .analysis-settings .check-field { min-height: 44px; align-items: center; } }
+
+.analysis-results .comparison-table td { color: var(--ink); }
+.analysis-results .comparison-table td:last-child { white-space: normal; min-width: 12ch; }
+.model-hints { font-size: .875rem; }
+.run-note, .field-hint { line-height: 1.6; }
+
+.help-keyboard-hint { border-top: 1px solid var(--line); padding-top: .5rem; color: var(--mute); font-size: .75rem; }
+.help-panel:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+.run-error:focus { outline: 2px solid var(--brass); outline-offset: 3px; }
+
+.experiment-table { min-width: 1000px; }
+.experiment-table td:last-child span { display: block; margin-bottom: .3rem; }
+.selected-tradeoffs { max-width: 70ch; line-height: 1.6; padding-left: 1.25rem; }
+.selected-tradeoffs li { margin: .5rem 0; }

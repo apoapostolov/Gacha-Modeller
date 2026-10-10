@@ -1,6 +1,6 @@
 # Company workbench
 
-Milestones 2 and 3 provide a local authoring and comparison workflow. It compares mechanics and resource consumption. The later economy and evidence milestones cover company profitability, engagement and retention.
+Milestones 2, 3 and 4 provide a local authoring and comparison workflow. It compares mechanics and resource consumption. The later economy and evidence milestones cover company profitability, engagement and retention.
 
 ## First comparison
 
@@ -18,7 +18,7 @@ Repeat with [company-pack.json](fixtures/company-pack.json), choose **Whole pack
 
 The editor also supports selected-target/once-only rules, player-selected shops, counter persistence, explicit pack slots, duplicate transformations, crafting and individual rule sources. It supports item IDs, names, weights and featured flags; rarity priority and rates; hard/soft pity and reset links; featured probability and capture; charge checkpoints; exchange cost/reset effects; pack size/minimum tier; and the existing original modifiers. Probabilities use fractions, so `0.01` means 1%. Renaming a rarity updates references. Removing it may require fixing remaining items or rules; live validation identifies those fields.
 
-The header has two fixed actions. Run controls live in a drawer with a scrolling body and fixed action footer, so more controls can be added without expanding the header. Short descriptions stay visible. Detailed explanations use custom `?` panels, available by hover, keyboard focus or tap. Escape dismisses the help first, then the drawer; drawer closure restores focus. Long panels scroll within the viewport. The model library collapses on small screens and wide comparison tables scroll within their own container.
+The header has two fixed actions. Run controls live in a drawer with a scrolling body and fixed action footer, so more controls can be added without expanding the header. Short descriptions stay visible. Detailed explanations use custom `?` panels, available by hover, keyboard focus or tap. Escape dismisses the help first, then the drawer; drawer closure restores focus. Long panels scroll within the viewport. From a focused help button, Down Arrow moves focus into the panel so you can scroll with the keyboard; Escape returns to the trigger. The model library collapses on small screens and wide comparison tables scroll within their own container.
 
 Candidate drafts stay in memory while their project remains selected. Save creates a new immutable revision. History loads an earlier revision into the editor for review and a new save; it never edits the baseline. Committed projects, settings and history save locally. Export regularly for portable backups. A failed local save is shown explicitly. Unreadable primary and backup copies are preserved, and the app works in memory rather than replacing them.
 
@@ -28,13 +28,13 @@ Supported JSON inputs:
 
 - Raw legacy `Banner` object.
 - `gacha-modeller-model` versions 1 and 2. New M3 rules require version 2.
-- `gacha-modeller-project` versions 1 and 2 with schema-versioned snapshots, history and settings.
+- `gacha-modeller-project` versions 1, 2 and 3 with schema-versioned snapshots, history and settings.
 - M1 `gacha-modeller-result` version 1, restoring the model and original controls.
-- M2/M3 `gacha-modeller-comparison` versions 1 and 2, restoring both models and completed-run settings. M3 exports include representative journeys.
+- M2/M3/M4 `gacha-modeller-comparison` versions 1, 2 and 3, restoring both models and completed-run settings. M3 exports include representative journeys; M4 exports add exact references, uncertainty and requested population/parameter analyses.
 
 Snapshots hash canonical model content using SHA-256: object keys sorted, array order retained, absent optional fields omitted. Imports verify hashes and supported fields. This detects content mismatches; it does not authenticate the author. An import with an existing project ID creates a separate project. Comparison exports use the completed run's settings even when the settings drawer contains newer edits. Imports are limited to 5 MB.
 
-M3 comparison exports use `mechanics-3` / `event-streams-v1`. Version 1 comparisons remain importable. For a programmatic replay, import `importProject` from `src/project/project.ts` and `compareProject` from `src/jobs/compare.ts`, then run:
+M4 comparison exports use `analysis-4` / `event-streams-v1`; M3 exports used `mechanics-3`. Version 1 comparisons remain importable. For a programmatic replay, import `importProject` from `src/project/project.ts` and `compareProject` from `src/jobs/compare.ts`, then run:
 
 ```ts
 const project = await importProject(bundle);
@@ -45,7 +45,7 @@ Trial/event indexing makes main comparison results independent of worker batch s
 
 ## Current limits
 
-There are no confidence intervals or exact solvers yet. Reachability diagnostics remain conservative. No-replacement and shared-item packs currently require an unprotected single-tier pool. Arbitrary slot correlations and batch discounts are not represented. There is no paid/free currency ledger or behavioural calibration yet. The [development checklist](../DEVELOPMENT.md) defines those next steps.
+The [M4 guide](milestone-4.md) explains exact-solver limits, approximate simulation intervals, weighted player groups and bounded parameter experiments. Reachability diagnostics remain conservative. No-replacement and shared-item packs currently require an unprotected single-tier pool. Arbitrary slot correlations and batch discounts are not represented. There is no paid/free currency ledger or behavioural calibration yet. The [development checklist](../DEVELOPMENT.md) defines those next steps.
 
 ## Learn and replay a rule
 
@@ -73,3 +73,7 @@ Scheduled transitions use purchased-pull boundaries, defer events inside a pack 
 ![Mechanics atlas and player journey in the local workbench](assets/mechanics-workbench.png)
 
 ![Run settings at 390 pixels wide](assets/mechanics-mobile.png)
+
+## Mathematical checks and parameter experiments
+
+Read the [M4 guide](milestone-4.md) for the interval table and exact probabilities. Import [company-analysis.json](fixtures/company-analysis.json) to explore price/pity tradeoffs with a validation seed, or [company-cohorts.json](fixtures/company-cohorts.json) to compare fresh and returning players with explicit starting progress and shares. Controls live in Run settings. Each analysis keeps the fresh main comparison separate and exports the exact assumptions needed for replay.

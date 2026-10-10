@@ -9,7 +9,8 @@
     "preview": "vite preview --port=3018 --host=0.0.0.0 --strictPort",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "benchmark": "node --experimental-transform-types scripts/benchmark.ts"
   },
   "dependencies": {
     "react": "^19.1.0",
@@ -20,10 +21,11 @@
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
     "@vitejs/plugin-react": "^5.0.0",
+    "axe-core": "^4.14.0",
     "jsdom": "^26.1.0",
     "typescript": "~5.8.2",
     "vite": "^6.2.0",
-    "vitest": "^3.1.0"
+    "vitest": "^4.1.11"
   },
   "allowScripts": {
     "esbuild@0.25.12": true

@@ -1,0 +1,116 @@
+{
+  "measuredAt": "2026-10-10T12:20:24.293Z",
+  "reference": {
+    "cpu": "AMD Ryzen 5 7600 6-Core Processor              ",
+    "logicalCpus": 12,
+    "ramBytes": 33346736128,
+    "platform": "win32",
+    "release": "10.0.26300",
+    "node": "v22.23.2"
+  },
+  "engine": "analysis-4",
+  "randomPolicy": "event-streams-v1",
+  "seed": 42,
+  "horizon": 200,
+  "measurement": "Pure Node engine, one process, batches of 100, 100-trial warmup. Three measured repeats. Memory is sampled after batches, not an OS high-water mark; GC is uncontrolled. No UI/worker transfer time included.",
+  "simulations": [
+    {
+      "name": "single capped chase",
+      "trials": 1000,
+      "repeats": [
+        {
+          "milliseconds": 80.14760000000001,
+          "draws": 63276,
+          "sampledPeakHeapBytes": 11828784,
+          "sampledPeakRssBytes": 72658944
+        },
+        {
+          "milliseconds": 73.36010000000002,
+          "draws": 63276,
+          "sampledPeakHeapBytes": 11998568,
+          "sampledPeakRssBytes": 71917568
+        },
+        {
+          "milliseconds": 74.49829999999997,
+          "draws": 63276,
+          "sampledPeakHeapBytes": 13384960,
+          "sampledPeakRssBytes": 76189696
+        }
+      ]
+    },
+    {
+      "name": "single capped chase",
+      "trials": 5000,
+      "repeats": [
+        {
+          "milliseconds": 399.4679,
+          "draws": 317811,
+          "sampledPeakHeapBytes": 15313096,
+          "sampledPeakRssBytes": 77139968
+        },
+        {
+          "milliseconds": 374.70990000000006,
+          "draws": 317811,
+          "sampledPeakHeapBytes": 15903872,
+          "sampledPeakRssBytes": 78123008
+        },
+        {
+          "milliseconds": 376.58670000000006,
+          "draws": 317811,
+          "sampledPeakHeapBytes": 18282112,
+          "sampledPeakRssBytes": 86806528
+        }
+      ]
+    },
+    {
+      "name": "capped chase with capture",
+      "trials": 1000,
+      "repeats": [
+        {
+          "milliseconds": 128.8068999999998,
+          "draws": 96404,
+          "sampledPeakHeapBytes": 16543048,
+          "sampledPeakRssBytes": 87334912
+        },
+        {
+          "milliseconds": 118.3886,
+          "draws": 96404,
+          "sampledPeakHeapBytes": 18557736,
+          "sampledPeakRssBytes": 86614016
+        },
+        {
+          "milliseconds": 121.97200000000021,
+          "draws": 96404,
+          "sampledPeakHeapBytes": 18558200,
+          "sampledPeakRssBytes": 86491136
+        }
+      ]
+    }
+  ],
+  "exact": {
+    "milliseconds": 2.6485000000000127,
+    "result": {
+      "peakStates": 1,
+      "transitions": 200,
+      "massError": 0,
+      "meanPurchasedPulls": 63.39676587267701
+    }
+  },
+  "captureExact": {
+    "milliseconds": 257.28380000000016,
+    "result": {
+      "peakStates": 100,
+      "transitions": 40400,
+      "massError": 1.199040866595169e-14,
+      "meanPurchasedPulls": 95.09514880901553
+    }
+  },
+  "traces": {
+    "trials": 100,
+    "milliseconds": 53.877500000000055,
+    "totalEvents": 12808,
+    "storedEvents": 12808,
+    "exportedBytes": 7024773,
+    "limitPerTrace": 200
+  }
+}

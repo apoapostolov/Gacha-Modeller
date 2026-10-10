@@ -184,6 +184,16 @@ td, th { border-bottom: 1px solid var(--line); padding: 12px 10px; vertical-alig
 
 .help-keyboard-hint { border-top: 1px solid var(--line); padding-top: .5rem; color: var(--mute); font-size: .75rem; }
 .help-panel:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+.workspace-modules { flex-wrap: wrap; }
+.specialist-workbench h3, .integration-workbench h3 { margin: 1.75rem 0 .6rem; }
+.specialist-workbench p, .integration-workbench p { max-width: 74ch; line-height: 1.6; }
+.specialist-workbench .inline-actions, .integration-workbench .inline-actions { margin: 1rem 0; }
+.specialist-workbench .comparison-table, .integration-workbench .comparison-table { font-size: 14px; }
+.specialist-workbench .comparison-table td, .integration-workbench .comparison-table td { color: var(--ink); }
+.specialist-workbench .editor-group > p, .integration-workbench .editor-group > p { font-size: 14px; }
+.integration-workbench .comparison-table select { max-width: 26rem; width: 100%; min-width: 12rem; }
+.specialist-workbench .editor-group, .integration-workbench .editor-group { margin: 1rem 0; }
+.drawer-footer .row-actions { flex-wrap: nowrap; flex-shrink: 0; }
 .run-error:focus { outline: 2px solid var(--brass); outline-offset: 3px; }
 
 .experiment-table { min-width: 1000px; }

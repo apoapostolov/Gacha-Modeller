@@ -35,6 +35,8 @@ The [company workbench guide](docs/company-workbench.md) describes model authori
 - **Audit and replay:** source-labelled mechanics, individual trial journeys, complete aggregate ledgers and versioned project/comparison exports.
 - **Directory project library:** runtime section folders, validated project files, conflict-aware saves and browser-project migration.
 - **Company evidence:** editable synthetic/CSV extracts, training and holdout estimates, assignment checks, group uncertainty, tail sensitivity and hashed decision records. See the [M6 contract](docs/milestone-6.md).
+- **Specialist financial profiles:** lifetime collectible supply, assumed resale liquidity, fees, market-value cases and redemption obligations; static payout RTP/volatility, player outcomes and treasury portfolios. See [M7 research and acceptance](docs/milestone-7.md).
+- **Catalogue integration:** reviewed local PlayFab/Unity/customer identity subsets, explicit name mappings and hashed review exports. Scoped operational/legal/test-house declarations detect changed configurations; exports remain research-only.
 
 ## Catalog
 
@@ -68,6 +70,8 @@ The development server runs at http://127.0.0.1:3018/. A fixed seed, immutable m
 
 Sections are subfolders of `projects/`, each with `section.json` and complete project JSON files. Refresh library discovers new files without a build. The Company section contains editable synthetic assumptions and evidence. Existing browser projects can be migrated to Workspace; their original bytes remain available. Workspace files are ignored by Git by default.
 
+The Specialist studies section contains editable collectible and payout projects; Catalogue integrations contains a synthetic PlayFab mapping example. Modules can be attached to other projects. Profile settings retain the financial baseline and edit the candidate. Complete JSON supports additional supply rows or payout outcomes. Their hashes and cash contracts are independent from the acquisition snapshots. Catalogue integration maps names without guessing drop probabilities or cash values.
+
 `npm run build` then `npm start` serves the built app with the same local directory API. `npm run project:create -- --input <model-or-project.json> --section workspace` creates a validated file; `npm run project:create -- --validate` checks the directory. The [reward-project-authoring skill](skills/reward-project-authoring/SKILL.md) covers new sections and game profiles. Node 22.23 or newer is required for the local TypeScript scripts.
 
 ## Limits
@@ -76,7 +80,8 @@ Sections are subfolders of `projects/`, each with `section.json` and complete pr
 - Economy outputs use synthetic assumptions. Company finance/data approval, real behavioural calibration and a repeated commercial decision remain pending.
 - Company extracts currently use independent group-period aggregates. Per-item production-state adapters, immutable approval/preregistration and automatic identity stitching remain outside this local implementation.
 - Named game examples cover their documented subset. Overwatch regular-box counters and Fortnite revealed-offer choice policies are not implemented by the shipped examples.
-- Cash contribution excludes statutory revenue recognition, fixed costs, discounting and cash-out liabilities.
+- Calendar economy contribution excludes statutory revenue recognition, fixed costs, discounting and cash-out liabilities. Specialist profiles separately declare period costs and redemption promises under their bounded contracts.
+- Specialist profiles are synthetic research, with static payouts and assumed market values. Hosted identity/compute, authenticated approval, customer integration review and jurisdiction/test-house acceptance remain pending. Unity's adapter targets existing Economy configurations after the September 2026 new-sign-up closure.
 - Calendar events operate on local civil days; intraday sessions, automatic churn and causal engagement models are outside the current contract.
 - Exact analysis supports bounded model shapes; other cases use simulation with an explicit explanation.
 

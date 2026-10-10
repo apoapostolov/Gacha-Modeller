@@ -29,6 +29,8 @@ Project contract. Wins over `/mnt/c/git/defaults/AGENTS.md`.
 - Local-only. No accounts, no telemetry, no remote banners.
 - Saved projects live in `projects/<section>/`, with `section.json` metadata. Sidebar sections/projects come from the local file service; do not add hardcoded UI preset lists. Workspace JSON remains ignored by Git unless explicitly selected for publication.
 - Company evidence is a separate pure module. Preserve synthetic/observed provenance, quality gates and decision export hashes. Do not infer finance/data approval from a fixture.
+- Specialist supply/payout contracts and catalogue bindings are independent modules. Catalogue adapters change names only; do not infer odds or cash values. Specialist research RNG never determines production outcomes. A local review hash binds declared scope, not reviewer authority or release approval.
+- Bump the specialist engine/RNG policy version when its replay semantics change; versions participate in review scope hashes. Maintain browser-exported replay references.
 - `/mnt/c` watchers poll. Vite already polls at 300ms.
 - Do not onboard a systemd unit on 10001+ unless Apo asks for daily use.
 

@@ -3,7 +3,7 @@ import { FileLibrary } from '../server/library.ts';
 import { createState, mulberry32, pullPack } from '../src/engine/index.ts';
 import path from 'node:path';
 describe('directory game examples', () => {
-  it('validates all shipped project files and section metadata', async () => { const catalog = await new FileLibrary(path.resolve('projects')).scan(); expect(catalog.diagnostics).toEqual([]); expect(catalog.sections).toHaveLength(7); expect(catalog.entries.length).toBeGreaterThanOrEqual(14); });
+  it('validates all shipped project files and section metadata', async () => { const catalog = await new FileLibrary(path.resolve('projects')).scan(); expect(catalog.diagnostics).toEqual([]); expect(catalog.sections.map(s=>s.id)).toEqual(expect.arrayContaining(['characters','cosmetics','llamas','digital-packs','company','specialist','integrations','workspace'])); expect(catalog.entries.length).toBeGreaterThanOrEqual(17); });
   it('keeps the legendary-box guarantee per complete action and protects available cosmetics', async () => {
     const catalog = await new FileLibrary(path.resolve('projects')).scan(), project = catalog.entries.find((e) => e.project.id === 'overwatch-legendary-like')!.project, model = project.baseline.model;
     const state = createState(model), rng = mulberry32(42), legends = new Set<string>();

@@ -14,6 +14,10 @@ import { defaultEconomy } from '../src/economy/config.ts';
 import { CompanyWorkbench, CompanyEditor } from '../src/ui/CompanyWorkbench.tsx';
 import { ProjectLibrary } from '../src/ui/ProjectLibrary.tsx';
 import { defaultEvidence } from '../src/company/synthetic.ts';
+import { SpecialistEditor, SpecialistResults } from '../src/ui/SpecialistWorkbench.tsx';
+import { IntegrationWorkbench } from '../src/ui/IntegrationWorkbench.tsx';
+import { defaultSpecialist } from '../src/specialist/defaults.ts';
+import { specialistExport } from '../src/specialist/report.ts';
 
 beforeAll(() => { vi.stubGlobal('crypto', webcrypto); document.documentElement.lang = 'en'; document.title = 'Gacha Modeller'; });
 async function check(markup: string) {
@@ -24,6 +28,12 @@ async function check(markup: string) {
   expect(results.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.html).join('; ')}`)).toEqual([]);
 }
 describe('analysis interface semantics', () => {
+  it('labels specialist cash, supply, payout, review and catalogue controls',async()=>{
+    for(const kind of ['collectible','payout'] as const){const p=defaultSpecialist(kind);p.run.trials=10;
+      await check(renderToStaticMarkup(<SpecialistEditor initial={p} onSave={async()=>{}} onClose={()=>{}}/>));
+      await check(renderToStaticMarkup(<SpecialistResults report={await specialistExport(p)}/>));}
+    await check(renderToStaticMarkup(<IntegrationWorkbench project={await createProject(hardPityBaseline)} onSave={async()=>{}}/>));
+  });
   it('exposes company calibration, quality and decision content and dynamic section labels', async () => {
     const project = { ...await createProject(hardPityBaseline), version: 5 as const, company: defaultEvidence() };
     await check(renderToStaticMarkup(<CompanyWorkbench project={project} onSave={async () => {}} onCalibrate={() => {}} />));

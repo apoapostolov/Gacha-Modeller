@@ -21,7 +21,7 @@ export function LearningWorkbench({ report }: { report: ComparisonReport }) {
   const before = event ? stateRows(event.before) : [];
   const after = event ? new Map(stateRows(event.after)) : new Map<string, string>();
   const introductions = {
-    rates: 'Each draw chooses a rarity, then an item.',
+    rates: 'Slot rules can fix a reward; other draws choose a rarity, then an item.',
     pity: 'Misses can build protection; a hit resets its counter.',
     featured: 'Featured rules decide when a chase-tier hit gives a featured reward.',
     exchange: 'Saved points can buy a reward between purchases.',

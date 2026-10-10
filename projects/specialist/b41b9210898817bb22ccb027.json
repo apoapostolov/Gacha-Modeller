@@ -1,0 +1,505 @@
+{
+  "format": "gacha-modeller-project",
+  "version": 6,
+  "id": "b9c15842-512c-407a-b4fa-5dcd2259fe6f",
+  "name": "Synthetic collectible market",
+  "baseline": {
+    "schemaVersion": 2,
+    "id": "collectible-card-pack-snapshot-0",
+    "hash": "6e714396042791e401eb66ea731e8d310c09904178e75ee40462b467f265fe39",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "id": "collectible-card-pack",
+      "name": "Synthetic collectible card pack",
+      "family": "original",
+      "blurb": "Five cards per pack, one rare card or better, with duplicate salvage and crafting.",
+      "source": "original",
+      "notes": [
+        "Original digital card design with synthetic probabilities and resource costs.",
+        "Collection goals include every card. Duplicate copies above two convert to shards; missing cards can be crafted."
+      ],
+      "pullCost": {
+        "amount": 20,
+        "currency": "earned card credits"
+      },
+      "rarities": [
+        {
+          "id": "mythic",
+          "name": "Mythic card",
+          "baseRate": 0.025,
+          "color": "#d4b483"
+        },
+        {
+          "id": "rare",
+          "name": "Rare card",
+          "baseRate": 0.15,
+          "color": "#90b7d5"
+        },
+        {
+          "id": "common",
+          "name": "Common card",
+          "baseRate": 0,
+          "color": "#aaa594"
+        }
+      ],
+      "pity": [],
+      "multiPull": {
+        "size": 5,
+        "guaranteeRarity": "rare"
+      },
+      "items": [
+        {
+          "id": "mythic-0",
+          "name": "mythic card 1",
+          "rarity": "mythic",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "mythic-1",
+          "name": "mythic card 2",
+          "rarity": "mythic",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "mythic-2",
+          "name": "mythic card 3",
+          "rarity": "mythic",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "mythic-3",
+          "name": "mythic card 4",
+          "rarity": "mythic",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "mythic-4",
+          "name": "mythic card 5",
+          "rarity": "mythic",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "mythic-5",
+          "name": "mythic card 6",
+          "rarity": "mythic",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "rare-0",
+          "name": "rare card 1",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-1",
+          "name": "rare card 2",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-2",
+          "name": "rare card 3",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-3",
+          "name": "rare card 4",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-4",
+          "name": "rare card 5",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-5",
+          "name": "rare card 6",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-0",
+          "name": "common card 1",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-1",
+          "name": "common card 2",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-2",
+          "name": "common card 3",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-3",
+          "name": "common card 4",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-4",
+          "name": "common card 5",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-5",
+          "name": "common card 6",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        }
+      ],
+      "duplicates": {
+        "cap": 2,
+        "protection": "none",
+        "overflow": "salvage",
+        "salvagePerCopy": 1,
+        "craftCost": 10
+      }
+    }
+  },
+  "candidate": {
+    "schemaVersion": 2,
+    "id": "collectible-card-pack-snapshot-1",
+    "hash": "38a6294124f77d44a0925b9fb1246f2371584b700c8cc9abd2882e7c7ab07844",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "id": "collectible-card-pack-candidate",
+      "name": "Synthetic collectible card pack candidate",
+      "family": "original",
+      "blurb": "Five cards per pack, one rare card or better, with duplicate salvage and crafting.",
+      "source": "original",
+      "notes": [
+        "Original digital card design with synthetic probabilities and resource costs.",
+        "Collection goals include every card. Duplicate copies above two convert to shards; missing cards can be crafted."
+      ],
+      "pullCost": {
+        "amount": 20,
+        "currency": "earned card credits"
+      },
+      "rarities": [
+        {
+          "id": "mythic",
+          "name": "Mythic card",
+          "baseRate": 0.025,
+          "color": "#d4b483"
+        },
+        {
+          "id": "rare",
+          "name": "Rare card",
+          "baseRate": 0.15,
+          "color": "#90b7d5"
+        },
+        {
+          "id": "common",
+          "name": "Common card",
+          "baseRate": 0,
+          "color": "#aaa594"
+        }
+      ],
+      "pity": [],
+      "multiPull": {
+        "size": 5,
+        "guaranteeRarity": "rare"
+      },
+      "items": [
+        {
+          "id": "mythic-0",
+          "name": "mythic card 1",
+          "rarity": "mythic",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "mythic-1",
+          "name": "mythic card 2",
+          "rarity": "mythic",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "mythic-2",
+          "name": "mythic card 3",
+          "rarity": "mythic",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "mythic-3",
+          "name": "mythic card 4",
+          "rarity": "mythic",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "mythic-4",
+          "name": "mythic card 5",
+          "rarity": "mythic",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "mythic-5",
+          "name": "mythic card 6",
+          "rarity": "mythic",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "rare-0",
+          "name": "rare card 1",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-1",
+          "name": "rare card 2",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-2",
+          "name": "rare card 3",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-3",
+          "name": "rare card 4",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-4",
+          "name": "rare card 5",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "rare-5",
+          "name": "rare card 6",
+          "rarity": "rare",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-0",
+          "name": "common card 1",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-1",
+          "name": "common card 2",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-2",
+          "name": "common card 3",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-3",
+          "name": "common card 4",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-4",
+          "name": "common card 5",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        },
+        {
+          "id": "common-5",
+          "name": "common card 6",
+          "rarity": "common",
+          "weight": 1,
+          "featured": false
+        }
+      ],
+      "duplicates": {
+        "cap": 2,
+        "protection": "none",
+        "overflow": "salvage",
+        "salvagePerCopy": 1,
+        "craftCost": 10
+      }
+    }
+  },
+  "history": [],
+  "settings": {
+    "goal": {
+      "type": "collection"
+    },
+    "trials": 1000,
+    "seed": 20260823,
+    "sparkPolicy": "if-needed",
+    "maxPulls": 500,
+    "actionMode": "pack",
+    "craftPolicy": "missing-targets"
+  },
+  "specialist": {
+    "format": "specialist-profile",
+    "version": 1,
+    "provenance": "synthetic",
+    "run": {
+      "seed": 42,
+      "trials": 1000,
+      "rounds": 100
+    },
+    "review": {
+      "jurisdiction": "Unspecified",
+      "owner": "",
+      "changeId": "synthetic-study-001",
+      "classification": "major",
+      "rationale": "Synthetic configuration comparison; external review pending.",
+      "records": [
+        {
+          "role": "operations",
+          "reviewer": "",
+          "status": "pending",
+          "reference": "",
+          "scopeHash": ""
+        },
+        {
+          "role": "legal",
+          "reviewer": "",
+          "status": "pending",
+          "reference": "",
+          "scopeHash": ""
+        },
+        {
+          "role": "test-house",
+          "reviewer": "",
+          "status": "pending",
+          "reference": "",
+          "scopeHash": ""
+        }
+      ]
+    },
+    "kind": "collectible",
+    "baseline": {
+      "currency": "USD",
+      "primaryFeeRate": 0.03,
+      "resaleFeeRate": 0.05,
+      "listingRate": 0.3,
+      "fillRate": 0.5,
+      "resaleCapacity": 1000,
+      "redemptionRate": 0.02,
+      "fixedCostMinor": 10000,
+      "reserveMinor": 30000,
+      "market": {
+        "low": 0.5,
+        "base": 1,
+        "high": 1.5
+      },
+      "items": [
+        {
+          "id": "common",
+          "name": "Common edition",
+          "cap": 10000,
+          "openingIssued": 1000,
+          "openingRedeemed": 0,
+          "requestedIssue": 1000,
+          "issuePriceMinor": 200,
+          "issueCostMinor": 10,
+          "marketValueMinor": 150,
+          "redemptionMinor": 20
+        },
+        {
+          "id": "rare",
+          "name": "Rare edition",
+          "cap": 500,
+          "openingIssued": 100,
+          "openingRedeemed": 0,
+          "requestedIssue": 200,
+          "issuePriceMinor": 1000,
+          "issueCostMinor": 20,
+          "marketValueMinor": 1200,
+          "redemptionMinor": 100
+        }
+      ]
+    },
+    "candidate": {
+      "currency": "USD",
+      "primaryFeeRate": 0.03,
+      "resaleFeeRate": 0.03,
+      "listingRate": 0.3,
+      "fillRate": 0.6,
+      "resaleCapacity": 1000,
+      "redemptionRate": 0.02,
+      "fixedCostMinor": 10000,
+      "reserveMinor": 30000,
+      "market": {
+        "low": 0.5,
+        "base": 1,
+        "high": 1.5
+      },
+      "items": [
+        {
+          "id": "common",
+          "name": "Common edition",
+          "cap": 10000,
+          "openingIssued": 1000,
+          "openingRedeemed": 0,
+          "requestedIssue": 1000,
+          "issuePriceMinor": 200,
+          "issueCostMinor": 10,
+          "marketValueMinor": 150,
+          "redemptionMinor": 20
+        },
+        {
+          "id": "rare",
+          "name": "Rare edition",
+          "cap": 500,
+          "openingIssued": 100,
+          "openingRedeemed": 0,
+          "requestedIssue": 200,
+          "issuePriceMinor": 1000,
+          "issueCostMinor": 20,
+          "marketValueMinor": 1200,
+          "redemptionMinor": 100
+        }
+      ]
+    }
+  }
+}

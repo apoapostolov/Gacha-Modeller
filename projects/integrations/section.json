@@ -1,0 +1,8 @@
+{
+  "format": "reward-model-section",
+  "version": 1,
+  "id": "integrations",
+  "title": "Catalogue integrations",
+  "description": "Local identity mappings for reviewed vendor and customer export subsets.",
+  "order": 50
+}

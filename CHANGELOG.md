@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+- Added independent collectible/payout financial contracts, worker execution, cancellation, static RTP/volatility, stopped-player horizons, shared treasury portfolios and supply/liability scenarios.
+- Added local PlayFab V2, Unity SDK and customer identity/name adapter subsets, explicit mappings, candidate revisions and hashed mapping reviews.
+- Added format-6 specialist/catalogue project modules, directory examples, scoped review declarations with stale-hash diagnostics and [M7 research, acceptance and hosted-enterprise checklist](docs/milestone-7.md).
+- Polished specialist report hierarchy, currency/minor-unit explanations, payout/profit distinctions, table accessibility and focused editor errors. Production approval and hosted operation remain external tracks.
+
 - Added runtime section-folder/project discovery, local file persistence with conflict checks/backups, browser migration and a shared development/production API.
 - Added a validated project-authoring CLI and reusable reward-project-authoring skill.
 - Expanded the library with dated Overwatch-like legendary cosmetic boxes, Fortnite-like revealed/historical llamas and original collectible card packs.

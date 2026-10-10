@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { type Banner } from './engine/index.ts';
 import { importProject, saveCandidate, semanticDiff, withSettings, type RunSettings as Settings } from './project/project.ts';
 import { useLibrary } from './project/useLibrary.ts';
@@ -11,13 +11,12 @@ import { RunSettings } from './ui/RunSettings.tsx';
 import { ComparisonResults } from './ui/ComparisonResults.tsx';
 import { ProjectLibrary } from './ui/ProjectLibrary.tsx';
 import { CompanyWorkbench } from './ui/CompanyWorkbench.tsx';
-import './workbench.css';
 
-function downloadJson(value: unknown, filename: string) {
-  const url = URL.createObjectURL(new Blob([JSON.stringify(value, null, 2)], { type: 'application/json' }));
-  const link = document.createElement('a'); link.href = url; link.download = filename; link.click();
-  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
+import { downloadJson } from './ui/download.ts';
+import './workbench.css';
+const SpecialistWorkbench = lazy(() => import('./ui/SpecialistWorkbench.tsx').then(module => ({ default: module.SpecialistWorkbench })));
+const IntegrationWorkbench = lazy(() => import('./ui/IntegrationWorkbench.tsx').then(module => ({ default: module.IntegrationWorkbench })));
+
 export function App() {
   const library = useLibrary();
   const project = library.project;
@@ -29,7 +28,7 @@ export function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [editorOpen, setEditorOpen] = useState(false);
   const [libraryOpen, setLibraryOpen] = useState(false);
-  const [workspaceModule, setWorkspaceModule] = useState<'model' | 'company'>('model');
+  const [workspaceModule, setWorkspaceModule] = useState<'model' | 'company' | 'specialist' | 'integration'>('model');
   const [operation, setOperation] = useState(false);
   const [busy, setBusy] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -43,8 +42,8 @@ export function App() {
     runner.current?.cancel(); setBusy(false); setProgress(0); setError(null); setNotice(null);
     setSettings(structuredClone(project.settings)); setDraft(structuredClone(project.candidate.model));
     setSettingsOpen(false); setEditorOpen(false);
-    setWorkspaceModule(project.company ? 'company' : 'model');
-    run(project, project.settings);
+    setWorkspaceModule(project.specialist ? 'specialist' : project.company ? 'company' : project.integration ? 'integration' : 'model');
+    if (!project.specialist && !project.integration) run(project, project.settings);
     // Run only on project selection; a saved candidate waits for an explicit comparison.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [project?.id, library.generation]);
@@ -94,26 +93,26 @@ export function App() {
   const packAvailable = !!(project?.baseline.model.multiPull && project?.candidate.model.multiPull);
   return <div className="shell">
     <a href="#workspace" className="skip-link">Skip to workspace</a>
-    <header className="top"><div><h1>Gacha Modeller</h1><p className="lede">Probability models, economy scenarios and comparative analysis.</p></div><div className="header-actions"><button className="secondary" disabled={!project} onClick={() => setSettingsOpen(true)}>Run settings</button>{busy ? <button className="primary" onClick={cancel}>Cancel run</button> : <button className="primary" disabled={!project || operation} onClick={() => run()}>Run comparison</button>}</div></header>
-    <div className="project-toolbar"><div><span className="eyebrow">Project file</span><h2>{project?.name ?? (library.ready ? 'No project selected' : 'Opening project files…')}</h2></div><div className="project-actions"><span className="save-status" data-saved={['Saved to project file','Project files loaded'].includes(library.saveState)} role="status">{library.saveState}</span><button className="text-button" disabled={operation} onClick={() => upload.current?.click()}>Import project</button><button className="text-button" disabled={!project || operation} onClick={() => project && downloadJson(project, `${project.baseline.model.id}-project.json`)}>Export project</button><button className="text-button" disabled={!visibleReport} onClick={() => visibleReport && downloadJson(visibleReport, `${visibleReport.project.baseline.model.id}-${visibleReport.settings.seed}-comparison.json`)}>Export comparison</button></div><input className="sr-only" ref={upload} tabIndex={-1} aria-label="Import project JSON" type="file" accept=".json,application/json" onChange={(e) => void importFile(e.target.files?.[0])} /></div>
+    <header className="top"><div><h1>Gacha Modeller</h1><p className="lede">Probability models, economy scenarios and comparative analysis.</p></div>{(workspaceModule === 'model' || workspaceModule === 'company' || busy) && <div className="header-actions"><button className="secondary" disabled={!project} onClick={() => setSettingsOpen(true)}>Run settings</button>{busy ? <button className="primary" onClick={cancel}>Cancel run</button> : <button className="primary" disabled={!project || operation} onClick={() => run()}>Run comparison</button>}</div>}</header>
+    <div className="project-toolbar"><div><span className="eyebrow">Project file</span><h2>{project?.name ?? (library.ready ? 'No project selected' : 'Opening project files…')}</h2></div><div className="project-actions"><span className="save-status" data-saved={['Saved to project file','Project files loaded'].includes(library.saveState)} role="status">{library.saveState}</span><button className="text-button" disabled={operation} onClick={() => upload.current?.click()}>Import project</button><button className="text-button" disabled={!project || operation} onClick={() => project && downloadJson(project, `${project.baseline.model.id}-project.json`)}>Export project</button><button className="text-button" disabled={!visibleReport} onClick={() => visibleReport && downloadJson(visibleReport, `${visibleReport.project.baseline.model.id}-${visibleReport.settings.seed}-comparison.json`)}>Export model comparison</button></div><input className="sr-only" ref={upload} tabIndex={-1} aria-label="Import project JSON" type="file" accept=".json,application/json" onChange={(e) => void importFile(e.target.files?.[0])} /></div>
     {library.storageError && <p className="run-error" role="alert">{library.storageError} <button className="text-button" onClick={library.dismissStorageError}>Dismiss</button></p>}
     {error && !settingsOpen && !editorOpen && <p className="run-error" role="alert">{error}</p>}
-    {notice && <p className="status-line" role="status">{notice}</p>}
-    {changed && <p className="status-line">Model or settings changed. Results below show the last completed comparison.</p>}
+    {notice && (workspaceModule === 'model' || workspaceModule === 'company') && <p className="status-line" role="status">{notice}</p>}
+    {changed && (workspaceModule === 'model' || workspaceModule === 'company') && <p className="status-line">Model or settings changed. Results below show the last completed comparison.</p>}
     {busy && <div className="job-progress" role="status"><progress max={1} value={progress} aria-label="Comparison progress" /><span>{Math.round(progress * 100)}% · {settings?.economy ? 'comparing mechanics and economy scenarios' : settings?.analysis ? 'simulating models and analysis' : 'comparing both models'}</span></div>}
-    <button className="secondary library-toggle" aria-expanded={libraryOpen} aria-controls="model-library" onClick={() => setLibraryOpen(!libraryOpen)}>Models & projects</button>
+    <button className="secondary library-toggle" aria-expanded={libraryOpen} aria-controls="model-library" onClick={() => setLibraryOpen(!libraryOpen)}>Project library</button>
     <main className="workspace" id="workspace" tabIndex={-1}>
       <aside id="model-library" className={`panel catalog ${libraryOpen ? 'is-open' : ''}`} aria-label="Model library">
         <ProjectLibrary catalog={library} selected={project?.id} disabled={operation} onSelect={(id) => { library.select(id); setLibraryOpen(false); }} onRefresh={() => void libraryOperation(library.refresh)} legacyCount={library.legacyCount} onMigrate={() => void libraryOperation(library.migrate)} />
       </aside>
       <div className="workspace-content">
-        {project && settings && <><div className="workspace-modules" role="group" aria-label="Workspace module"><button className="secondary" aria-pressed={workspaceModule === 'model'} onClick={() => setWorkspaceModule('model')}>Model comparison</button><button className="secondary" aria-pressed={workspaceModule === 'company'} onClick={() => setWorkspaceModule('company')}>Company evidence</button></div>
-          {workspaceModule === 'company' ? <><p className="run-note">Evidence for {project.baseline.model.name} and {project.candidate.model.name}. The decision export includes both immutable model hashes.</p><CompanyWorkbench key={`${project.id}-${library.generation}`} project={project} onSave={library.replace} onCalibrate={(next) => { setSettings(next); void library.replace(withSettings(project, next)).catch(() => {}); setNotice('Training estimates saved to the selected policy. Run comparison to include them.'); }} /></> : <><div className="model-pair"><ModelDetails model={project.baseline.model} role="Baseline" hash={project.baseline.hash} seed={project.settings.seed} targetId={project.settings.targetId} actionMode={project.settings.actionMode} /><ModelDetails model={project.candidate.model} role="Candidate" hash={project.candidate.hash} seed={project.settings.seed} targetId={project.settings.targetId} actionMode={project.settings.actionMode} onEdit={() => setEditorOpen(true)} /></div>
+        {project && settings && <><div className="workspace-modules" role="group" aria-label="Workspace module"><button className="secondary" aria-pressed={workspaceModule === 'model'} onClick={() => setWorkspaceModule('model')}>Model comparison</button><button className="secondary" aria-pressed={workspaceModule === 'company'} onClick={() => setWorkspaceModule('company')}>Company evidence</button><button className="secondary" aria-pressed={workspaceModule === 'specialist'} onClick={() => setWorkspaceModule('specialist')}>Specialist scenarios</button><button className="secondary" aria-pressed={workspaceModule === 'integration'} onClick={() => setWorkspaceModule('integration')}>Catalogue integration</button></div>
+          <Suspense fallback={<p role="status">Opening workspace module…</p>}>{workspaceModule === 'integration' ? <IntegrationWorkbench key={`${project.id}-${library.generation}`} project={project} onSave={library.replace}/> : workspaceModule === 'specialist' ? <SpecialistWorkbench key={`${project.id}-${library.generation}`} project={project} onSave={library.replace}/> : workspaceModule === 'company' ? <><p className="run-note">Evidence for {project.baseline.model.name} and {project.candidate.model.name}. The decision export includes both immutable model hashes.</p><CompanyWorkbench key={`${project.id}-${library.generation}`} project={project} onSave={library.replace} onCalibrate={(next) => { setSettings(next); void library.replace(withSettings(project, next)).catch(() => {}); setNotice('Training estimates saved to the selected policy. Run comparison to include them.'); }} /></> : <><div className="model-pair"><ModelDetails model={project.baseline.model} role="Baseline" hash={project.baseline.hash} seed={project.settings.seed} targetId={project.settings.targetId} actionMode={project.settings.actionMode} /><ModelDetails model={project.candidate.model} role="Candidate" hash={project.candidate.hash} seed={project.settings.seed} targetId={project.settings.targetId} actionMode={project.settings.actionMode} onEdit={() => setEditorOpen(true)} /></div>
           {draftChanged && <p className="status-line">You have unsaved candidate edits. <button className="text-button" onClick={() => setEditorOpen(true)}>Continue editing</button></p>}
           {project.history.length > 0 && <details className="panel revision-history"><summary>Candidate history ({project.history.length} previous)</summary>{project.history.map((revision, i) => <div className="history-row" key={revision.id}><span>Revision {i + 1} · {new Date(revision.createdAt).toLocaleString()} · {revision.hash.slice(0, 8)}</span><button className="text-button" onClick={() => { setDraft(structuredClone(revision.model)); setEditorOpen(true); }}>Load into editor</button></div>)}</details>}
           {visibleReport ? <ComparisonResults key={visibleReport.completedAt} report={visibleReport} /> : <section className="panel empty-results"><h2>Model comparison</h2><p>{busy ? 'Model simulation is in progress. The workspace remains available during execution.' : 'Results are available after a comparison of the candidate and locked baseline.'}</p></section>}
           <details className="panel live-diff"><summary>Current model changes ({semanticDiff(project.baseline.model, project.candidate.model).length})</summary><ul>{semanticDiff(project.baseline.model, project.candidate.model).map((change, i) => <li key={i}><code>{change.path}</code>: {JSON.stringify(change.before)} → {JSON.stringify(change.after)}</li>)}</ul></details>
-        </>}
+        </>}</Suspense>
         </>}
       </div>
     </main>

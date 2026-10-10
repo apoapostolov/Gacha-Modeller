@@ -1,0 +1,8 @@
+{
+  "format": "reward-model-section",
+  "version": 1,
+  "id": "specialist",
+  "title": "Specialist studies",
+  "description": "Synthetic collectible supply and static cash-payout scenarios with scoped review records.",
+  "order": 50
+}

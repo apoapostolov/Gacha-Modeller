@@ -112,11 +112,15 @@ See the [M6 contract](docs/milestone-6.md) and [exported evidence reference](doc
 Start each track after a customer need and acceptance contract exist.
 
 - [ ] M7.1 Reviewed PlayFab/Unity/customer import/export mappings.
+- [x] M7.1a Synthetic local identity/name adapter subsets, explicit candidate mappings, hashed review export and vendor completeness checks. Customer review and live/state integrations remain under M7.1.
 - [ ] M7.2 Charter revision for optional hosted operation; SSO/RBAC, immutable reviews and tenant isolation.
 - [ ] M7.3 Private/cloud compute after measured local limits.
-- [ ] M7.4 Collectible supply, fees, liquidity, market-value uncertainty and redemption obligations.
-- [ ] M7.5 Licensed-gambling stakes/payouts/RTP/volatility and treasury scenarios.
+- [x] M7.4 Collectible supply, fees, assumed liquidity, low/base/high transaction values and contractual redemption obligations under the synthetic period-accounting contract.
+- [x] M7.5 Static stakes/payouts/RTP/volatility and bounded treasury portfolios under the synthetic research contract. Licensed operational acceptance remains under M7.6.
 - [ ] M7.6 Profile-specific operational/legal/test-house review workflow; research RNG remains separate from production randomness.
+- [x] M7.6a Local reviewer roles/references, change classification, exact scope hashes and stale-review diagnostics; every export remains research-only.
+
+See [M7 research, contracts, checklist and hosted track](docs/milestone-7.md). Synthetic local acceptance does not complete M7.1 customer review, M7.2/M7.3 hosting or M7.6 external approval.
 
 ## Work record
 
@@ -201,3 +205,15 @@ Delivered the local M6 acceptance scope: runtime section/project discovery, conf
 Verification: 182 tests across 16 suites; TypeScript and production build; exact Node replay of the browser-exported company reference; production service discovery; real browser writes, CSV remapping, regeneration, invalid-JSON recovery and migration of 11 prior browser projects. Browser checks covered the cosmetic box and revealed llama models, keyboard focus/Help dismissal, fixed drawer footer and no page overflow at 390 × 844. Final fresh loading had no new console warnings/errors. Screenshots: [company report](docs/assets/company-workbench.png) and [phone company settings](docs/assets/company-mobile.png). Browser coverage is Codex Chromium.
 
 The synthetic reference has 100 independent groups and 300 aggregate rows. Its contribution interval is USD -5.07 to USD 8.19 per assigned group, so the decision remains inconclusive. Synthetic evidence does not complete company ownership, lawful access, production protection-state reconciliation or repeat commercial validation. See the [M6 contract](docs/milestone-6.md).
+
+### 10 October 2026: specialist financial profiles and catalogue mappings
+
+Delivered the local M7 synthetic contract: independent catalogue/specialist modules, format-6 persistence, editable candidate financial settings, immutable acquisition-name revisions, worker execution and scoped review records. The [M7 research and hosted checklist](docs/milestone-7.md) identifies source contracts and external gates. New workbenches load as separate UI bundles; sections and examples continue to load from directory JSON.
+
+Verification: 197 tests across 18 suites, including cash identities, shared resale capacity, lifetime caps, stopped-player denominators, multi-player treasury settlement, exact payout metrics, stale review hashes, strict imports and semantic axe checks. TypeScript and production build pass. Browser checks cover collectible/payout saves and backups, multi-player portfolios, focused invalid-JSON recovery, mapped-name candidate revision with unchanged baseline, Unity preview and incomplete PlayFab-page rejection. Browser exports replay exactly in Node; the M6 company reference remains exact. The local maximum-work benchmark (two models, each with 1,000,000 possible plays) took 60–64 ms in three Node runs on this Windows host; this is not a hosted or browser end-to-end benchmark.
+
+The synthetic payout pair has 90% theoretical RTP for both models. Candidate minus baseline contribution per one-player treasury portfolio is USD 0.25, with a paired 95% interval of USD -0.02 to USD 0.53. This run does not establish a clear contribution difference. Collectible candidate resale activity increases under its assumed fill rate while base-case operator cash decreases from USD 3,675.50 to USD 3,661.64. Reports keep those tradeoffs visible.
+
+Interface rounds separate distribution, session outcomes and treasury detail; keep units and purpose visible; move technical detail into keyboard Help; use neutral candidate values and descriptive labels. At 390 × 844 there is no page overflow, tables scroll by keyboard, Help fits within the viewport, the fixed drawer footer remains visible, focus wraps and Escape restores the opener. [Desktop payout comparison](docs/assets/specialist-workbench.png), [phone profile settings](docs/assets/specialist-mobile.png), [payout replay](docs/specialist-payout-reference.json), [collectible replay](docs/specialist-collectible-reference.json) and [catalogue mapping export](docs/catalogue-reference.json) record the checks. Browser coverage is Codex Chromium; other engines and physical devices remain unverified. The final fresh load produced no new browser console warnings/errors.
+
+M7.1 customer review, M7.2 hosted identity/tenant isolation, M7.3 cloud compute and M7.6 jurisdiction/operational/test-house acceptance remain open. Local review declarations cannot authorize release; research exports retain that status.

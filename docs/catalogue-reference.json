@@ -1,0 +1,40 @@
+{
+  "format": "reward-catalogue-review",
+  "version": 1,
+  "provider": "playfab-v2",
+  "sourceHash": "335ba141090354c47ad46cdcab6312c5d4f9d9c4e671f02dc4e512c6c2768fe1",
+  "candidateHash": "880064e556897410e692d5d6f8b6b6af71a158b8c3df199f67ac08457adbb21b",
+  "binding": {
+    "format": "catalog-binding",
+    "version": 1,
+    "provider": "playfab-v2",
+    "locale": "NEUTRAL",
+    "sourceJson": "{\n  \"Items\": [\n    {\n      \"Id\": \"synthetic-red\",\n      \"Type\": \"catalogItem\",\n      \"Title\": {\n        \"NEUTRAL\": \"Crimson card\"\n      }\n    },\n    {\n      \"Id\": \"synthetic-blue\",\n      \"Type\": \"catalogItem\",\n      \"Title\": {\n        \"NEUTRAL\": \"Azure card\"\n      }\n    }\n  ]\n}",
+    "mappings": [
+      {
+        "sourceId": "synthetic-red",
+        "modelItemId": "mythic-0"
+      },
+      {
+        "sourceId": "synthetic-blue",
+        "modelItemId": "mythic-1"
+      }
+    ]
+  },
+  "normalized": {
+    "items": [
+      {
+        "id": "synthetic-red",
+        "name": "Crimson card"
+      },
+      {
+        "id": "synthetic-blue",
+        "name": "Azure card"
+      }
+    ],
+    "notes": [
+      "Only identities and names are mapped. Prices, ownership, bundles, receipts, odds, pity and cash values require separate contracts."
+    ]
+  },
+  "scope": "Identity and display-name mapping only; no vendor deployment payload."
+}

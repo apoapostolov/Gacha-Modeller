@@ -1,0 +1,359 @@
+{
+  "format": "reward-specialist-report",
+  "version": 1,
+  "engineVersion": "specialist-7.1",
+  "randomPolicy": "mulberry32-session-streams-v1",
+  "scopeHash": "d7c5c7514362494f2cf7bd1682988b9c6fd97b1648d766a237fb5011cbca07a6",
+  "baselineHash": "c62014be8f20d03cc3525f81bc695ecfb20e9efcba6fc6ab49c8b211695e01bc",
+  "candidateHash": "bbdcb11eb6fc285a13bb2a5b098c140288cd5bae39fd0cfe2b96623a9d1cd10a",
+  "profile": {
+    "format": "specialist-profile",
+    "version": 1,
+    "provenance": "synthetic",
+    "run": {
+      "seed": 42,
+      "trials": 1000,
+      "rounds": 100
+    },
+    "review": {
+      "jurisdiction": "Unspecified",
+      "owner": "",
+      "changeId": "synthetic-study-001",
+      "classification": "major",
+      "rationale": "Synthetic configuration comparison; external review pending.",
+      "records": [
+        {
+          "role": "operations",
+          "reviewer": "",
+          "status": "pending",
+          "reference": "",
+          "scopeHash": ""
+        },
+        {
+          "role": "legal",
+          "reviewer": "",
+          "status": "pending",
+          "reference": "",
+          "scopeHash": ""
+        },
+        {
+          "role": "test-house",
+          "reviewer": "",
+          "status": "pending",
+          "reference": "",
+          "scopeHash": ""
+        }
+      ]
+    },
+    "kind": "collectible",
+    "baseline": {
+      "currency": "USD",
+      "primaryFeeRate": 0.03,
+      "resaleFeeRate": 0.05,
+      "listingRate": 0.3,
+      "fillRate": 0.5,
+      "resaleCapacity": 1000,
+      "redemptionRate": 0.02,
+      "fixedCostMinor": 10000,
+      "reserveMinor": 30000,
+      "market": {
+        "low": 0.5,
+        "base": 1,
+        "high": 1.5
+      },
+      "items": [
+        {
+          "id": "common",
+          "name": "Common edition",
+          "cap": 10000,
+          "openingIssued": 1000,
+          "openingRedeemed": 0,
+          "requestedIssue": 1000,
+          "issuePriceMinor": 200,
+          "issueCostMinor": 10,
+          "marketValueMinor": 150,
+          "redemptionMinor": 20
+        },
+        {
+          "id": "rare",
+          "name": "Rare edition",
+          "cap": 500,
+          "openingIssued": 100,
+          "openingRedeemed": 0,
+          "requestedIssue": 200,
+          "issuePriceMinor": 1000,
+          "issueCostMinor": 20,
+          "marketValueMinor": 1200,
+          "redemptionMinor": 100
+        }
+      ]
+    },
+    "candidate": {
+      "currency": "USD",
+      "primaryFeeRate": 0.03,
+      "resaleFeeRate": 0.03,
+      "listingRate": 0.3,
+      "fillRate": 0.6,
+      "resaleCapacity": 1000,
+      "redemptionRate": 0.02,
+      "fixedCostMinor": 10000,
+      "reserveMinor": 30000,
+      "market": {
+        "low": 0.5,
+        "base": 1,
+        "high": 1.5
+      },
+      "items": [
+        {
+          "id": "common",
+          "name": "Common edition",
+          "cap": 10000,
+          "openingIssued": 1000,
+          "openingRedeemed": 0,
+          "requestedIssue": 1000,
+          "issuePriceMinor": 200,
+          "issueCostMinor": 10,
+          "marketValueMinor": 150,
+          "redemptionMinor": 20
+        },
+        {
+          "id": "rare",
+          "name": "Rare edition",
+          "cap": 500,
+          "openingIssued": 100,
+          "openingRedeemed": 0,
+          "requestedIssue": 200,
+          "issuePriceMinor": 1000,
+          "issueCostMinor": 20,
+          "marketValueMinor": 1200,
+          "redemptionMinor": 100
+        }
+      ]
+    }
+  },
+  "report": {
+    "kind": "collectible",
+    "baseline": {
+      "ledger": [
+        {
+          "id": "common",
+          "name": "Common edition",
+          "cap": 10000,
+          "openingIssued": 1000,
+          "openingRedeemed": 0,
+          "requestedIssue": 1000,
+          "issuePriceMinor": 200,
+          "issueCostMinor": 10,
+          "marketValueMinor": 150,
+          "redemptionMinor": 20,
+          "issued": 1000,
+          "denied": 0,
+          "available": 2000,
+          "requestedResales": 300,
+          "redeemed": 40,
+          "resales": 300,
+          "outstanding": 1960,
+          "primaryGrossMinor": 200000,
+          "issueCostTotalMinor": 10000,
+          "redemptionPaidMinor": 800,
+          "liabilityMinor": 39200,
+          "conservationError": 0
+        },
+        {
+          "id": "rare",
+          "name": "Rare edition",
+          "cap": 500,
+          "openingIssued": 100,
+          "openingRedeemed": 0,
+          "requestedIssue": 200,
+          "issuePriceMinor": 1000,
+          "issueCostMinor": 20,
+          "marketValueMinor": 1200,
+          "redemptionMinor": 100,
+          "issued": 200,
+          "denied": 0,
+          "available": 300,
+          "requestedResales": 45,
+          "redeemed": 6,
+          "resales": 45,
+          "outstanding": 294,
+          "primaryGrossMinor": 200000,
+          "issueCostTotalMinor": 4000,
+          "redemptionPaidMinor": 600,
+          "liabilityMinor": 29400,
+          "conservationError": 0
+        }
+      ],
+      "primaryGrossMinor": 400000,
+      "primaryFeesMinor": 12000,
+      "redemptionPaidMinor": 1400,
+      "liabilityMinor": 68600,
+      "issued": 1200,
+      "denied": 0,
+      "resales": 345,
+      "unfilledResales": 0,
+      "outstanding": 2254,
+      "conservationErrors": 0,
+      "scenarios": [
+        {
+          "name": "low",
+          "multiplier": 0.5,
+          "secondaryVolumeMinor": 49500,
+          "resaleFeesMinor": 2475,
+          "sellerNetMinor": 47025,
+          "operatorCashMinor": 365075,
+          "cashAfterLiabilityMinor": 296475,
+          "reserveGapMinor": 0
+        },
+        {
+          "name": "base",
+          "multiplier": 1,
+          "secondaryVolumeMinor": 99000,
+          "resaleFeesMinor": 4950,
+          "sellerNetMinor": 94050,
+          "operatorCashMinor": 367550,
+          "cashAfterLiabilityMinor": 298950,
+          "reserveGapMinor": 0
+        },
+        {
+          "name": "high",
+          "multiplier": 1.5,
+          "secondaryVolumeMinor": 148500,
+          "resaleFeesMinor": 7425,
+          "sellerNetMinor": 141075,
+          "operatorCashMinor": 370025,
+          "cashAfterLiabilityMinor": 301425,
+          "reserveGapMinor": 0
+        }
+      ]
+    },
+    "candidate": {
+      "ledger": [
+        {
+          "id": "common",
+          "name": "Common edition",
+          "cap": 10000,
+          "openingIssued": 1000,
+          "openingRedeemed": 0,
+          "requestedIssue": 1000,
+          "issuePriceMinor": 200,
+          "issueCostMinor": 10,
+          "marketValueMinor": 150,
+          "redemptionMinor": 20,
+          "issued": 1000,
+          "denied": 0,
+          "available": 2000,
+          "requestedResales": 360,
+          "redeemed": 40,
+          "resales": 360,
+          "outstanding": 1960,
+          "primaryGrossMinor": 200000,
+          "issueCostTotalMinor": 10000,
+          "redemptionPaidMinor": 800,
+          "liabilityMinor": 39200,
+          "conservationError": 0
+        },
+        {
+          "id": "rare",
+          "name": "Rare edition",
+          "cap": 500,
+          "openingIssued": 100,
+          "openingRedeemed": 0,
+          "requestedIssue": 200,
+          "issuePriceMinor": 1000,
+          "issueCostMinor": 20,
+          "marketValueMinor": 1200,
+          "redemptionMinor": 100,
+          "issued": 200,
+          "denied": 0,
+          "available": 300,
+          "requestedResales": 54,
+          "redeemed": 6,
+          "resales": 54,
+          "outstanding": 294,
+          "primaryGrossMinor": 200000,
+          "issueCostTotalMinor": 4000,
+          "redemptionPaidMinor": 600,
+          "liabilityMinor": 29400,
+          "conservationError": 0
+        }
+      ],
+      "primaryGrossMinor": 400000,
+      "primaryFeesMinor": 12000,
+      "redemptionPaidMinor": 1400,
+      "liabilityMinor": 68600,
+      "issued": 1200,
+      "denied": 0,
+      "resales": 414,
+      "unfilledResales": 0,
+      "outstanding": 2254,
+      "conservationErrors": 0,
+      "scenarios": [
+        {
+          "name": "low",
+          "multiplier": 0.5,
+          "secondaryVolumeMinor": 59400,
+          "resaleFeesMinor": 1782,
+          "sellerNetMinor": 57618,
+          "operatorCashMinor": 364382,
+          "cashAfterLiabilityMinor": 295782,
+          "reserveGapMinor": 0
+        },
+        {
+          "name": "base",
+          "multiplier": 1,
+          "secondaryVolumeMinor": 118800,
+          "resaleFeesMinor": 3564,
+          "sellerNetMinor": 115236,
+          "operatorCashMinor": 366164,
+          "cashAfterLiabilityMinor": 297564,
+          "reserveGapMinor": 0
+        },
+        {
+          "name": "high",
+          "multiplier": 1.5,
+          "secondaryVolumeMinor": 178200,
+          "resaleFeesMinor": 5346,
+          "sellerNetMinor": 172854,
+          "operatorCashMinor": 367946,
+          "cashAfterLiabilityMinor": 299346,
+          "reserveGapMinor": 0
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "role": "operations",
+      "reviewer": "",
+      "status": "pending",
+      "reference": "",
+      "scopeHash": "",
+      "current": false
+    },
+    {
+      "role": "legal",
+      "reviewer": "",
+      "status": "pending",
+      "reference": "",
+      "scopeHash": "",
+      "current": false
+    },
+    {
+      "role": "test-house",
+      "reviewer": "",
+      "status": "pending",
+      "reference": "",
+      "scopeHash": "",
+      "current": false
+    }
+  ],
+  "releaseStatus": "research-only",
+  "reviewComplete": false,
+  "limitations": [
+    "Synthetic assumptions; no production approval or authenticated signatures.",
+    "Local review records are editable; hashes detect changed scope, not reviewer authority.",
+    "Independent static payout sessions settle sequentially; pending withdrawals, correlations, taxes and jackpots are excluded. Research RNG is not operational randomness.",
+    "Collectible price/liquidity scenarios are assumptions, not forecasts or cash-equivalent item values."
+  ]
+}

@@ -5,9 +5,11 @@ import { validateAnalysis, type AnalysisSettings } from '../engine/analysis.ts';
 import { validateEconomy } from '../economy/config.ts';
 import type { EconomyConfig } from '../economy/types.ts';
 import { assertEvidence, type CompanyEvidence } from '../company/types.ts';
+import { assertSpecialist, type SpecialistProfile } from '../specialist/types.ts';
+import { assertBinding, type CatalogBinding } from '../integrations/catalog.ts';
 export interface RunSettings extends TrialOptions { economy?: EconomyConfig; analysis?: AnalysisSettings; goal: Goal; trials: number; seed: number; sparkPolicy: SparkPolicy; maxPulls: number; actionMode: 'single' | 'pack' }
 export interface ModelSnapshot { schemaVersion: 1 | 2; id: string; hash: string; createdAt: string; model: Banner }
-export interface Project { format: 'gacha-modeller-project'; version: 1 | 2 | 3 | 4 | 5; id: string; name: string; baseline: ModelSnapshot; candidate: ModelSnapshot; history: ModelSnapshot[]; settings: RunSettings; company?: CompanyEvidence }
+export interface Project { format: 'gacha-modeller-project'; version: 1 | 2 | 3 | 4 | 5 | 6; id: string; name: string; baseline: ModelSnapshot; candidate: ModelSnapshot; history: ModelSnapshot[]; settings: RunSettings; company?: CompanyEvidence; specialist?: SpecialistProfile; integration?: CatalogBinding }
 export interface Change { path: string; before: unknown; after: unknown }
 export interface StoragePort { getItem(key: string): string | null; setItem(key: string, value: string): void }
 const PRIMARY = 'gacha-modeller.library.v1';
@@ -145,13 +147,17 @@ export async function importProject(value: unknown): Promise<Project> {
     return importProject(value.model);
   }
   if (!record(value) || value.format !== 'gacha-modeller-project') { assertSupportedModel(value); return createProject(value); }
-  keys(value, ['format','version','id','name','baseline','candidate','history','settings','company'], 'project');
-  if (value.version !== 1 && value.version !== 2 && value.version !== 3 && value.version !== 4 && value.version !== 5) throw new Error('project.version: Unsupported project version.');
+  keys(value, ['format','version','id','name','baseline','candidate','history','settings','company','specialist','integration'], 'project');
+  if (value.version !== 1 && value.version !== 2 && value.version !== 3 && value.version !== 4 && value.version !== 5 && value.version !== 6) throw new Error('project.version: Unsupported project version.');
+  if (value.specialist !== undefined) assertSpecialist(value.specialist);
+  if (value.integration !== undefined) assertBinding(value.integration);
+  if (value.version < 6 && (value.specialist !== undefined || value.integration !== undefined)) throw new Error('project.version: Specialist profiles and catalogue bindings need version 6.');
   if (value.company !== undefined) { assertEvidence(value.company); if (value.version < 5) throw new Error('project.version: Company evidence needs version 5.'); }
   nonempty(value.id, 'project.id'); nonempty(value.name, 'project.name');
   if (!Array.isArray(value.history)) throw new Error('project.history: Provide an array of snapshots.');
   const baseline = await readSnapshot(value.baseline, 'project.baseline');
   const candidate = await readSnapshot(value.candidate, 'project.candidate');
+  if (value.integration && value.integration.mappings.some(row => !candidate.model.items.some(item => item.id === row.modelItemId))) throw new Error('project.integration: A mapped candidate item is unavailable.');
   const history: ModelSnapshot[] = [];
   for (let i = 0; i < value.history.length; i++) history.push(await readSnapshot(value.history[i], `project.history[${i}]`));
   validateSettings(value.settings);

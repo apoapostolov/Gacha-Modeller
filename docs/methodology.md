@@ -29,6 +29,28 @@ Soft pity is a linear ramp. At pull `n` of a cycle, `rate = min(1, base + (n - s
 
 Spark policy `if-needed` buys the featured from the shop when the bar is full and you still need one. Policy `never` leaves the shop closed. Spark is an exchange, not an extra pull, so the pull count stays at the bar cost.
 
+Exchanges grant an item and subtract bar progress. They preserve rarity counters, capture protection and the featured-since counter by default. Set `spark.reset.rarityCounters`, `spark.reset.featuredArmed` or `spark.reset.sinceFeatured` to declare a model's shop-reset effects. Forced featured draws still apply draw resets. The shop chooses the first positive-weight unowned chase item, then the first positive-weight chase item when you own them all. Player-selected exchange is planned separately.
+
+## Validation and rarity priority
+
+Simulation entry points validate models and run controls before executing. Diagnostics identify the field: invalid numeric bounds, duplicate IDs, missing references, empty selectable pools and unsupported flags. Ranked base rates cannot sum above one. The final rarity's declared base rate is descriptive; selection uses the remaining interval.
+
+The engine retains the existing priority policy. It checks hard guarantees in rarity order and consumes the probability interval from highest to lowest. Soft rates can overlap, so lower tiers may receive less than their nominal effective rate. Validation reports a conservative warning when that can happen; it does not silently normalize rates or claim a complete reachable-state proof.
+
+## Packs
+
+`actionMode: 'pack'` executes exactly `multiPull.size` repeated slots with replacement. A declared `guaranteeRarity` means at least one item of that tier or a higher tier. If no earlier slot qualifies, the final slot keeps any qualifying natural result and otherwise uses the minimum tier before item selection and state updates. The result marks this as `packGuaranteed`, separately from pity. Normal featured selection applies within the guaranteed tier.
+
+You purchase every slot even when a goal arrives early. `pulls` and `cost` reflect the whole purchase; `attainmentPulls` records the first slot meeting the goal. Shops settle between complete actions. A horizon or fixed budget that cannot fit the next full pack leaves that remainder unspent. This first pack implementation has no batch discount, slot correlations, quantities or no-replacement pools.
+
+## Completion evidence
+
+Every trial returns `goalAchieved`, `attainmentPulls` and a termination: `goal`, `horizon`, `budget` or `impossible`. Ready shop exchanges can settle at the final purchased pull. Definite impossibility checks include missing reachable chase rewards, too many unique targets and zero-weight collection items. Other counter interactions may still be unreachable; these finish at the horizon until broader reachability analysis is implemented.
+
+The lab starts with a 1,000-pull horizon; the engine defaults to 100,000 when no horizon is supplied. Purchased-pull and currency summaries include all trials. They measure resource consumption, not company revenue or profit. Completed-goal summaries are conditional and return `null` when nobody finishes.
+
+Population acquisition percentiles use nearest ranks: for percentile `q`, select the `ceil(q * trials)`th attained goal. If fewer than that many trials finish, the percentile is `null` and the UI shows "not reached". Attainment can fall inside a purchased pack. These Monte Carlo estimates have sampling error; confidence intervals and exact solvers remain on the [development checklist](../DEVELOPMENT.md).
+
 ## Studied models
 
 Studied presets are *like-models*. They follow a published or community-consensus shape (base rate, pity cap, capturing, spark) so you can compare systems. They are not dumps of a live banner.
@@ -69,4 +91,14 @@ Add a preset when you have a cited shape. Keep invented mechanics in the origina
 
 ## Reproducibility
 
-`mulberry32(seed)` is the only RNG. `runMonteCarlo` and `simulatePoolShare` take an explicit seed. The UI uses seed `20260823`. Engine tests pin pity, capturing, spark, and the mean windows for the studied presets.
+Mulberry32 remains the generator. Legacy `runMonteCarlo`, guild and two-pickup lessons retain a sequential stream. M2 comparison jobs use `event-streams-v1`: deterministic 32-bit seed derivation from run seed, absolute trial index and event name, followed by Mulberry32. Event names include purchased pull position and rarity, featured or item selection. Reordering batches or changing metadata does not alter trial results. Changing mechanics can alter paths; common streams do not guarantee lower variance for every metric. This is a research generator, not a production gambling RNG.
+
+The UI starts with seed `20260823`. **Run settings** opens a scrollable drawer; **Run comparison** applies its controls to both snapshots. Candidate saves create revisions and wait for an explicit comparison. Selecting a project runs its committed settings. Old results stay labelled when draft controls or a committed candidate change. The sample tape uses the committed seed from fresh state and a separate legacy sequential stream.
+
+**Export comparison** saves `gacha-modeller-comparison` version 1: exact project snapshots, SHA-256 content hashes, run controls, engine/random policy, both population reports, semantic diff, assumptions and supplementary lesson results. CDF entries store cumulative attained counts. Both curve views divide by every trial and use identical axes; survival is one minus attainment. Pack curves use individual slot positions, while purchase summaries count whole packs.
+
+Replay from application code with `const project = await importProject(bundle); await compareProject(project, project.settings)`. Re-importing the bundle in the UI also restores the project and runs it. Compare numerical reports rather than timestamps or newly assigned project IDs. Unknown project/model fields, future format versions, altered snapshot content and unsupported replay engine policies are rejected. A raw legacy Banner, a versioned model envelope, an M1 result bundle and an M2 project are supported imports. M1 import restores its run settings but recomputes under M2; use legacy `runMonteCarlo` for its exact original sequence.
+
+Comparison execution runs in a dedicated worker with progress messages. Cancel terminates that worker. Worker identity and job ID suppress late responses from replaced/cancelled jobs. Per-trial streams are independent of batching. Lesson calculations also stay in the worker. Guild and dual-pickup lessons retain separate legacy random policy and their stated parameters; collection heat's cold counterfactual shares baseline controls and named event streams. Lessons do not establish candidate uplift.
+
+Projects and candidate history persist in this browser, with a previous valid save as backup. Corrupt-primary recovery uses the backup. If neither copy is readable, the app preserves stored bytes and works in memory; export work for recovery. Storage failures are visible. JSON import is bounded to 5 MB. Export is the portable backup, not a cloud account. See the [workbench guide](company-workbench.md) and [development checklist](../DEVELOPMENT.md) for workflow and remaining milestones.

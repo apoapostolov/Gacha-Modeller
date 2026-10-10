@@ -2,6 +2,21 @@
 
 ## [Unreleased]
 
+- Run controls now use a scrolling drawer with a fixed action footer. Long technical explanations use accessible custom help panels; short descriptions stay visible.
+- Added a local company workbench with immutable baseline/candidate snapshots, revision history, canonical hashes, strict versioned imports and portable project backups.
+- Added a validated model editor for catalogues, rates, pity, featured/charge rules, exchange effects, packs and original modifiers.
+- Comparisons now run in cancellable workers with progress and protection against stale responses, using deterministic per-trial/per-event streams.
+- Added baseline/candidate outcome tables and population attainment/survival plots on common axes, plus replayable comparison exports.
+- Retained guild, collection-heat and two-pickup lessons as explicitly separate worker scenarios. Added [banner and pack workflow fixtures](docs/company-workbench.md).
+
+- Added a [seven-milestone development checklist](DEVELOPMENT.md) based on the company research and blueprint.
+- Added model/run validation with field-specific errors and explicit rarity-priority warnings.
+- Added completion rates, termination reasons, population attainment percentiles and conditional completed-goal summaries.
+- Added whole-pack execution with minimum-tier guarantees and separate purchased-pull/first-attainment reporting.
+- Shop exchanges now preserve draw protection by default; models can declare their reset effects.
+- The lab now exposes seed, horizon and action controls, validates errors and exports reproducible local JSON results. Currency consumption is labelled separately from revenue.
+- The sample tape now uses an explicit seed and follows the selected single/pack action.
+
 ## [1.0.0] - 2026-08-24
 
 The lab's first stable presentation release. Its simulation rules and preset

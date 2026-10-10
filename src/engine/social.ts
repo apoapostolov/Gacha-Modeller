@@ -2,6 +2,7 @@ import { mulberry32 } from './rng.ts';
 import { createState, featuredCount, pull } from './pull.ts';
 import { summarize } from './stats.ts';
 import type { Banner, Summary } from './types.ts';
+import { assertValidBanner, validateRun, MAX_PULLS, ModelValidationError } from './validation.ts';
 
 export interface PoolShareReport {
   players: number;
@@ -24,6 +25,14 @@ export function simulatePoolShare(
   trials: number,
   seed: number,
 ): PoolShareReport {
+  assertValidBanner(banner);
+  validateRun({ type: 'budget', pulls: budgetPerPlayer }, 'never', {}, trials, seed);
+  if (!Number.isSafeInteger(players) || players < 1 || players > 1000) {
+    throw new ModelValidationError([{ path: 'players', code: 'invalid-run', message: 'Use 1 to 1000 whole players.' }]);
+  }
+  if (players * budgetPerPlayer > MAX_PULLS) {
+    throw new ModelValidationError([{ path: 'budgetPerPlayer', code: 'invalid-run', message: `Keep the combined group budget at or below ${MAX_PULLS} pulls.` }]);
+  }
   const rng = mulberry32(seed);
   const totalPulls = players * budgetPerPlayer;
   const sharedHits: number[] = [];

@@ -1,315 +1,130 @@
-import { useEffect, useMemo, useState } from 'react';
-import {
-  createState,
-  defaultGoal,
-  mulberry32,
-  pull,
-  runMonteCarlo,
-  runMonteCarloTwoPickup,
-  simulatePoolShare,
-  type PullOutcome,
-  type SimReport,
-} from './engine/index.ts';
+import { useEffect, useRef, useState } from 'react';
 import { PRESETS } from './presets/index.ts';
-import { Histogram } from './ui/Histogram.tsx';
-import { fmt, goalLabel, money } from './ui/format.ts';
-import type { Banner, Goal, PoolShareReport, SparkPolicy, Summary } from './engine/index.ts';
+import { type Banner } from './engine/index.ts';
+import { createProject, importProject, saveCandidate, semanticDiff, withSettings, type RunSettings as Settings } from './project/project.ts';
+import { useLibrary } from './project/useLibrary.ts';
+import { ComparisonRunner } from './jobs/runner.ts';
+import type { ComparisonReport } from './jobs/compare.ts';
+import { Help } from './ui/Help.tsx';
+import { ModelDetails } from './ui/ModelDetails.tsx';
+import { ModelEditor } from './ui/ModelEditor.tsx';
+import { RunSettings } from './ui/RunSettings.tsx';
+import { ComparisonResults } from './ui/ComparisonResults.tsx';
+import './workbench.css';
 
-const SEED = 20260823;
-
-function rateLine(banner: Banner): { label: string; value: string }[] {
-  return banner.rarities
-    .filter((rarity) => rarity.baseRate > 0)
-    .map((rarity) => ({
-      label: rarity.name,
-      value: `${(rarity.baseRate * 100).toFixed(rarity.baseRate < 0.02 ? 2 : 1)}%`,
-    }));
+function downloadJson(value: unknown, filename: string) {
+  const url = URL.createObjectURL(new Blob([JSON.stringify(value, null, 2)], { type: 'application/json' }));
+  const link = document.createElement('a'); link.href = url; link.download = filename; link.click();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
-
-function runTape(banner: Banner, n: number): PullOutcome[] {
-  const rng = mulberry32(Date.now() % 1_000_000);
-  const state = createState(banner);
-  const out: PullOutcome[] = [];
-  for (let i = 0; i < n; i++) out.push(pull(banner, state, rng));
-  return out;
-}
-
 export function App() {
-  const [bannerId, setBannerId] = useState(PRESETS[0]!.id);
-  const banner = useMemo(
-    () => PRESETS.find((entry) => entry.id === bannerId) ?? PRESETS[0]!,
-    [bannerId],
-  );
-  const [trials, setTrials] = useState(8000);
-  const [sparkPolicy, setSparkPolicy] = useState<SparkPolicy>('if-needed');
+  const library = useLibrary();
+  const project = library.project;
+  const runner = useRef<ComparisonRunner | null>(null);
+  if (!runner.current) runner.current = new ComparisonRunner(() => new Worker(new URL('./jobs/comparison.worker.ts', import.meta.url), { type: 'module' }));
+  const upload = useRef<HTMLInputElement>(null);
+  const [settings, setSettings] = useState<Settings | null>(null);
+  const [draft, setDraft] = useState<Banner | null>(null);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [editorOpen, setEditorOpen] = useState(false);
+  const [libraryOpen, setLibraryOpen] = useState(false);
+  const [operation, setOperation] = useState(false);
   const [busy, setBusy] = useState(false);
-  const [report, setReport] = useState<SimReport | null>(null);
-  const [share, setShare] = useState<PoolShareReport | null>(null);
-  const [heatCompare, setHeatCompare] = useState<SimReport | null>(null);
-  const [dual, setDual] = useState<{
-    spark: { first: Summary; both: Summary; earlyBoth: Summary };
-    charge: { first: Summary; both: Summary; earlyBoth: Summary };
-  } | null>(null);
-  const [tape, setTape] = useState<PullOutcome[]>([]);
+  const [progress, setProgress] = useState(0);
+  const [report, setReport] = useState<ComparisonReport | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
+  const presetSequence = useRef(0);
 
-  const goal: Goal = defaultGoal(banner);
-
-  function simulate() {
-    setBusy(true);
-    window.setTimeout(() => {
-      const next = runMonteCarlo(banner, goal, trials, SEED, sparkPolicy);
-      setReport(next);
-      if (banner.mechanics?.poolSharePlayers) {
-        setShare(
-          simulatePoolShare(
-            banner,
-            banner.mechanics.poolSharePlayers,
-            90,
-            Math.min(trials, 2500),
-            SEED,
-          ),
-        );
-      } else {
-        setShare(null);
-      }
-      if (banner.mechanics?.collectionHeat) {
-        const cold: Banner = { ...banner, id: `${banner.id}-cold`, mechanics: { collectionHeat: 0 } };
-        setHeatCompare(runMonteCarlo(cold, goal, Math.min(trials, 2500), SEED, 'never'));
-      } else {
-        setHeatCompare(null);
-      }
-      if (banner.charge || banner.id.startsWith('blue-archive')) {
-        const sparkBanner = PRESETS.find((entry) => entry.id === 'blue-archive-spark') ?? banner;
-        const chargeBanner = PRESETS.find((entry) => entry.id === 'blue-archive-charge') ?? banner;
-        const n = Math.min(trials, 2500);
-        setDual({
-          spark: runMonteCarloTwoPickup(sparkBanner, n, SEED, 'if-needed'),
-          charge: runMonteCarloTwoPickup(chargeBanner, n, SEED, 'never'),
-        });
-      } else {
-        setDual(null);
-      }
-      setTape(runTape(banner, banner.multiPull?.size ?? 10));
-      setBusy(false);
-    }, 20);
-  }
-
+  useEffect(() => () => runner.current?.cancel(), []);
   useEffect(() => {
-    simulate();
+    if (!project) return;
+    runner.current?.cancel(); setBusy(false); setProgress(0); setError(null); setNotice(null);
+    setSettings(structuredClone(project.settings)); setDraft(structuredClone(project.candidate.model));
+    setSettingsOpen(false); setEditorOpen(false);
+    run(project, project.settings);
+    // Run only on project selection; a saved candidate waits for an explicit comparison.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bannerId, trials, sparkPolicy]);
+  }, [project?.id]);
 
-  const studied = PRESETS.filter((entry) => entry.family === 'studied');
-  const original = PRESETS.filter((entry) => entry.family === 'original');
-
-  return (
-    <div className="shell">
-      <header className="top">
-        <div>
-          <p className="eyebrow">Try the pool first</p>
-          <h1>Gacha Modeller</h1>
-          <p className="lede">
-            You pick a banner. We run the pulls. Cost, tail, and how long someone sits in it, before
-            you ship the pool.
-          </p>
-        </div>
-        <div className="controls">
-          <label>
-            Trials
-            <input
-              type="number"
-              min={200}
-              max={50000}
-              step={500}
-              value={trials}
-              onChange={(e) => setTrials(Number(e.target.value) || 8000)}
-            />
-          </label>
-          <label>
-            Spark
-            <select
-              value={sparkPolicy}
-              onChange={(e) => setSparkPolicy(e.target.value as SparkPolicy)}
-            >
-              <option value="if-needed">Use the shop</option>
-              <option value="never">Leave it closed</option>
-            </select>
-          </label>
-          <button className="primary" onClick={simulate} disabled={busy}>
-            {busy ? 'Rolling…' : 'Run pulls'}
-          </button>
-        </div>
-      </header>
-
-      <div className="layout">
-        <aside className="panel catalog">
-          <section className="catalog-group">
-            <h2>Published shapes</h2>
-            {studied.map((entry) => (
-              <button
-                key={entry.id}
-                className={entry.id === banner.id ? 'pick active' : 'pick'}
-                onClick={() => setBannerId(entry.id)}
-              >
-                {entry.name}
-                <small>{entry.blurb}</small>
-              </button>
-            ))}
-          </section>
-          <section className="catalog-group">
-            <h2>Invented here</h2>
-            {original.map((entry) => (
-              <button
-                key={entry.id}
-                className={entry.id === banner.id ? 'pick active' : 'pick'}
-                onClick={() => setBannerId(entry.id)}
-              >
-                {entry.name}
-                <small>{entry.blurb}</small>
-              </button>
-            ))}
-          </section>
-        </aside>
-
-        <section className="panel dossier">
-          <h2>This pool</h2>
-          <h3>{banner.name}</h3>
-          <p className="blurb">{banner.blurb}</p>
-          <div className="rates">
-            {rateLine(banner).map((row) => (
-              <div className="rate" key={row.label}>
-                <b>{row.value}</b>
-                <span>{row.label}</span>
-              </div>
-            ))}
-            {banner.pity[0] && (
-              <div className="rate">
-                <b>{banner.pity[0].hardAt}</b>
-                <span>Hard pity</span>
-              </div>
-            )}
-            {banner.spark && (
-              <div className="rate">
-                <b>{banner.spark.cost}</b>
-                <span>Spark</span>
-              </div>
-            )}
-            {banner.charge && (
-              <>
-                <div className="rate">
-                  <b>{banner.charge.midAt}</b>
-                  <span>
-                    {Math.round(banner.charge.midFeaturedChance * 100)}/
-                    {Math.round((1 - banner.charge.midFeaturedChance) * 100)} at {banner.charge.midAt}
-                  </span>
-                </div>
-                <div className="rate">
-                  <b>{banner.charge.hardAt}</b>
-                  <span>Guaranteed pickup</span>
-                </div>
-              </>
-            )}
-            {banner.featured && !banner.charge && (
-              <div className="rate">
-                <b>{Math.round(banner.featured.chance * 100)}%</b>
-                <span>{banner.featured.capturing ? '50/50, next is yours' : 'Chance it is featured'}</span>
-              </div>
-            )}
-          </div>
-          <p className="source">
-            <strong>Where the shape comes from. </strong>
-            {banner.source}
-          </p>
-          <ul className="notes">
-            {banner.notes.map((note) => (
-              <li key={note}>{note}</li>
-            ))}
-          </ul>
-          <div className="tape" aria-label="a few sample pulls">
-            {tape.map((row, i) => (
-              <span
-                key={`${row.item.id}-${i}`}
-                className={row.item.featured ? 'chip featured' : 'chip'}
-              >
-                {i + 1} {row.item.name}
-                {row.pityKind !== 'none' ? ` · ${row.pityKind}` : ''}
-              </span>
-            ))}
-          </div>
-        </section>
-
-        <section className="panel">
-          <h2>How it landed · {goalLabel(goal)}</h2>
-          {report && (
-            <>
-              <div className="kpis">
-                <div className="kpi">
-                  <div className="label">Average pulls</div>
-                  <div className="value">{fmt(report.pulls.mean)}</div>
-                  <div className="sub">
-                    median {fmt(report.pulls.median)} · p90 {fmt(report.pulls.p90)}
-                  </div>
-                </div>
-                <div className="kpi">
-                  <div className="label">Average cost</div>
-                  <div className="value">{fmt(report.cost.mean, 0)}</div>
-                  <div className="sub">{money(report.cost.p90, banner.pullCost.currency)} at p90</div>
-                </div>
-                <div className="kpi">
-                  <div className="label">Bought from the shop</div>
-                  <div className="value">{fmt(report.sparkRate * 100, 1)}%</div>
-                  <div className="sub">{report.trials.toLocaleString()} trials, seed {report.seed}</div>
-                </div>
-                <div className="kpi">
-                  <div className="label">
-                    {goal.type === 'collection' ? 'Stickers you own' : 'Featured copies'}
-                  </div>
-                  <div className="value">
-                    {fmt(goal.type === 'collection' ? report.uniqueCount.mean : report.featuredCount.mean)}
-                  </div>
-                  <div className="sub">
-                    max {fmt(goal.type === 'collection' ? report.uniqueCount.max : report.featuredCount.max, 0)}
-                  </div>
-                </div>
-              </div>
-              <Histogram data={report.histogram} unit="pulls" />
-            </>
-          )}
-          {share && (
-            <p className="compare">
-              <strong>Guild bar vs going alone.</strong> {share.players} players, {share.budgetPerPlayer}{' '}
-              pulls each. Together you average {fmt(share.sharedFeatured.mean, 2)} featured hits; solos
-              average {fmt(share.soloFeatured.mean, 2)}. Solo leftover pity thrown away:{' '}
-              {fmt(share.leftoverPityWasteSolo.mean, 1)} pulls.
-            </p>
-          )}
-          {heatCompare && report && (
-            <p className="compare">
-              <strong>Hot album vs cold.</strong> Average packs to finish: {fmt(report.pulls.mean)} with
-              heat, {fmt(heatCompare.pulls.mean)} without. Heat trims dupes. It does not invent new
-              stickers.
-            </p>
-          )}
-          {dual && (
-            <p className="compare">
-              <strong>Two pickups, one after the other.</strong> If A lands by pull 80, the old spark still
-              finishes both by 200 (p90 {fmt(dual.spark.earlyBoth.p90)}, max{' '}
-              {fmt(dual.spark.earlyBoth.max, 0)}). Charge zeros the bar, so B is a fresh cycle (p90{' '}
-              {fmt(dual.charge.earlyBoth.p90)}, max {fmt(dual.charge.earlyBoth.max, 0)}). Average pulls
-              across every trial can still look kinder on Charge. The 100 coin is a gift. The leftover
-              you used to bank is what you lost.
-            </p>
-          )}
-        </section>
+  function run(current = project, configuration = settings): boolean {
+    if (!current || !configuration) return false;
+    try {
+      const snapshot = withSettings(current, configuration);
+      runner.current?.start(snapshot, snapshot.settings, (event) => {
+        if (event.type === 'progress') setProgress(event.completed / event.total);
+        else if (event.type === 'result') { setReport(event.report); setBusy(false); setProgress(1); setNotice('Comparison complete'); }
+        else { setError(event.message); setBusy(false); }
+      });
+      library.replace(snapshot); setError(null); setNotice(null); setProgress(0); setBusy(true);
+      return true;
+    } catch (failure) { setError(failure instanceof Error ? failure.message : 'Could not start comparison.'); setBusy(false); return false; }
+  }
+  function cancel() { runner.current?.cancel(); setBusy(false); setNotice('Comparison cancelled. The last completed result is kept.'); }
+  async function choosePreset(model: Banner) {
+    const sequence = ++presetSequence.current;
+    setOperation(true); setError(null);
+    try {
+      const next = await createProject(model);
+      if (sequence !== presetSequence.current) return;
+      const saved = library.projects.find((p) => p.baseline.hash === next.baseline.hash);
+      if (saved) library.select(saved.id); else library.add(next);
+      setLibraryOpen(false);
+    } catch (failure) { setError(failure instanceof Error ? failure.message : 'Could not open model.'); }
+    finally { if (sequence === presetSequence.current) setOperation(false); }
+  }
+  async function commit() {
+    if (!project || !draft) return;
+    const current = project; const model = structuredClone(draft);
+    setOperation(true); setError(null);
+    try {
+      const next = await saveCandidate(current, model);
+      runner.current?.cancel(); setBusy(false); library.replace(next); setDraft(structuredClone(next.candidate.model));
+      setEditorOpen(false); setNotice('Candidate revision saved. Run comparison to include it.');
+    } catch (failure) { setError(failure instanceof Error ? failure.message : 'Could not save candidate.'); }
+    finally { setOperation(false); }
+  }
+  async function importFile(file: File | undefined) {
+    if (!file) return;
+    setOperation(true); setError(null);
+    try {
+      if (file.size > 5 * 1024 * 1024) throw new Error('Import: Choose a JSON project of 5 MB or less.');
+      const incoming = await importProject(JSON.parse(await file.text()));
+      library.add(incoming);
+    } catch (failure) { setError(failure instanceof Error ? failure.message : 'Could not import project.'); }
+    finally { setOperation(false); if (upload.current) upload.current.value = ''; }
+  }
+  const visibleReport = report?.project.id === project?.id ? report : null;
+  const changed = !!(visibleReport && project && settings && (visibleReport.project.candidate.hash !== project.candidate.hash || visibleReport.project.baseline.hash !== project.baseline.hash || JSON.stringify(visibleReport.settings) !== JSON.stringify(settings)));
+  const draftChanged = !!(project && draft && JSON.stringify(project.candidate.model) !== JSON.stringify(draft));
+  const packAvailable = !!(project?.baseline.model.multiPull && project?.candidate.model.multiPull);
+  return <div className="shell">
+    <a href="#workspace" className="skip-link">Skip to workspace</a>
+    <header className="top"><div><h1>Gacha Modeller</h1><p className="lede">Learn a model. Change the rules. Compare the outcome.</p></div><div className="header-actions"><button className="secondary" disabled={!project} onClick={() => setSettingsOpen(true)}>Run settings</button>{busy ? <button className="primary" onClick={cancel}>Cancel run</button> : <button className="primary" disabled={!project || operation} onClick={() => run()}>Run comparison</button>}</div></header>
+    <div className="project-toolbar"><div><span className="eyebrow">Local project</span><h2>{project?.name ?? 'Opening your workspace…'}</h2></div><div className="project-actions"><span className="save-status" data-saved={library.saveState === 'Saved locally'} role="status">{library.saveState}</span><button className="text-button" disabled={operation} onClick={() => upload.current?.click()}>Import project</button><button className="text-button" disabled={!project || operation} onClick={() => project && downloadJson(project, `${project.baseline.model.id}-project.json`)}>Export project</button><button className="text-button" disabled={!visibleReport} onClick={() => visibleReport && downloadJson(visibleReport, `${visibleReport.project.baseline.model.id}-${visibleReport.settings.seed}-comparison.json`)}>Export comparison</button></div><input className="sr-only" ref={upload} tabIndex={-1} aria-label="Import project JSON" type="file" accept=".json,application/json" onChange={(e) => void importFile(e.target.files?.[0])} /></div>
+    {library.storageError && <p className="run-error" role="alert">{library.storageError} <button className="text-button" onClick={library.dismissStorageError}>Dismiss</button></p>}
+    {error && !settingsOpen && !editorOpen && <p className="run-error" role="alert">{error}</p>}
+    {notice && <p className="status-line" role="status">{notice}</p>}
+    {changed && <p className="status-line">Model or settings changed. Results below show the last completed comparison.</p>}
+    {busy && <div className="job-progress" role="status"><progress max={1} value={progress} aria-label="Comparison progress" /><span>{Math.round(progress * 100)}% · comparing both models</span></div>}
+    <button className="secondary library-toggle" aria-expanded={libraryOpen} aria-controls="model-library" onClick={() => setLibraryOpen(!libraryOpen)}>Models & projects</button>
+    <main className="workspace" id="workspace" tabIndex={-1}>
+      <aside id="model-library" className={`panel catalog ${libraryOpen ? 'is-open' : ''}`} aria-label="Model library">
+        {library.projects.length > 0 && <section className="catalog-group"><h2>Your projects</h2>{library.projects.map((entry) => <button key={entry.id} className={entry.id === project?.id ? 'pick active' : 'pick'} aria-pressed={entry.id === project?.id} disabled={operation} onClick={() => { library.select(entry.id); setLibraryOpen(false); }}>{entry.name}<small>{entry.history.length + 1} candidate revision{entry.history.length ? 's' : ''}</small></button>)}</section>}
+        {(['studied','original'] as const).map((family) => <section className="catalog-group" key={family}><h2>{family === 'studied' ? 'Studied models' : 'Original models'}</h2>{PRESETS.filter((p) => p.family === family).map((entry) => <button key={entry.id} className="pick" disabled={operation} onClick={() => void choosePreset(entry)}>{entry.name}<small>{entry.pity.length ? 'Pity protection' : 'Independent draws'}{entry.spark ? ' · exchange' : ''}</small></button>)}</section>)}
+        <p className="run-note">Stored on this browser <Help label="Local project storage">Committed snapshots and settings are saved locally, with a previous-save backup. Unsaved editor fields stay in memory. Export project for a portable backup. Nothing is uploaded.</Help></p>
+      </aside>
+      <div className="workspace-content">
+        {project && settings && <><div className="model-pair"><ModelDetails model={project.baseline.model} role="Baseline" hash={project.baseline.hash} seed={project.settings.seed} actionMode={project.settings.actionMode} /><ModelDetails model={project.candidate.model} role="Candidate" hash={project.candidate.hash} seed={project.settings.seed} actionMode={project.settings.actionMode} onEdit={() => setEditorOpen(true)} /></div>
+          {draftChanged && <p className="status-line">You have unsaved candidate edits. <button className="text-button" onClick={() => setEditorOpen(true)}>Continue editing</button></p>}
+          {project.history.length > 0 && <details className="panel revision-history"><summary>Candidate history ({project.history.length} previous)</summary>{project.history.map((revision, i) => <div className="history-row" key={revision.id}><span>Revision {i + 1} · {new Date(revision.createdAt).toLocaleString()} · {revision.hash.slice(0, 8)}</span><button className="text-button" onClick={() => { setDraft(structuredClone(revision.model)); setEditorOpen(true); }}>Load into editor</button></div>)}</details>}
+          {visibleReport ? <ComparisonResults key={visibleReport.completedAt} report={visibleReport} /> : <section className="panel empty-results"><h2>Compare your next idea</h2><p>{busy ? 'Your models are running in the background. You can keep exploring or cancel this job.' : 'Edit the candidate, then run a comparison against the locked baseline.'}</p></section>}
+          <details className="panel live-diff"><summary>Current model changes ({semanticDiff(project.baseline.model, project.candidate.model).length})</summary><ul>{semanticDiff(project.baseline.model, project.candidate.model).map((change, i) => <li key={i}><code>{change.path}</code>: {JSON.stringify(change.before)} → {JSON.stringify(change.after)}</li>)}</ul></details>
+        </>}
       </div>
-
-      <p className="foot">
-        Runs on your machine. Same seed, same histogram. How the rolls work is in{' '}
-        <a href="https://github.com/apoapostolov/Gacha-Modeller/blob/main/docs/methodology.md">
-          docs/methodology.md
-        </a>
-        . These are like-models, not licensed live tables.
-      </p>
-    </div>
-  );
+    </main>
+    {settingsOpen && settings && <RunSettings value={settings} onChange={setSettings} onClose={() => setSettingsOpen(false)} packAvailable={packAvailable} busy={busy} error={error} onRun={() => { if (run()) setSettingsOpen(false); }} />}
+    {editorOpen && draft && <ModelEditor draft={draft} onChange={setDraft} onClose={() => setEditorOpen(false)} onSave={() => void commit()} busy={operation} error={error} />}
+    <p className="foot">Local modelling lab · studied presets are like-models <Help label="Scope of the lab">Models describe cited probability shapes, not licensed live tables. Monte Carlo resource use does not establish revenue, engagement or retention uplift. Company evidence and economy models are later milestones.</Help></p>
+  </div>;
 }

@@ -1,0 +1,55 @@
+{
+  "purpose": "Analytic teaching examples for the company product plan; not a production or behavioural forecast",
+  "preparedDate": "2026-10-10",
+  "hardGuaranteeComparison": {
+    "assumptions": {
+      "targetProbabilityBeforeCap": 0.01,
+      "initialState": "fresh",
+      "hardGuarantee": "target forced at cap if no earlier target",
+      "stopPolicy": "stop immediately after first target",
+      "cashPerPullUSD": 1,
+      "freeCurrencyBundlesTaxesFeesPayoutsAndBehaviouralResponse": "excluded"
+    },
+    "formulas": {
+      "mean": "(1 - (1-p)^H) / p",
+      "forcedGuaranteeMass": "(1-p)^(H-1)",
+      "successBeforeCap": "1 - (1-p)^n",
+      "requiredCompletedPursuitIncrease": "meanBaseline / meanCandidate - 1"
+    },
+    "baseline": {
+      "cap": 100,
+      "meanPulls": 63.396765872677086,
+      "medianPulls": 69,
+      "p90Pulls": 100,
+      "forcedGuaranteeMass": 0.36972963764972644,
+      "successBy20": 0.18209306240276923,
+      "successBy50": 0.39499393286246365,
+      "successBy80": 0.5524767862361895
+    },
+    "candidate": {
+      "cap": 80,
+      "meanPulls": 55.247678623618945,
+      "medianPulls": 69,
+      "p90Pulls": 80,
+      "forcedGuaranteeMass": 0.45204365026647536,
+      "successBy20": 0.18209306240276923,
+      "successBy50": 0.39499393286246365,
+      "successBy80": 1
+    },
+    "expectedPullReduction": 0.12854105626498935,
+    "breakEvenCompletedPursuitIncrease": 0.14750098921937904
+  },
+  "independentPack": {
+    "slots": 5,
+    "rareProbabilityPerSlot": 0.02,
+    "assumptions": "Independent slots, identical odds, no guarantees or replacement interaction",
+    "formulaAtLeastOneRare": "1 - (1-p)^slots",
+    "probabilityAtLeastOneRare": 0.09607920320000007
+  },
+  "equalCollection": {
+    "distinctItems": 10,
+    "assumptions": "Independent equal-weight individual draws with replacement, no duplicate protection or crafting",
+    "formulaExpectedIndividualDraws": "N * sum(k=1..N, 1/k)",
+    "expectedIndividualDraws": 29.289682539682538
+  }
+}

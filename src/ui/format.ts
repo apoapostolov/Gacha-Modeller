@@ -9,24 +9,32 @@ export function fmt(n: number, digits = 1): string {
 }
 
 export function money(n: number, currency: string): string {
-  return `${fmt(n, n >= 100 ? 0 : 1)} ${currency}`;
+  const units: Record<string, string> = {
+    'primogem-like': 'modelled primogems',
+    'saint-quartz-like': 'modelled Saint Quartz',
+    'pyroxene-like': 'modelled pyroxene',
+    'usd-like': 'modelled USD',
+    ticket: Math.abs(n) === 1 ? 'ticket' : 'tickets',
+    pack: Math.abs(n) === 1 ? 'pack' : 'packs',
+  };
+  return `${fmt(n, n >= 100 ? 0 : 1)} ${units[currency] ?? currency}`;
 }
 
 export function goalLabel(goal: Goal): string {
   switch (goal.type) {
     case 'first-featured':
-      return 'until the featured drops';
+      return 'first featured item';
     case 'copies':
-      return `until ${goal.count} featured copies`;
+      return `${goal.count} featured ${goal.count === 1 ? 'copy' : 'copies'}`;
     case 'unique-featured':
-      return `until ${goal.count} different pickups`;
+      return `${goal.count} different featured items`;
     case 'budget':
-      return `after ${goal.pulls} pulls`;
+      return `${goal.pulls}-pull budget`;
     case 'collection':
-      return 'until the album is full';
+      return 'full collection';
   }
 }
 
 export function shortSummary(s: Summary): string {
-  return `mean ${fmt(s.mean)} · median ${fmt(s.median)} · p90 ${fmt(s.p90)}`;
+  return `Average ${fmt(s.mean)} · median ${fmt(s.median)} · 90th percentile ${fmt(s.p90)}`;
 }

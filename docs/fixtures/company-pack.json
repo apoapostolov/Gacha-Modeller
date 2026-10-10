@@ -1,0 +1,24 @@
+{
+  "format": "gacha-modeller-model",
+  "version": 1,
+  "model": {
+    "id": "company-pack-fixture",
+    "name": "Company pack fixture",
+    "family": "original",
+    "source": "original",
+    "blurb": "Ten-slot purchases with a 1% chase rate and a 100-slot cap.",
+    "notes": ["Acceptance fixture: compare a candidate cap of 80 using whole packs.", "The filler minimum imposes no extra chase guarantee. All ten slots are purchased."],
+    "pullCost": { "amount": 1, "currency": "ticket" },
+    "rarities": [
+      { "id": "chase", "name": "Chase", "baseRate": 0.01, "color": "#d4b483" },
+      { "id": "filler", "name": "Filler", "baseRate": 0, "color": "#837863" }
+    ],
+    "pity": [{ "rarity": "chase", "hardAt": 100 }],
+    "featured": { "rarity": "chase", "chance": 1, "capturing": false },
+    "multiPull": { "size": 10, "guaranteeRarity": "filler" },
+    "items": [
+      { "id": "target", "name": "Chase prize", "rarity": "chase", "weight": 1, "featured": true },
+      { "id": "common", "name": "Common reward", "rarity": "filler", "weight": 1 }
+    ]
+  }
+}

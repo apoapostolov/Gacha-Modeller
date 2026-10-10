@@ -5,11 +5,11 @@ export const hardPityBaseline: Banner = {
   id: 'hard-pity-baseline',
   name: '1% + Hard Pity 100',
   family: 'studied',
-  blurb: 'Teaching control. 1% chase, hard pity at 100, no ramp, no coin flip.',
-  source: 'Textbook geometric-plus-cap. Useful when comparing ramps and capturing.',
+  blurb: 'A 1% chase rate with hard pity at 100. No rate ramp or 50/50.',
+  source: 'A textbook 1% geometric drop rate with a hard cap. Useful as a baseline for comparing rate ramps and featured guarantees.',
   notes: [
-    'With no pity, average pulls to the chase is 100. Hard pity at 100 cuts the tail, so the average drops below 100.',
-    'No 50/50. Every chase-rarity hit is the thing you wanted.',
+    'Without pity, a 1% drop takes 100 pulls on average. Guaranteeing it by pull 100 cuts the long tail and brings the average below 100.',
+    'There is no 50/50: every chase-rarity hit is the featured prize.',
   ],
   pullCost: { amount: 1, currency: 'ticket' },
   rarities: [

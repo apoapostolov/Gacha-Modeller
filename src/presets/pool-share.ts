@@ -11,13 +11,13 @@ export const poolShare: Banner = {
   id: 'pool-share',
   name: 'Pool Share (guild pity)',
   family: 'original',
-  blurb: 'Genshin-like rates, but four of you share one 5-star bar.',
+  blurb: 'The Genshin-like rates, with one shared 5-star pity counter for four players.',
   source: 'original',
   notes: [
-    'The pitch is "pull together, pity is shared." A free player can ride a whale bar.',
-    'At the same total pulls, the group gets more 5-stars than four solos, because leftover pity is not thrown away four times.',
-    'Fairness still costs you. The copy goes to whoever rolled it unless you add a claim rule.',
-    'The comparison uses 4 players × 90 pulls, shared vs solo.',
+    'Players share one pity counter, so players who do not spend can benefit from progress made by those who do.',
+    'At the same total pull count, four players sharing pity get more 5-stars on average than four players with separate counters. Shared pity preserves progress that would otherwise be lost between sessions.',
+    'By default, the player who rolls an item keeps it. The group needs a separate rule if someone else should be able to claim it.',
+    'The comparison uses four players with 90 pulls each, once with shared pity and once with separate counters.',
   ],
   mechanics: { poolSharePlayers: 4 },
 };

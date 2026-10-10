@@ -6,14 +6,14 @@ export const fateGrandOrder: Banner = {
   id: 'fate-grand-order',
   name: 'FGO-like Story Banner',
   family: 'studied',
-  blurb: '1% SSR, 0.8% on the rate-up, no catch-up coin, pity at 330.',
+  blurb: 'A 1% SSR rate, with a 0.8% rate-up and a guarantee at 330 summons. An off-banner SSR does not guarantee the next one.',
   source:
-    'Fate/Grand Order published 1% SSR / 3% SR, plus the 2022 330-summon pity for the rate-up SSR. Single-rate-up modelled as 80% of SSR hits.',
+    "Based on Fate/Grand Order's published rates (1% SSR, 3% SR) and the 330-summon rate-up pity added in 2022. This model gives a single rate-up 80% of SSR hits.",
   notes: [
-    'SSR is 1%. One rate-up takes 80% of those hits (0.8% featured, 0.2% someone else).',
-    'No 50/50 catch-up. An off-banner SSR does not promise you the next one.',
-    'At 330 summons the rate-up SSR is forced. That is a banner pity, not a rarity ramp.',
-    'An 11-pull is a shop bundle. The engine still rolls one summon at a time.',
+    'SSR drops at 1%. A single rate-up gets 80% of those drops: 0.8% featured and 0.2% off-banner.',
+    'An off-banner SSR does not guarantee that the next SSR will be the rate-up.',
+    'At 330 summons, the rate-up SSR is guaranteed. The SSR rate does not ramp before then.',
+    'The 11-pull is a shop bundle; the simulator still resolves it as 11 individual summons.',
   ],
   pullCost: { amount: 3, currency: 'saint-quartz-like' },
   rarities: [

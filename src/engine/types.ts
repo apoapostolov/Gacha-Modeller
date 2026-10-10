@@ -45,6 +45,12 @@ export interface FeaturedRule {
 
 export interface SparkRule {
   cost: number;
+  /** Exchanges preserve draw protection unless reset effects are explicitly declared. */
+  reset?: {
+    rarityCounters?: string[];
+    featuredArmed?: boolean;
+    sinceFeatured?: boolean;
+  };
 }
 
 /**
@@ -117,6 +123,7 @@ export interface PullOutcome {
   pityKind: PityKind;
   featuredRoll?: FeaturedRoll;
   sparked?: boolean;
+  packGuaranteed?: boolean;
 }
 
 export type Goal =
@@ -127,6 +134,10 @@ export type Goal =
   | { type: 'collection' };
 
 export interface TrialResult {
+  goalAchieved: boolean;
+  termination: TrialTermination;
+  /** First goal attainment within an action; purchased pulls may be greater. */
+  attainmentPulls: number | null;
   pulls: number;
   cost: number;
   featuredCount: number;
@@ -135,6 +146,13 @@ export interface TrialResult {
   inventory: Record<string, number>;
   /** Pulls when the first pickup landed, if this trial chased two banners. */
   firstPulls?: number;
+}
+
+export type TrialTermination = 'goal' | 'horizon' | 'budget' | 'impossible';
+
+export interface TrialOptions {
+  maxPulls?: number;
+  actionMode?: 'single' | 'pack';
 }
 
 export interface Summary {
@@ -157,6 +175,19 @@ export interface Histogram {
 }
 
 export interface SimReport {
+  evidence: 'monte-carlo';
+  attainmentRate: number;
+  terminations: Record<TrialTermination, number>;
+  /** Summaries conditional on finishing; never substitute these for the population. */
+  completedPulls: Summary | null;
+  acquisitionQuantiles: { p50: number | null; p90: number | null; p95: number | null };
+  manifest: {
+    engineVersion: 'foundation-1' | 'workbench-2';
+    rngPolicy: 'legacy-sequential' | 'event-streams-v1';
+    rarityPolicy: 'priority';
+    model: Banner;
+    options: Required<TrialOptions>;
+  };
   bannerId: string;
   goal: Goal;
   sparkPolicy: SparkPolicy;
@@ -168,4 +199,8 @@ export interface SimReport {
   uniqueCount: Summary;
   sparkRate: number;
   histogram: Histogram;
+  /** Cumulative attained counts, always divided by all trials in population plots. */
+  acquisitionCdf: { pulls: number; attained: number }[];
 }
+
+export type TrialSample = Omit<TrialResult, 'inventory' | 'firstPulls'>;

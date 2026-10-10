@@ -1,5 +1,7 @@
 # TODO
 
+The company product work is tracked in [DEVELOPMENT.md](DEVELOPMENT.md), with detailed scope in the [implementation backlog](docs/company-implementation-backlog.md). The older ideas below remain useful candidates for those milestones.
+
 ## Now
 
 - [x] Seeded pull engine with rarity pity, capturing, spark

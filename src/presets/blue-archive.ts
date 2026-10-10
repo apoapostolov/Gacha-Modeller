@@ -36,14 +36,14 @@ export const blueArchiveSpark: Banner = {
   ...shared,
   id: 'blue-archive-spark',
   name: 'Blue Archive-like Spark',
-  blurb: '0.7% pickup, 3% 3-star, spark at 200. A natural hit does not spend the bar.',
+  blurb: 'A 0.7% pickup rate, 3% chance of a 3-star, and a 200-point spark. A natural pickup does not reset the meter.',
   source:
-    'Blue Archive published rates (3% 3-star, 0.7% pickup, 120 pyroxene) plus the pre-5.5 Recruitment Points spark at 200. Dual banners shared the point pool. Points converted to keystones when a banner ended; they did not carry.',
+    "Based on Blue Archive's published rates (3% for a 3-star, 0.7% pickup, 120 pyroxene) and its pre-5.5 Recruitment Points spark at 200. Dual banners shared points. At a banner's end, points converted to keystones and did not carry over.",
   notes: [
     'Pickup is 0.7% on its own, not half of all 3-stars. Given a 3-star, the pickup is about 23.3%.',
-    'Every pull adds one Recruitment Point. 200 points buy the current pickup. A natural hit does not reset that.',
-    'On a dual pickup, an early A still lets you spark B at 200. That is the plan JP 5.5 took away.',
-    'Spark is a shop spend. Global still worked this way when JP shipped charge, and JP did too before 29 Jul 2026.',
+    'Each pull adds one Recruitment Point. At 200 points, you can trade them for the pickup. A natural pickup does not reset the meter.',
+    'On a dual banner, getting pickup A early still leaves enough points to spark B at 200. JP 5.5 replaced that system.',
+    'The spark is a shop purchase. Global still used this system when JP introduced Recruitment Charge; JP used it until 29 July 2026.',
   ],
   spark: { cost: 200 },
 };
@@ -53,15 +53,15 @@ export const blueArchiveCharge: Banner = {
   ...shared,
   id: 'blue-archive-charge',
   name: 'Blue Archive-like Charge',
-  blurb: 'Same 0.7%. At 100 you get a 3-star, 50% pickup. At 200, pickup. A hit resets. Same-type banners share the bar.',
+  blurb: 'Both banners have a 0.7% pickup rate. At 100 points, you get a 3-star with a 50% pickup chance; at 200, the pickup is guaranteed. A pickup resets the meter, and same-type banners share points.',
   source:
-    "Blue Archive JP 5.5 Recruitment Charge (29 Jul 2026). Wiki + Yostar/Inven writeup: 100 charge guarantees a 3-star at 50% pickup, 200 guarantees pickup, reset on this banner's pickup, two pools (regular vs limited), charge carries across same-type banners. Not a live drop-table dump.",
+    "Based on Blue Archive JP 5.5 Recruitment Charge (29 July 2026) and the Wiki/Yostar/Inven write-up: at 100 charge, a 3-star is guaranteed with a 50% pickup chance; at 200, the pickup is guaranteed. A pickup on this banner resets charge. Regular and limited banners use separate pools, and banners of the same type share charge. This model does not copy a live drop table.",
   notes: [
-    "Charge ticks on every pull. Off-banner 3-stars do not reset it. This banner's pickup does, even a natural 0.7%.",
-    'At exactly 100, this pull is a 3-star with a 50% pickup. That coin is a checkpoint, not a catch-up: a miss does not arm the next 3-star.',
-    'At 200 the pickup is forced, then charge is 0.',
-    'Regular and limited banners use separate bars. Dual pickups of the same type share a bar, so getting A zeros the bar you wanted for B.',
-    'The 5.5 livestream announced this days before JP shipped it. Producer Kim Yong-ha apologised. Steam recent reviews went Overwhelmingly Negative. Global timing was unannounced in those writeups.',
+    "Every pull adds charge. An off-banner 3-star does not reset it. Any pickup on this banner does, including a natural 0.7% hit.",
+    'When charge reaches 100, the roll is a 3-star with a 50% chance of the pickup. If you miss, the next 3-star is not guaranteed to be the pickup.',
+    'At 200 charge, the pickup is guaranteed and the meter resets to 0.',
+    'Regular and limited banners have separate meters. Banners of the same type share one, so getting A resets the progress you had toward B.',
+    "The 5.5 livestream announced the change a few days before it launched in JP. Producer Kim Yong-ha apologised, and recent Steam reviews fell to 'Overwhelmingly Negative.' Those write-ups did not announce a Global release date.",
   ],
   charge: { midAt: 100, midFeaturedChance: 0.5, hardAt: 200 },
 };

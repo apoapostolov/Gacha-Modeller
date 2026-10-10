@@ -30,8 +30,9 @@ export function summarize(values: readonly number[]): Summary {
 
 export function histogram(values: readonly number[], buckets = 24): Histogram {
   if (values.length === 0) return { start: 0, width: 1, counts: Array(buckets).fill(0) };
-  const max = Math.max(...values);
-  const min = Math.min(...values);
+  let max = -Infinity;
+  let min = Infinity;
+  for (const value of values) { max = Math.max(max, value); min = Math.min(min, value); }
   const start = Math.min(min, 0);
   const span = Math.max(max - start, 1);
   const width = span / buckets;

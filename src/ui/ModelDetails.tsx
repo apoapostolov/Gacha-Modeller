@@ -1,0 +1,36 @@
+import { createState, mulberry32, pull, pullPack, validateBanner, type Banner, type PullOutcome } from '../engine/index.ts';
+import { useMemo } from 'react';
+import { Help } from './Help.tsx';
+
+export function ModelDetails({ model, role, hash, seed, actionMode, onEdit }: { model: Banner; role: 'Baseline' | 'Candidate'; hash: string; seed: number; actionMode: 'single' | 'pack'; onEdit?: () => void }) {
+  const shortDescription = model.blurb.length <= 120 && !model.blurb.includes('\n');
+  const validation = useMemo(() => validateBanner(model), [model]);
+  const sample = useMemo(() => {
+    if (!Number.isSafeInteger(seed) || seed < 0 || seed > 0xffffffff) return [];
+    const rng = mulberry32(seed); const state = createState(model);
+    if (actionMode === 'pack' && model.multiPull) return pullPack(model, state, rng);
+    const outcomes: PullOutcome[] = [];
+    for (let i = 0; i < 10; i++) outcomes.push(pull(model, state, rng));
+    return outcomes;
+  }, [model, seed, actionMode]);
+  return <section className="panel model-details">
+    <div className="section-heading"><span className={`role-label ${role.toLowerCase()}`}>{role}</span>{onEdit ? <button className="text-button" onClick={onEdit}>Edit candidate</button> : <span className="run-note">Locked <Help label="Immutable baseline">The imported baseline is an immutable snapshot. Editing creates a new candidate revision; previous snapshots remain available in history.</Help></span>}</div>
+    <h3>{model.name}</h3>
+    {shortDescription && <p className="model-description">{model.blurb}</p>}
+    <p className="run-note">{model.items.length} items · {model.rarities.length} tiers {!shortDescription && <Help label={`${role} overview`}>{model.blurb}</Help>}</p>
+    <div className="rates">
+      {model.rarities.slice(0, -1).map((rarity) => <div className="rate" key={rarity.id}><b>{(rarity.baseRate * 100).toFixed(rarity.baseRate < .02 ? 2 : 1)}%</b><span>{rarity.name}</span></div>)}
+      {model.pity[0] && <div className="rate"><b>{model.pity[0].hardAt}</b><span>Hard pity</span></div>}
+      {model.featured && <div className="rate"><b>{(model.featured.chance * 100).toFixed(1)}%</b><span>Featured share</span></div>}
+      {model.spark && <div className="rate"><b>{model.spark.cost}</b><span>Exchange cost</span></div>}
+      {model.charge && <div className="rate"><b>{model.charge.midAt}/{model.charge.hardAt}</b><span>Charge checkpoints</span></div>}
+    </div>
+    <div className="model-hints"><span>Source & rules <Help label={`${role} source and rules`}><p>{model.source}</p><ul>{model.notes.map((note, index) => <li key={index}>{note}</li>)}</ul></Help></span><span>Priority order <Help label={`${role} rarity priority`}>Rarities are evaluated in their listed order. The final tier gets the remaining probability. Higher tiers consume soft-pity probability before lower tiers.</Help></span>
+      {validation.warnings.length > 0 && <span className="warning-text">Rate overlap <Help label={`${role} rate overlap`}>{validation.warnings.map((issue) => <p key={`${issue.path}-${issue.code}`}>{issue.message}</p>)}</Help></span>}
+      {model.multiPull && <span>{model.multiPull.size}-pull pack <Help label={`${role} pack guarantee`}>{model.multiPull.guaranteeRarity ? `At least one ${model.rarities.find((r) => r.id === model.multiPull!.guaranteeRarity)?.name} or higher. ` : 'No minimum tier. '}The whole pack is purchased even after early attainment.</Help></span>}
+      {model.spark && <span>Exchange <Help label={`${role} exchange effects`}>Exchanges choose an unowned chase item before a repeat. Draw counters and capture/charge protection are preserved unless this model declares reset effects. Resets: {JSON.stringify(model.spark.reset ?? 'none')}.</Help></span>}
+    </div>
+    <details className="sample-details"><summary>Sample pulls <Help label={`${role} sample pulls`}>A fresh-state illustration using seed {seed}. It is separate from the compared trial population. Comparison jobs use named per-event streams; this illustration uses the legacy sequential stream.</Help></summary><div className="tape" aria-label={`${role} sample pulls`}>{sample.map((row, i) => <span key={i} className={row.item.featured ? 'chip featured' : 'chip'}>{i + 1} {row.item.name}{row.packGuaranteed ? ' · pack guarantee' : row.pityKind !== 'none' ? ` · ${row.pityKind} pity` : ''}</span>)}</div></details>
+    <p className="snapshot-id">Snapshot {hash.slice(0, 12)} <Help label={`${role} snapshot hash`}>SHA-256 of the canonical complete model. Object keys are sorted; array order is preserved because selection and pity precedence can depend on it. {hash}</Help></p>
+  </section>;
+}

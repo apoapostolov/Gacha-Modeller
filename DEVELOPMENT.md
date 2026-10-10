@@ -64,15 +64,22 @@ Corresponds to A08/A09 and C04.
 
 Corresponds to B01-B07. Money, resource consumption and subjective utility remain separate.
 
-- [ ] M5.1 Paid/earned/promotional currency and inventory ledger with atomic events.
-- [ ] M5.2 Cash payments, fees, refunds, fulfilment and finance-approved contribution definitions.
-- [ ] M5.3 Prices, bundles, top-ups, free grants, subscriptions and purchase limits.
-- [ ] M5.4 Sessions, event calendars, availability, migration and retained progress.
-- [ ] M5.5 Transparent heterogeneous player policies with hard budgets/time constraints.
-- [ ] M5.6 Game-specific useful-item/roster/upgrade utility adapter.
-- [ ] M5.7 D7/D30/D90 and multi-season cohort reports with evidence labels.
-- [ ] M5.8 No-uplift, adverse-response and portfolio-cannibalization scenarios.
-- [ ] M5.9 Reconcile a complete finance-approved pilot fixture.
+- [x] M5.1 Paid/earned/promotional currency and inventory ledger with atomic events.
+- [x] M5.2 Cash payments, fees, refunds, fulfilment and versioned synthetic contribution definitions.
+- [x] M5.3 Prices, bundles, top-ups, free grants, subscriptions and purchase limits.
+- [x] M5.4 Sessions, event calendars, availability, migration and retained progress.
+- [x] M5.5 Transparent heterogeneous player policies with hard budgets/time constraints.
+- [x] M5.6 Game-specific useful-item/roster/upgrade utility adapter.
+- [x] M5.7 D7/D30/D90 and cumulative multi-season cohort reports with evidence labels.
+- [x] M5.8 No-uplift, adverse-response and portfolio-cannibalization scenarios.
+- [x] M5.9 Reconcile a complete synthetic pilot fixture and an independent hand-calculated cash fixture.
+
+The user authorized synthetic assumptions for the current delivery. This changes the technical acceptance scope of M5.2/M5.9; it does not supply company approval. External release gates remain:
+
+- [ ] Finance approval of contribution definitions and refund/credit treatment.
+- [ ] Reconciliation against a complete company-approved pilot fixture.
+
+See the [M5 delivery contract](docs/milestone-5.md) and [synthetic reference](docs/economy-reference.json).
 
 ## Milestone 6: company evidence and decisions
 
@@ -159,3 +166,17 @@ Interface passes replaced label-only help with visible explanations, clarified c
 Verification: 128 tests across 12 suites, including expanded semantic axe checks; TypeScript and production build; real worker runs, parsed version-3 exports and replay; carried progress with exact population shares; keyboard/error recovery and responsive checks. The dependency audit reports zero advisories after updating Vitest and source-map-js. See the [reference benchmark](docs/benchmark-reference.json), [experiment surface](docs/assets/analysis-surface.png), [player groups](docs/assets/analysis-cohorts.png) and [narrow drawer](docs/assets/analysis-mobile.png).
 
 Current boundaries: exact first-featured/single-pull analysis supports small declared pools and falls back explicitly on other cases. Mean intervals use a large-sample approximation; declared player shares and objective limits are assumptions. Pareto selection covers only the tested grid and resource objectives. Company finance, player-time policies, engagement and retention remain M5/M6. Milestone 5 is next.
+
+### 10 October 2026: synthetic economy and calendar scenarios
+
+Delivered M5.1–M5.9 under the user-authorized synthetic acceptance scope. The [M5 contract](docs/milestone-5.md) records units, financial/event conventions, policy constraints, utility, eligible denominators, uncertainty and replay. Company-approved definitions and a company-approved pilot remain explicit external gates.
+
+The engine adds origin-separated wallets, cash/resource/inventory/shard events, complete aggregate reconciliation, three offer types, four policy families, day calendars, migrations, subjective item utility and response sensitivity. Reports include D7/D30/D90, final and season-end horizons, a cash waterfall, policy outcomes, residual balances and trial-0 ledgers. Economy projects/comparisons use version 4 / `economy-5`; earlier imports remain supported.
+
+Interface passes replaced promotional headings with formal subjects, added visible control/result explanations, exposed calendar and copy-utility authoring, clarified percentage-point differences and two-decimal cash values, and bounded ledger previews. Full JSON validates before application and retains the previous valid scenario after errors.
+
+Verification: 159 tests across 13 suites, including expanded semantic axe coverage; TypeScript and production build; hand-calculated USD 2.97 contribution fixture; 1,600/1,600 reconciled pilot ledgers. Real browser comparison exports replayed exactly in Node and matched all reference scenarios/groups. Browser checks covered D7/D90/adverse selection, waterfall and trace exports, complete aggregate movements, invalid JSON/time-zone recovery with focused errors, fixed mobile footer, contained overflow, focus wrapping and help dismissal. Sampled result text contrast ranged from 7.33:1 to 14.15:1. Final loaded workflow had no new console errors/warnings. The checks cover the Codex Chromium browser, without asserting other engines or physical devices.
+
+The synthetic no-response pilot increases D90 completion from 53.65% to 68.85%, while cash contribution decreases from USD 18.354455 to USD 18.187295 per eligible player. The interface presents this as a tradeoff. Assumed attendance and subjective utility are not observed retention or excitement. See the [reference output](docs/economy-reference.json), [desktop report](docs/assets/economy-workbench.png) and [mobile help/drawer](docs/assets/economy-mobile.png).
+
+Milestone 6 is next: company decision ownership, approved financial/data contracts, observational calibration and experimentation. The current delivery remains local and synthetic.

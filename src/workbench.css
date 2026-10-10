@@ -165,3 +165,26 @@ td, th { border-bottom: 1px solid var(--line); padding: 12px 10px; vertical-alig
 .experiment-table td:last-child span { display: block; margin-bottom: .3rem; }
 .selected-tradeoffs { max-width: 70ch; line-height: 1.6; padding-left: 1.25rem; }
 .selected-tradeoffs li { margin: .5rem 0; }
+
+.economy-results { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+.economy-results h3 { margin: 0 0 .5rem; }
+.economy-results p { max-width: 74ch; }
+.economy-results .run-note, .economy-results .comparison-table, .economy-results .diff-table { font-size: 14px; }
+.evidence-note { color: var(--brass); font-size: .8rem; line-height: 1.6; margin: .5rem 0; }
+.economy-controls { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 1rem; max-width: 650px; margin: 1.25rem 0 .5rem; }
+.economy-results caption { text-align: left; color: var(--mute); font-size: .875rem; line-height: 1.6; padding: .6rem 0; }
+.economy-results .comparison-table td { color: var(--ink); }
+.economy-wide-table { min-width: 900px; }
+.economy-results .field-hint { display: block; font-weight: normal; }
+.economy-results .help-wrap { display: inline-flex; }
+.ledger-effect { display: block; padding: .15rem 0; overflow-wrap: anywhere; }
+.economy-results [aria-label="Player ledger events"] { max-height: 28rem; overflow: auto; }
+.economy-results .diff-table thead { position: sticky; top: 0; background: var(--paper); z-index: 1; }
+.economy-results li { margin: .6rem 0; line-height: 1.6; max-width: 75ch; }
+.config-json { width: 100%; box-sizing: border-box; font: .8rem/1.6 var(--mono); resize: vertical; min-height: 12rem; }
+.validation-hint { color: var(--hit); border-left: 3px solid currentColor; padding-left: .75rem; }
+.economy-settings .check-field { display: flex; gap: .6rem; align-items: start; line-height: 1.6; margin: .75rem 0; }
+.economy-settings .analysis-group > summary { margin-bottom: 1rem; }
+.inline-actions { display: flex; flex-wrap: wrap; gap: .5rem 1rem; margin-top: .5rem; }
+@media(max-width: 600px) { .economy-controls { grid-template-columns: 1fr; } }
+@media(pointer: coarse) { .economy-settings .check-field { min-height: 44px; align-items: center; } .economy-settings input[type=checkbox] { min-width: 24px; min-height: 24px; } }

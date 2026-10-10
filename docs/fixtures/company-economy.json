@@ -1,0 +1,443 @@
+{
+  "format": "gacha-modeller-project",
+  "version": 4,
+  "id": "synthetic-economy-pilot",
+  "name": "Synthetic company economy",
+  "baseline": {
+    "schemaVersion": 2,
+    "id": "synthetic-snapshot-0",
+    "hash": "f39bb31103ba3b18b42631f15f46b941b1d270593dba1fb09e5896f29e3794d7",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "id": "company-banner-fixture",
+      "name": "Synthetic economy baseline",
+      "family": "original",
+      "source": "original",
+      "blurb": "A synthetic 1% chase banner with a 100-pull cap.",
+      "notes": [
+        "Acceptance fixture: fork a candidate and change the cap to 80."
+      ],
+      "pullCost": {
+        "amount": 1,
+        "currency": "ticket"
+      },
+      "rarities": [
+        {
+          "id": "chase",
+          "name": "Chase",
+          "baseRate": 0.01,
+          "color": "#d4b483"
+        },
+        {
+          "id": "filler",
+          "name": "Filler",
+          "baseRate": 0,
+          "color": "#837863"
+        }
+      ],
+      "pity": [
+        {
+          "rarity": "chase",
+          "hardAt": 100
+        }
+      ],
+      "featured": {
+        "rarity": "chase",
+        "chance": 1,
+        "capturing": false
+      },
+      "items": [
+        {
+          "id": "target",
+          "name": "Chase prize",
+          "rarity": "chase",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "common",
+          "name": "Common reward",
+          "rarity": "filler",
+          "weight": 1
+        }
+      ],
+      "duplicates": {
+        "cap": 5,
+        "protection": "none",
+        "overflow": "salvage",
+        "salvagePerCopy": 1,
+        "craftCost": 100,
+        "craftableItems": [
+          "target"
+        ]
+      }
+    }
+  },
+  "candidate": {
+    "schemaVersion": 2,
+    "id": "synthetic-snapshot-1",
+    "hash": "827e21cb9f83fd30937fc434341c090a145014eba7759e846e598fa61f4720fd",
+    "createdAt": "2026-10-10T00:00:00.000Z",
+    "model": {
+      "id": "company-banner-fixture",
+      "name": "Synthetic economy candidate",
+      "family": "original",
+      "source": "original",
+      "blurb": "A synthetic 1% chase banner with an 80-pull cap.",
+      "notes": [
+        "Acceptance fixture: fork a candidate and change the cap to 80."
+      ],
+      "pullCost": {
+        "amount": 1,
+        "currency": "ticket"
+      },
+      "rarities": [
+        {
+          "id": "chase",
+          "name": "Chase",
+          "baseRate": 0.01,
+          "color": "#d4b483"
+        },
+        {
+          "id": "filler",
+          "name": "Filler",
+          "baseRate": 0,
+          "color": "#837863"
+        }
+      ],
+      "pity": [
+        {
+          "rarity": "chase",
+          "hardAt": 80
+        }
+      ],
+      "featured": {
+        "rarity": "chase",
+        "chance": 1,
+        "capturing": false
+      },
+      "items": [
+        {
+          "id": "target",
+          "name": "Chase prize",
+          "rarity": "chase",
+          "weight": 1,
+          "featured": true
+        },
+        {
+          "id": "common",
+          "name": "Common reward",
+          "rarity": "filler",
+          "weight": 1
+        }
+      ],
+      "duplicates": {
+        "cap": 5,
+        "protection": "none",
+        "overflow": "salvage",
+        "salvagePerCopy": 1,
+        "craftCost": 100,
+        "craftableItems": [
+          "target"
+        ]
+      }
+    }
+  },
+  "history": [
+    {
+      "schemaVersion": 2,
+      "id": "synthetic-snapshot-2",
+      "hash": "cb367ec87bf0a2b738d73ac7421790191e1df4efa3a6a1ca412d0473bd5ea820",
+      "createdAt": "2026-10-10T00:00:00.000Z",
+      "model": {
+        "id": "company-banner-fixture-candidate",
+        "name": "Synthetic economy baseline candidate",
+        "family": "original",
+        "source": "original",
+        "blurb": "A synthetic 1% chase banner with a 100-pull cap.",
+        "notes": [
+          "Acceptance fixture: fork a candidate and change the cap to 80."
+        ],
+        "pullCost": {
+          "amount": 1,
+          "currency": "ticket"
+        },
+        "rarities": [
+          {
+            "id": "chase",
+            "name": "Chase",
+            "baseRate": 0.01,
+            "color": "#d4b483"
+          },
+          {
+            "id": "filler",
+            "name": "Filler",
+            "baseRate": 0,
+            "color": "#837863"
+          }
+        ],
+        "pity": [
+          {
+            "rarity": "chase",
+            "hardAt": 100
+          }
+        ],
+        "featured": {
+          "rarity": "chase",
+          "chance": 1,
+          "capturing": false
+        },
+        "items": [
+          {
+            "id": "target",
+            "name": "Chase prize",
+            "rarity": "chase",
+            "weight": 1,
+            "featured": true
+          },
+          {
+            "id": "common",
+            "name": "Common reward",
+            "rarity": "filler",
+            "weight": 1
+          }
+        ],
+        "duplicates": {
+          "cap": 5,
+          "protection": "none",
+          "overflow": "salvage",
+          "salvagePerCopy": 1,
+          "craftCost": 100,
+          "craftableItems": [
+            "target"
+          ]
+        }
+      }
+    }
+  ],
+  "settings": {
+    "goal": {
+      "type": "first-featured"
+    },
+    "targetId": "target",
+    "craftPolicy": "missing-targets",
+    "trials": 300,
+    "seed": 42,
+    "sparkPolicy": "never",
+    "maxPulls": 200,
+    "actionMode": "single",
+    "economy": {
+      "version": 1,
+      "evidence": "synthetic",
+      "name": "Synthetic two-season acceptance scenario",
+      "cashCurrency": "USD",
+      "startDate": "2026-10-01",
+      "timeZone": "Europe/Kyiv",
+      "days": 90,
+      "trials": 100,
+      "availableFromDay": 1,
+      "availableThroughDay": 90,
+      "dailyEarned": 500,
+      "dailyPromotional": 0,
+      "finance": {
+        "feeBps": 300,
+        "fixedFeeMinor": 10,
+        "inclusiveTaxBps": 2000,
+        "refundBps": 200,
+        "refundDelayDays": 7,
+        "fulfilmentPerCopyMinor": 2,
+        "activeDayCostMinor": 1,
+        "promotionalUnitCostMinor": 1,
+        "otherProductPerActiveDayMinor": 5,
+        "convention": "Synthetic cash contribution in USD. Prices include 20% tax; fees are 3% plus USD 0.10 per payment. Refunds retain fees and virtual credits. No fixed costs, recognized revenue or discounting."
+      },
+      "offers": [
+        {
+          "id": "bundle",
+          "name": "Currency bundle",
+          "kind": "bundle",
+          "priceMinor": 500,
+          "paid": 5000,
+          "promotional": 1000,
+          "startDay": 1,
+          "endDay": 90,
+          "limit": 20,
+          "subscriptionDays": 30,
+          "dailyPromotional": 0
+        },
+        {
+          "id": "exact",
+          "name": "Exact-shortfall credit",
+          "kind": "exact",
+          "priceMinor": 100,
+          "paid": 0,
+          "promotional": 0,
+          "startDay": 1,
+          "endDay": 90,
+          "limit": 100,
+          "subscriptionDays": 30,
+          "dailyPromotional": 0
+        },
+        {
+          "id": "subscription",
+          "name": "Attendance subscription",
+          "kind": "subscription",
+          "priceMinor": 500,
+          "paid": 2000,
+          "promotional": 500,
+          "startDay": 1,
+          "endDay": 90,
+          "limit": 3,
+          "subscriptionDays": 30,
+          "dailyPromotional": 500
+        }
+      ],
+      "policies": [
+        {
+          "id": "free",
+          "name": "Non-paying players",
+          "kind": "free",
+          "weight": 25,
+          "attendance": 0.7,
+          "purchaseChance": 1,
+          "actionsPerSession": 3,
+          "sessionMinutes": 15,
+          "minutesPerAction": 2,
+          "dailyBudgetMinor": 500,
+          "totalBudgetMinor": 3000,
+          "savingUntilDay": 15,
+          "stopOnGoal": true,
+          "offerId": "bundle",
+          "wallet": {
+            "paid": 0,
+            "earned": 2000,
+            "promotional": 0
+          },
+          "initialState": {}
+        },
+        {
+          "id": "budget",
+          "name": "Budget-limited players",
+          "kind": "budget",
+          "weight": 40,
+          "attendance": 0.7,
+          "purchaseChance": 1,
+          "actionsPerSession": 3,
+          "sessionMinutes": 15,
+          "minutesPerAction": 2,
+          "dailyBudgetMinor": 500,
+          "totalBudgetMinor": 6000,
+          "savingUntilDay": 15,
+          "stopOnGoal": true,
+          "offerId": "exact",
+          "wallet": {
+            "paid": 0,
+            "earned": 2000,
+            "promotional": 0
+          },
+          "initialState": {}
+        },
+        {
+          "id": "goal",
+          "name": "Goal-oriented players",
+          "kind": "goal",
+          "weight": 25,
+          "attendance": 0.7,
+          "purchaseChance": 1,
+          "actionsPerSession": 3,
+          "sessionMinutes": 15,
+          "minutesPerAction": 2,
+          "dailyBudgetMinor": 1000,
+          "totalBudgetMinor": 10000,
+          "savingUntilDay": 15,
+          "stopOnGoal": true,
+          "offerId": "subscription",
+          "wallet": {
+            "paid": 0,
+            "earned": 2000,
+            "promotional": 0
+          },
+          "initialState": {}
+        },
+        {
+          "id": "saver",
+          "name": "Saving players",
+          "kind": "saver",
+          "weight": 10,
+          "attendance": 0.7,
+          "purchaseChance": 1,
+          "actionsPerSession": 3,
+          "sessionMinutes": 15,
+          "minutesPerAction": 2,
+          "dailyBudgetMinor": 1000,
+          "totalBudgetMinor": 4000,
+          "savingUntilDay": 15,
+          "stopOnGoal": true,
+          "offerId": "bundle",
+          "wallet": {
+            "paid": 0,
+            "earned": 2000,
+            "promotional": 0
+          },
+          "initialState": {}
+        }
+      ],
+      "calendar": [
+        {
+          "id": "mid-grant",
+          "day": 30,
+          "type": "grant",
+          "origin": "promotional",
+          "amount": 6000
+        },
+        {
+          "id": "expiry",
+          "day": 46,
+          "type": "expire-promotional"
+        },
+        {
+          "id": "second-season",
+          "day": 46,
+          "type": "season",
+          "seasonId": "second"
+        }
+      ],
+      "utility": {
+        "version": 1,
+        "name": "Declared reward utility",
+        "rules": [
+          {
+            "itemId": "target",
+            "tag": "featured",
+            "copyValues": [
+              10,
+              3,
+              1
+            ]
+          },
+          {
+            "itemId": "common",
+            "tag": "standard",
+            "copyValues": [
+              1,
+              0.2
+            ]
+          }
+        ],
+        "rosterBonus": 2
+      },
+      "response": {
+        "attendanceMultiplier": 1,
+        "purchaseMultiplier": 1,
+        "costMultiplier": 1,
+        "cannibalizationBps": 0
+      },
+      "adverse": {
+        "attendanceMultiplier": 0.8,
+        "purchaseMultiplier": 0.8,
+        "costMultiplier": 1.2,
+        "cannibalizationBps": 2000
+      }
+    }
+  }
+}

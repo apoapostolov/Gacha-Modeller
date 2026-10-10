@@ -123,3 +123,7 @@ Representative journeys replay actual trial indices, with the same event streams
 ## M4 exact and statistical analysis
 
 The [M4 methodology and delivery contract](milestone-4.md) describes probability-state propagation, truncation-aware exact means, supported pool shapes, Wilson/Bonferroni completion bounds, large-sample paired/independent mean errors, starting-state ledgers, fixed cohort weights, seed namespaces and two-seed bounded Pareto experiments. Reports label exact enumeration, simulation sampling error and assumed populations separately. Their resource measures do not establish observed engagement, revenue or profit.
+
+## M5 economy extension
+
+The [Milestone 5 delivery contract](milestone-5.md) defines the calendar engine, fixed-point resource/cash ledger, synthetic financial conventions, policy constraints, subjective utility adapter, cumulative cohort metrics and response sensitivity. Its [reference fixture](fixtures/company-economy.json) and [reconciliation results](economy-reference.json) are reproducible at seed 42. Company approval and observational calibration remain external gates. Envelope version 4 / `economy-5` applies to economy comparisons; mechanical-only comparisons retain version 3 / `analysis-4`.

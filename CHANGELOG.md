@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+- Replaced promotional and instructional headings with formal subject labels and concise descriptive explanations.
+- Added calendar-based economy comparisons with paid/earned/promotional wallets, atomic cash/resource/inventory/shard events, delayed refunds and complete aggregate reconciliation.
+- Added bundles, exact top-ups, attendance subscriptions, grants, expiry, season/banner/target migrations and four transparent policy families with hard budgets and session limits.
+- Added configurable item upgrade utility, roster coverage, D7/D30/D90 and season-end reports, response sensitivity, portfolio displacement and population break-even.
+- Added version 4 economy projects/comparisons, readable ledger exports, a reconciled [synthetic pilot](docs/fixtures/company-economy.json) and [M5 financial and evidence contracts](docs/milestone-5.md). Company approval remains pending.
+- Polished calendar/utility controls, visible assumptions, percentage-point differences, fixed mobile actions, contained ledger previews and focused configuration errors; extended semantic accessibility checks.
+
 - Added bounded exact acquisition probabilities, honest solver fallbacks and analytical checks.
 - Added simulation intervals, paired/independent error references, starting progress and weighted player groups.
 - Added one/two-axis candidate experiments, spending break-even surfaces and bounded Pareto tradeoffs with a separate validation seed.

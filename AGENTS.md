@@ -20,7 +20,7 @@ Project contract. Wins over `/mnt/c/git/defaults/AGENTS.md`.
 
 ## Rules
 
-- Reader-facing copy (README, changelog, `docs/`, preset `blurb`/`notes`, UI chrome) uses **warm Human**: direct you, contractions, no em dash, no fake first person, no performative empathy. Numbers and citations stay exact.
+- Reader-facing copy (README, changelog, `docs/`, preset `blurb`/`notes`, UI chrome) uses a **formal, descriptive tone**: subject-based headings, concise explanations, no em dash, no fake first person, no performative empathy. Numbers and citations stay exact. Reserve action verbs for controls that perform an operation; avoid promotional or instructional section headings.
 - The engine is the product. Presets are data. Do not hide probability logic in React.
 - Studied presets are like-models. Cite the shape in `source`. Never paste a licensed live drop table. Never name a preset as the live game without `-like`.
 - Original mechanics stay `family: 'original'` with `source: 'original'`.

@@ -5,7 +5,7 @@ import type { RunSettings } from '../project/project.ts';
 import type { Banner, SimReport, TrialOptions, TrialSample } from '../engine/types.ts';
 
 export function trialOptions(settings: RunSettings): TrialOptions {
-  const { goal: _goal, trials: _trials, seed: _seed, sparkPolicy: _policy, analysis: _analysis, ...options } = settings;
+  const { goal: _goal, trials: _trials, seed: _seed, sparkPolicy: _policy, analysis: _analysis, economy: _economy, ...options } = settings;
   return options;
 }
 async function sample(model: Banner, settings: RunSettings, count: number, seed: number, progress: (n: number) => void, initialState = settings.initialState): Promise<TrialSample[]> {

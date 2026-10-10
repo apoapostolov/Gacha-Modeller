@@ -47,7 +47,7 @@ Trial/event indexing makes main comparison results independent of worker batch s
 
 The [M4 guide](milestone-4.md) explains exact-solver limits, approximate simulation intervals, weighted player groups and bounded parameter experiments. Reachability diagnostics remain conservative. No-replacement and shared-item packs currently require an unprotected single-tier pool. Arbitrary slot correlations and batch discounts are not represented. There is no paid/free currency ledger or behavioural calibration yet. The [development checklist](../DEVELOPMENT.md) defines those next steps.
 
-## Learn and replay a rule
+## Acquisition mechanics and trial replay
 
 Results contain seven mechanism cards for either immutable model. Each card describes the active rule and exposes its source class, reference, date and region through a help panel. Cited shape and synthetic are author declarations; the lab does not independently verify them. Review source overrides when modifying a cited rule.
 
@@ -77,3 +77,15 @@ Scheduled transitions use purchased-pull boundaries, defer events inside a pack 
 ## Mathematical checks and parameter experiments
 
 Read the [M4 guide](milestone-4.md) for the interval table and exact probabilities. Import [company-analysis.json](fixtures/company-analysis.json) to explore price/pity tradeoffs with a validation seed, or [company-cohorts.json](fixtures/company-cohorts.json) to compare fresh and returning players with explicit starting progress and shares. Controls live in Run settings. Each analysis keeps the fresh main comparison separate and exports the exact assumptions needed for replay.
+
+## Economy and calendar scenarios
+
+The [synthetic economy project](fixtures/company-economy.json) contains the complete two-season pilot. Run settings → **Economy and calendar scenarios** exposes its calendar, finance, offers, policies, scheduled events, utility curves and candidate response assumptions. Resource quantities use the model's virtual unit; monetary controls use the declared cash currency. Full scenario JSON also supports policy-specific initial inventory/protection and custom embedded banner snapshots. Validation precedes application; invalid JSON retains the last valid scenario and focuses an error.
+
+Economy scenarios require day-based scheduling. Pull-based journey transitions and mechanical player-group/parameter experiments run separately. Enabling economy does not silently discard either configuration. The purchased-pull reference above the economy report remains a distinct mechanical analysis.
+
+The economy report selects a response case and reporting horizon. Goal completion, assumed attendance, utility and contribution remain separate rows. Percentage differences use percentage points. Expandable sections contain the cash waterfall, residual balances, policy outcomes, population sensitivity and reconciled player ledgers. Policy tables and candidate traces use the declared response at the final horizon, as stated alongside them; the main table follows the selected case and horizon.
+
+Ledger previews use readable reward names, resource units and cash amounts. They retain the first 100 events and disclose truncation; opening balances, complete aggregate movements and closing balances still include all events. **Export ledger trace** is a diagnostic envelope. **Export comparison** records authoritative models and completed-run settings in version 4 / engine `economy-5`; importing it recomputes the complete comparison. Older supported projects remain importable.
+
+The [M5 contract](milestone-5.md) specifies offer semantics, tax/refund treatment, maturity windows, work limits, utility and evidence boundaries. The [reference results](economy-reference.json) reconcile all 1,600 simulated players. Company finance approval remains pending.

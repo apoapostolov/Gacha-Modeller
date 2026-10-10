@@ -5,7 +5,7 @@ import { Help } from './Help.tsx';
 export function ModelDetails({ model, role, hash, seed, actionMode, targetId, onEdit }: { model: Banner; role: 'Baseline' | 'Candidate'; hash: string; seed: number; actionMode: 'single' | 'pack'; targetId?: string; onEdit?: () => void }) {
   const shortDescription = model.blurb.length <= 160 && !model.blurb.includes('\n');
   const firstSentence = model.blurb.split(/(?<=[.!?])\s/)[0]!.replaceAll('\n', ' ');
-  const overview = firstSentence.length <= 160 ? firstSentence : 'Explore the rewards, draw chances and progress rules in this model.';
+  const overview = firstSentence.length <= 160 ? firstSentence : 'Reward catalogue, acquisition probabilities and progress rules.';
   const validation = useMemo(() => validateBanner(model), [model]);
   const sample = useMemo(() => {
     if (!Number.isSafeInteger(seed) || seed < 0 || seed > 0xffffffff) return [];
@@ -27,7 +27,7 @@ export function ModelDetails({ model, role, hash, seed, actionMode, targetId, on
       {model.spark && <div className="rate"><b>{model.spark.cost}</b><span>Exchange cost</span></div>}
       {model.charge && <div className="rate"><b>{model.charge.midAt}/{model.charge.hardAt}</b><span>Charge checkpoints</span></div>}
     </div>
-    <div className="model-hints"><span>Read the source assumptions and rules behind this model. <Help label={`${role} source and rules`}><p>{model.source}</p><ul>{model.notes.map((note, index) => <li key={index}>{note}</li>)}</ul></Help></span><span>Earlier rarity tiers get the first share of each draw. <Help label={`${role} rarity priority`}>Rarities are evaluated in their listed order. The final tier gets the remaining probability. Higher tiers consume soft-pity probability before lower tiers.</Help></span>
+    <div className="model-hints"><span>Source assumptions and model rules are available in the detail panel. <Help label={`${role} source and rules`}><p>{model.source}</p><ul>{model.notes.map((note, index) => <li key={index}>{note}</li>)}</ul></Help></span><span>Earlier rarity tiers get the first share of each draw. <Help label={`${role} rarity priority`}>Rarities are evaluated in their listed order. The final tier gets the remaining probability. Higher tiers consume soft-pity probability before lower tiers.</Help></span>
       {validation.warnings.length > 0 && <span className="warning-text">Soft pity can leave less probability for later tiers. <Help label={`${role} rate overlap`}>{validation.warnings.map((issue) => <p key={`${issue.path}-${issue.code}`}>{issue.message}</p>)}</Help></span>}
       {model.multiPull && <span>Buy {model.multiPull.size} pulls together; every slot is paid for. <Help label={`${role} pack guarantee`}>{model.multiPull.guaranteeRarity ? `At least one ${model.rarities.find((r) => r.id === model.multiPull!.guaranteeRarity)?.name} or higher. ` : 'No minimum tier. '}The whole pack is purchased even after early attainment.</Help></span>}
       {model.spark && <span>Trade saved exchange points for an eligible reward. <Help label={`${role} exchange effects`}>Reward choice: {model.spark.choice ?? 'missing-first'}. Eligible rewards: {model.spark.items?.join(', ') ?? 'positive-weight featured items'}. Draw counters and capture/charge protection are preserved unless this model declares reset effects. Resets: {JSON.stringify(model.spark.reset ?? 'none')}.</Help></span>}

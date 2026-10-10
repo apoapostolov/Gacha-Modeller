@@ -1,0 +1,2037 @@
+{
+  "fixture": "company-economy.json",
+  "engineVersion": "economy-5",
+  "metricVersion": "cash-contribution-v1",
+  "seed": 42,
+  "evidence": "synthetic",
+  "financeApproval": "pending",
+  "reconciledPlayers": 1600,
+  "totalPlayers": 1600,
+  "scenarios": [
+    {
+      "id": "no-uplift",
+      "name": "No assumed response",
+      "windows": [
+        {
+          "day": 7,
+          "mature": true,
+          "baseline": {
+            "completion": 0.0435,
+            "usefulReward": 0.9,
+            "activeDays": 4.8815,
+            "pointReturn": 0.7199999999999999,
+            "rollingReturn": 1,
+            "pulls": 8.88,
+            "payerShare": 0.6425000000000001,
+            "repeatPayerShare": 0.4,
+            "utility": 3.385499999999994,
+            "rosterCoverage": 0.46925,
+            "wallet": {
+              "paid": 125,
+              "earned": 572.5,
+              "promotional": 15
+            },
+            "cash": {
+              "payments": 516.05,
+              "refunds": 0,
+              "tax": 86.2915,
+              "fees": 67.8585,
+              "fulfilment": 8.556000000000001,
+              "service": 4.8815,
+              "promotion": 1.195,
+              "otherProduct": 24.4075,
+              "cannibalization": 0
+            },
+            "contributionMinor": 371.67499999999995,
+            "pendingRefundMinor": 10.321
+          },
+          "candidate": {
+            "completion": 0.0435,
+            "usefulReward": 0.9,
+            "activeDays": 4.8815,
+            "pointReturn": 0.7199999999999999,
+            "rollingReturn": 1,
+            "pulls": 8.88,
+            "payerShare": 0.6425000000000001,
+            "repeatPayerShare": 0.4,
+            "utility": 3.385499999999994,
+            "rosterCoverage": 0.46925,
+            "wallet": {
+              "paid": 125,
+              "earned": 572.5,
+              "promotional": 15
+            },
+            "cash": {
+              "payments": 516.05,
+              "refunds": 0,
+              "tax": 86.2915,
+              "fees": 67.8585,
+              "fulfilment": 8.556000000000001,
+              "service": 4.8815,
+              "promotion": 1.195,
+              "otherProduct": 24.4075,
+              "cannibalization": 0
+            },
+            "contributionMinor": 371.67499999999995,
+            "pendingRefundMinor": 10.321
+          },
+          "contributionInterval": null
+        },
+        {
+          "day": 30,
+          "mature": true,
+          "baseline": {
+            "completion": 0.28900000000000003,
+            "usefulReward": 1,
+            "activeDays": 21.158500000000004,
+            "pointReturn": 0.698,
+            "rollingReturn": 1,
+            "pulls": 32.1815,
+            "payerShare": 0.7325,
+            "repeatPayerShare": 0.48400000000000004,
+            "utility": 6.6513000000000035,
+            "rosterCoverage": 0.6419999999999999,
+            "wallet": {
+              "paid": 377,
+              "earned": 1772.25,
+              "promotional": 4910.75
+            },
+            "cash": {
+              "payments": 1840.65,
+              "refunds": 30.089000000000006,
+              "tax": 307.6425,
+              "fees": 253.64650000000003,
+              "fulfilment": 10.425,
+              "service": 21.158500000000004,
+              "promotion": 11.411999999999999,
+              "otherProduct": 105.79250000000002,
+              "cannibalization": 0
+            },
+            "contributionMinor": 1312.0690000000002,
+            "pendingRefundMinor": 6.724000000000001
+          },
+          "candidate": {
+            "completion": 0.28900000000000003,
+            "usefulReward": 1,
+            "activeDays": 21.158500000000004,
+            "pointReturn": 0.698,
+            "rollingReturn": 1,
+            "pulls": 32.1815,
+            "payerShare": 0.7325,
+            "repeatPayerShare": 0.48400000000000004,
+            "utility": 6.6513000000000035,
+            "rosterCoverage": 0.6419999999999999,
+            "wallet": {
+              "paid": 377,
+              "earned": 1772.25,
+              "promotional": 4910.75
+            },
+            "cash": {
+              "payments": 1840.65,
+              "refunds": 30.089000000000006,
+              "tax": 307.6425,
+              "fees": 253.64650000000003,
+              "fulfilment": 10.425,
+              "service": 21.158500000000004,
+              "promotion": 11.411999999999999,
+              "otherProduct": 105.79250000000002,
+              "cannibalization": 0
+            },
+            "contributionMinor": 1312.0690000000002,
+            "pendingRefundMinor": 6.724000000000001
+          },
+          "contributionInterval": null
+        },
+        {
+          "day": 45,
+          "mature": true,
+          "baseline": {
+            "completion": 0.41700000000000004,
+            "usefulReward": 1,
+            "activeDays": 31.634,
+            "pointReturn": 0.7525,
+            "rollingReturn": 1,
+            "pulls": 43.2445,
+            "payerShare": 0.7325,
+            "repeatPayerShare": 0.6615,
+            "utility": 8.18730000000001,
+            "rosterCoverage": 0.7060000000000001,
+            "wallet": {
+              "paid": 343.25,
+              "earned": 3556.25,
+              "promotional": 2155.5
+            },
+            "cash": {
+              "payments": 2265.9,
+              "refunds": 43.102000000000004,
+              "tax": 377.771,
+              "fees": 300.315,
+              "fulfilment": 10.681000000000001,
+              "service": 31.634,
+              "promotion": 13.236,
+              "otherProduct": 158.17000000000002,
+              "cannibalization": 0
+            },
+            "contributionMinor": 1647.3310000000001,
+            "pendingRefundMinor": 2.216
+          },
+          "candidate": {
+            "completion": 0.5890000000000001,
+            "usefulReward": 1,
+            "activeDays": 31.634,
+            "pointReturn": 0.7525,
+            "rollingReturn": 1,
+            "pulls": 42.63250000000001,
+            "payerShare": 0.7325,
+            "repeatPayerShare": 0.6615,
+            "utility": 10.251300000000013,
+            "rosterCoverage": 0.792,
+            "wallet": {
+              "paid": 343.25,
+              "earned": 3920.25,
+              "promotional": 2155.5
+            },
+            "cash": {
+              "payments": 2241.1000000000004,
+              "refunds": 42.862,
+              "tax": 373.635,
+              "fees": 296.211,
+              "fulfilment": 11.024999999999999,
+              "service": 31.634,
+              "promotion": 13.236,
+              "otherProduct": 158.17000000000002,
+              "cannibalization": 0
+            },
+            "contributionMinor": 1630.6670000000001,
+            "pendingRefundMinor": 1.96
+          },
+          "contributionInterval": {
+            "estimate": -16.663999999999987,
+            "low": -20.463207682343228,
+            "high": -12.864792317656747,
+            "standardError": 1.9384068851831004,
+            "method": "Stratified paired large-sample normal"
+          }
+        },
+        {
+          "day": 90,
+          "mature": true,
+          "baseline": {
+            "completion": 0.5365,
+            "usefulReward": 1,
+            "activeDays": 63.0465,
+            "pointReturn": 0.6844999999999999,
+            "rollingReturn": 1,
+            "pulls": 54.2995,
+            "payerShare": 0.7325,
+            "repeatPayerShare": 0.6615,
+            "utility": 9.621300000000018,
+            "rosterCoverage": 0.7657500000000002,
+            "wallet": {
+              "paid": 225.5,
+              "earned": 11063,
+              "promotional": 308.75
+            },
+            "cash": {
+              "payments": 2356.95,
+              "refunds": 47.139,
+              "tax": 392.32550000000003,
+              "fees": 305.1215,
+              "fulfilment": 10.920000000000002,
+              "service": 63.0465,
+              "promotion": 18.1845,
+              "otherProduct": 315.23249999999996,
+              "cannibalization": 0
+            },
+            "contributionMinor": 1835.4454999999998,
+            "pendingRefundMinor": 0
+          },
+          "candidate": {
+            "completion": 0.6885000000000001,
+            "usefulReward": 1,
+            "activeDays": 63.0465,
+            "pointReturn": 0.6844999999999999,
+            "rollingReturn": 1,
+            "pulls": 51.115500000000004,
+            "payerShare": 0.7325,
+            "repeatPayerShare": 0.6615,
+            "utility": 11.44530000000002,
+            "rosterCoverage": 0.84175,
+            "wallet": {
+              "paid": 225.5,
+              "earned": 13993,
+              "promotional": 308.75
+            },
+            "cash": {
+              "payments": 2331.55,
+              "refunds": 46.631,
+              "tax": 388.0935,
+              "fees": 300.87350000000004,
+              "fulfilment": 11.224,
+              "service": 63.0465,
+              "promotion": 18.1845,
+              "otherProduct": 315.23249999999996,
+              "cannibalization": 0
+            },
+            "contributionMinor": 1818.7295,
+            "pendingRefundMinor": 0
+          },
+          "contributionInterval": {
+            "estimate": -16.715999999999894,
+            "low": -20.50945239345352,
+            "high": -12.922547606546269,
+            "standardError": 1.9354704593431298,
+            "method": "Stratified paired large-sample normal"
+          }
+        }
+      ],
+      "requiredPopulationMultiplier": 1.0091910314315569
+    },
+    {
+      "id": "response",
+      "name": "Declared candidate response",
+      "windows": [
+        {
+          "day": 7,
+          "mature": true,
+          "baseline": {
+            "completion": 0.0435,
+            "usefulReward": 0.9,
+            "activeDays": 4.8815,
+            "pointReturn": 0.7199999999999999,
+            "rollingReturn": 1,
+            "pulls": 8.88,
+            "payerShare": 0.6425000000000001,
+            "repeatPayerShare": 0.4,
+            "utility": 3.385499999999994,
+            "rosterCoverage": 0.46925,
+            "wallet": {
+              "paid": 125,
+              "earned": 572.5,
+              "promotional": 15
+            },
+            "cash": {
+              "payments": 516.05,
+              "refunds": 0,
+              "tax": 86.2915,
+              "fees": 67.8585,
+              "fulfilment": 8.556000000000001,
+              "service": 4.8815,
+              "promotion": 1.195,
+              "otherProduct": 24.4075,
+              "cannibalization": 0
+            },
+            "contributionMinor": 371.67499999999995,
+            "pendingRefundMinor": 10.321
+          },
+          "candidate": {
+            "completion": 0.0435,
+            "usefulReward": 0.9,
+            "activeDays": 4.8815,
+            "pointReturn": 0.7199999999999999,
+            "rollingReturn": 1,
+            "pulls": 8.88,
+            "payerShare": 0.6425000000000001,
+            "repeatPayerShare": 0.4,
+            "utility": 3.385499999999994,
+            "rosterCoverage": 0.46925,
+            "wallet": {
+              "paid": 125,
+              "earned": 572.5,
+              "promotional": 15
+            },
+            "cash": {
+              "payments": 516.05,
+              "refunds": 0,
+              "tax": 86.2915,
+              "fees": 67.8585,
+              "fulfilment": 8.556000000000001,
+              "service": 4.8815,
+              "promotion": 1.195,
+              "otherProduct": 24.4075,
+              "cannibalization": 0
+            },
+            "contributionMinor": 371.67499999999995,
+            "pendingRefundMinor": 10.321
+          },
+          "contributionInterval": null
+        },
+        {
+          "day": 30,
+          "mature": true,
+          "baseline": {
+            "completion": 0.28900000000000003,
+            "usefulReward": 1,
+            "activeDays": 21.158500000000004,
+            "pointReturn": 0.698,
+            "rollingReturn": 1,
+            "pulls": 32.1815,
+            "payerShare": 0.7325,
+            "repeatPayerShare": 0.48400000000000004,
+            "utility": 6.6513000000000035,
+            "rosterCoverage": 0.6419999999999999,
+            "wallet": {
+              "paid": 377,
+              "earned": 1772.25,
+              "promotional": 4910.75
+            },
+            "cash": {
+              "payments": 1840.65,
+              "refunds": 30.089000000000006,
+              "tax": 307.6425,
+              "fees": 253.64650000000003,
+              "fulfilment": 10.425,
+              "service": 21.158500000000004,
+              "promotion": 11.411999999999999,
+              "otherProduct": 105.79250000000002,
+              "cannibalization": 0
+            },
+            "contributionMinor": 1312.0690000000002,
+            "pendingRefundMinor": 6.724000000000001
+          },
+          "candidate": {
+            "completion": 0.28900000000000003,
+            "usefulReward": 1,
+            "activeDays": 21.158500000000004,
+            "pointReturn": 0.698,
+            "rollingReturn": 1,
+            "pulls": 32.1815,
+            "payerShare": 0.7325,
+            "repeatPayerShare": 0.48400000000000004,
+            "utility": 6.6513000000000035,
+            "rosterCoverage": 0.6419999999999999,
+            "wallet": {
+              "paid": 377,
+              "earned": 1772.25,
+              "promotional": 4910.75
+            },
+            "cash": {
+              "payments": 1840.65,
+              "refunds": 30.089000000000006,
+              "tax": 307.6425,
+              "fees": 253.64650000000003,
+              "fulfilment": 10.425,
+              "service": 21.158500000000004,
+              "promotion": 11.411999999999999,
+              "otherProduct": 105.79250000000002,
+              "cannibalization": 0
+            },
+            "contributionMinor": 1312.0690000000002,
+            "pendingRefundMinor": 6.724000000000001
+          },
+          "contributionInterval": null
+        },
+        {
+          "day": 45,
+          "mature": true,
+          "baseline": {
+            "completion": 0.41700000000000004,
+            "usefulReward": 1,
+            "activeDays": 31.634,
+            "pointReturn": 0.7525,
+            "rollingReturn": 1,
+            "pulls": 43.2445,
+            "payerShare": 0.7325,
+            "repeatPayerShare": 0.6615,
+            "utility": 8.18730000000001,
+            "rosterCoverage": 0.7060000000000001,
+            "wallet": {
+              "paid": 343.25,
+              "earned": 3556.25,
+              "promotional": 2155.5
+            },
+            "cash": {
+              "payments": 2265.9,
+              "refunds": 43.102000000000004,
+              "tax": 377.771,
+              "fees": 300.315,
+              "fulfilment": 10.681000000000001,
+              "service": 31.634,
+              "promotion": 13.236,
+              "otherProduct": 158.17000000000002,
+              "cannibalization": 0
+            },
+            "contributionMinor": 1647.3310000000001,
+            "pendingRefundMinor": 2.216
+          },
+          "candidate": {
+            "completion": 0.5890000000000001,
+            "usefulReward": 1,
+            "activeDays": 31.634,
+            "pointReturn": 0.7525,
+            "rollingReturn": 1,
+            "pulls": 42.63250000000001,
+            "payerShare": 0.7325,
+            "repeatPayerShare": 0.6615,
+            "utility": 10.251300000000013,
+            "rosterCoverage": 0.792,
+            "wallet": {
+              "paid": 343.25,
+              "earned": 3920.25,
+              "promotional": 2155.5
+            },
+            "cash": {
+              "payments": 2241.1000000000004,
+              "refunds": 42.862,
+              "tax": 373.635,
+              "fees": 296.211,
+              "fulfilment": 11.024999999999999,
+              "service": 31.634,
+              "promotion": 13.236,
+              "otherProduct": 158.17000000000002,
+              "cannibalization": 0
+            },
+            "contributionMinor": 1630.6670000000001,
+            "pendingRefundMinor": 1.96
+          },
+          "contributionInterval": {
+            "estimate": -16.663999999999987,
+            "low": -20.463207682343228,
+            "high": -12.864792317656747,
+            "standardError": 1.9384068851831004,
+            "method": "Stratified paired large-sample normal"
+          }
+        },
+        {
+          "day": 90,
+          "mature": true,
+          "baseline": {
+            "completion": 0.5365,
+            "usefulReward": 1,
+            "activeDays": 63.0465,
+            "pointReturn": 0.6844999999999999,
+            "rollingReturn": 1,
+            "pulls": 54.2995,
+            "payerShare": 0.7325,
+            "repeatPayerShare": 0.6615,
+            "utility": 9.621300000000018,
+            "rosterCoverage": 0.7657500000000002,
+            "wallet": {
+              "paid": 225.5,
+              "earned": 11063,
+              "promotional": 308.75
+            },
+            "cash": {
+              "payments": 2356.95,
+              "refunds": 47.139,
+              "tax": 392.32550000000003,
+              "fees": 305.1215,
+              "fulfilment": 10.920000000000002,
+              "service": 63.0465,
+              "promotion": 18.1845,
+              "otherProduct": 315.23249999999996,
+              "cannibalization": 0
+            },
+            "contributionMinor": 1835.4454999999998,
+            "pendingRefundMinor": 0
+          },
+          "candidate": {
+            "completion": 0.6885000000000001,
+            "usefulReward": 1,
+            "activeDays": 63.0465,
+            "pointReturn": 0.6844999999999999,
+            "rollingReturn": 1,
+            "pulls": 51.115500000000004,
+            "payerShare": 0.7325,
+            "repeatPayerShare": 0.6615,
+            "utility": 11.44530000000002,
+            "rosterCoverage": 0.84175,
+            "wallet": {
+              "paid": 225.5,
+              "earned": 13993,
+              "promotional": 308.75
+            },
+            "cash": {
+              "payments": 2331.55,
+              "refunds": 46.631,
+              "tax": 388.0935,
+              "fees": 300.87350000000004,
+              "fulfilment": 11.224,
+              "service": 63.0465,
+              "promotion": 18.1845,
+              "otherProduct": 315.23249999999996,
+              "cannibalization": 0
+            },
+            "contributionMinor": 1818.7295,
+            "pendingRefundMinor": 0
+          },
+          "contributionInterval": {
+            "estimate": -16.715999999999894,
+            "low": -20.50945239345352,
+            "high": -12.922547606546269,
+            "standardError": 1.9354704593431298,
+            "method": "Stratified paired large-sample normal"
+          }
+        }
+      ],
+      "requiredPopulationMultiplier": 1.0091910314315569
+    },
+    {
+      "id": "adverse",
+      "name": "Adverse candidate response",
+      "windows": [
+        {
+          "day": 7,
+          "mature": true,
+          "baseline": {
+            "completion": 0.0435,
+            "usefulReward": 0.9,
+            "activeDays": 4.8815,
+            "pointReturn": 0.7199999999999999,
+            "rollingReturn": 1,
+            "pulls": 8.88,
+            "payerShare": 0.6425000000000001,
+            "repeatPayerShare": 0.4,
+            "utility": 3.385499999999994,
+            "rosterCoverage": 0.46925,
+            "wallet": {
+              "paid": 125,
+              "earned": 572.5,
+              "promotional": 15
+            },
+            "cash": {
+              "payments": 516.05,
+              "refunds": 0,
+              "tax": 86.2915,
+              "fees": 67.8585,
+              "fulfilment": 8.556000000000001,
+              "service": 4.8815,
+              "promotion": 1.195,
+              "otherProduct": 24.4075,
+              "cannibalization": 0
+            },
+            "contributionMinor": 371.67499999999995,
+            "pendingRefundMinor": 10.321
+          },
+          "candidate": {
+            "completion": 0.0345,
+            "usefulReward": 0.9,
+            "activeDays": 3.8665,
+            "pointReturn": 0.557,
+            "rollingReturn": 1,
+            "pulls": 6.4815000000000005,
+            "payerShare": 0.6385000000000001,
+            "repeatPayerShare": 0.36000000000000004,
+            "utility": 3.2774999999999945,
+            "rosterCoverage": 0.46475,
+            "wallet": {
+              "paid": 118.75,
+              "earned": 542.5,
+              "promotional": 8.75
+            },
+            "cash": {
+              "payments": 336.45000000000005,
+              "refunds": 0,
+              "tax": 56.1875,
+              "fees": 39.8025,
+              "fulfilment": 8.137,
+              "service": 3.8665,
+              "promotion": 0.92,
+              "otherProduct": 19.332500000000003,
+              "cannibalization": 3.8665
+            },
+            "contributionMinor": 243.0025,
+            "pendingRefundMinor": 6.729
+          },
+          "contributionInterval": {
+            "estimate": -128.67249999999996,
+            "low": -143.15998729391623,
+            "high": -114.18501270608368,
+            "standardError": 7.391710974381228,
+            "method": "Stratified paired large-sample normal"
+          }
+        },
+        {
+          "day": 30,
+          "mature": true,
+          "baseline": {
+            "completion": 0.28900000000000003,
+            "usefulReward": 1,
+            "activeDays": 21.158500000000004,
+            "pointReturn": 0.698,
+            "rollingReturn": 1,
+            "pulls": 32.1815,
+            "payerShare": 0.7325,
+            "repeatPayerShare": 0.48400000000000004,
+            "utility": 6.6513000000000035,
+            "rosterCoverage": 0.6419999999999999,
+            "wallet": {
+              "paid": 377,
+              "earned": 1772.25,
+              "promotional": 4910.75
+            },
+            "cash": {
+              "payments": 1840.65,
+              "refunds": 30.089000000000006,
+              "tax": 307.6425,
+              "fees": 253.64650000000003,
+              "fulfilment": 10.425,
+              "service": 21.158500000000004,
+              "promotion": 11.411999999999999,
+              "otherProduct": 105.79250000000002,
+              "cannibalization": 0
+            },
+            "contributionMinor": 1312.0690000000002,
+            "pendingRefundMinor": 6.724000000000001
+          },
+          "candidate": {
+            "completion": 0.227,
+            "usefulReward": 1,
+            "activeDays": 16.877,
+            "pointReturn": 0.5525,
+            "rollingReturn": 0.9934999999999999,
+            "pulls": 24.665000000000003,
+            "payerShare": 0.7345,
+            "repeatPayerShare": 0.48000000000000004,
+            "utility": 5.907299999999999,
+            "rosterCoverage": 0.611,
+            "wallet": {
+              "paid": 332,
+              "earned": 1100.25,
+              "promotional": 4956
+            },
+            "cash": {
+              "payments": 1298.3500000000001,
+              "refunds": 20.843,
+              "tax": 217.01350000000002,
+              "fees": 171.7735,
+              "fulfilment": 10.301,
+              "service": 16.877,
+              "promotion": 11.24,
+              "otherProduct": 84.38499999999999,
+              "cannibalization": 16.877
+            },
+            "contributionMinor": 917.8100000000002,
+            "pendingRefundMinor": 5.1240000000000006
+          },
+          "contributionInterval": {
+            "estimate": -394.259,
+            "low": -442.2953511177048,
+            "high": -346.22264888229523,
+            "standardError": 24.508792761811307,
+            "method": "Stratified paired large-sample normal"
+          }
+        },
+        {
+          "day": 45,
+          "mature": true,
+          "baseline": {
+            "completion": 0.41700000000000004,
+            "usefulReward": 1,
+            "activeDays": 31.634,
+            "pointReturn": 0.7525,
+            "rollingReturn": 1,
+            "pulls": 43.2445,
+            "payerShare": 0.7325,
+            "repeatPayerShare": 0.6615,
+            "utility": 8.18730000000001,
+            "rosterCoverage": 0.7060000000000001,
+            "wallet": {
+              "paid": 343.25,
+              "earned": 3556.25,
+              "promotional": 2155.5
+            },
+            "cash": {
+              "payments": 2265.9,
+              "refunds": 43.102000000000004,
+              "tax": 377.771,
+              "fees": 300.315,
+              "fulfilment": 10.681000000000001,
+              "service": 31.634,
+              "promotion": 13.236,
+              "otherProduct": 158.17000000000002,
+              "cannibalization": 0
+            },
+            "contributionMinor": 1647.3310000000001,
+            "pendingRefundMinor": 2.216
+          },
+          "candidate": {
+            "completion": 0.3425,
+            "usefulReward": 1,
+            "activeDays": 25.2105,
+            "pointReturn": 0.5945,
+            "rollingReturn": 1,
+            "pulls": 36.307,
+            "payerShare": 0.7345,
+            "repeatPayerShare": 0.6665,
+            "utility": 7.293300000000006,
+            "rosterCoverage": 0.66875,
+            "wallet": {
+              "paid": 360,
+              "earned": 2118.75,
+              "promotional": 1624
+            },
+            "cash": {
+              "payments": 1781.1000000000001,
+              "refunds": 30.869000000000003,
+              "tax": 297.13,
+              "fees": 227.149,
+              "fulfilment": 10.532,
+              "service": 25.2105,
+              "promotion": 12.716000000000001,
+              "otherProduct": 126.0525,
+              "cannibalization": 25.2105
+            },
+            "contributionMinor": 1278.3355000000001,
+            "pendingRefundMinor": 4.753000000000001
+          },
+          "contributionInterval": {
+            "estimate": -368.9955,
+            "low": -414.62755710323535,
+            "high": -323.36344289676464,
+            "standardError": 23.28208960122555,
+            "method": "Stratified paired large-sample normal"
+          }
+        },
+        {
+          "day": 90,
+          "mature": true,
+          "baseline": {
+            "completion": 0.5365,
+            "usefulReward": 1,
+            "activeDays": 63.0465,
+            "pointReturn": 0.6844999999999999,
+            "rollingReturn": 1,
+            "pulls": 54.2995,
+            "payerShare": 0.7325,
+            "repeatPayerShare": 0.6615,
+            "utility": 9.621300000000018,
+            "rosterCoverage": 0.7657500000000002,
+            "wallet": {
+              "paid": 225.5,
+              "earned": 11063,
+              "promotional": 308.75
+            },
+            "cash": {
+              "payments": 2356.95,
+              "refunds": 47.139,
+              "tax": 392.32550000000003,
+              "fees": 305.1215,
+              "fulfilment": 10.920000000000002,
+              "service": 63.0465,
+              "promotion": 18.1845,
+              "otherProduct": 315.23249999999996,
+              "cannibalization": 0
+            },
+            "contributionMinor": 1835.4454999999998,
+            "pendingRefundMinor": 0
+          },
+          "candidate": {
+            "completion": 0.4965,
+            "usefulReward": 1,
+            "activeDays": 50.5625,
+            "pointReturn": 0.5585,
+            "rollingReturn": 0.9964999999999999,
+            "pulls": 50.402,
+            "payerShare": 0.7345,
+            "repeatPayerShare": 0.6665,
+            "utility": 9.141300000000015,
+            "rosterCoverage": 0.74575,
+            "wallet": {
+              "paid": 214.5,
+              "earned": 7647.5,
+              "promotional": 212.5
+            },
+            "cash": {
+              "payments": 2296.4,
+              "refunds": 45.928,
+              "tax": 382.60800000000006,
+              "fees": 289.696,
+              "fulfilment": 10.84,
+              "service": 50.5625,
+              "promotion": 17.0665,
+              "otherProduct": 252.8125,
+              "cannibalization": 50.5625
+            },
+            "contributionMinor": 1701.9490000000003,
+            "pendingRefundMinor": 0
+          },
+          "contributionInterval": {
+            "estimate": -133.49649999999951,
+            "low": -147.3938169643096,
+            "high": -119.59918303568942,
+            "standardError": 7.090598130338485,
+            "method": "Stratified paired large-sample normal"
+          }
+        }
+      ],
+      "requiredPopulationMultiplier": 1.0784374267384038
+    }
+  ],
+  "groups": [
+    {
+      "policy": {
+        "id": "budget",
+        "name": "Budget-limited players",
+        "kind": "budget",
+        "weight": 40,
+        "attendance": 0.7,
+        "purchaseChance": 1,
+        "actionsPerSession": 3,
+        "sessionMinutes": 15,
+        "minutesPerAction": 2,
+        "dailyBudgetMinor": 500,
+        "totalBudgetMinor": 6000,
+        "savingUntilDay": 15,
+        "stopOnGoal": true,
+        "offerId": "exact",
+        "wallet": {
+          "paid": 0,
+          "earned": 2000,
+          "promotional": 0
+        },
+        "initialState": {}
+      },
+      "seed": 1660347046,
+      "share": 0.4,
+      "windows": [
+        {
+          "day": 7,
+          "mature": true,
+          "baseline": {
+            "completion": 0.04,
+            "usefulReward": 1,
+            "activeDays": 4.85,
+            "pointReturn": 0.72,
+            "rollingReturn": 1,
+            "pulls": 14.25,
+            "payerShare": 1,
+            "repeatPayerShare": 1,
+            "utility": 3.679999999999994,
+            "rosterCoverage": 0.52,
+            "wallet": {
+              "paid": 0,
+              "earned": 45,
+              "promotional": 0
+            },
+            "cash": {
+              "payments": 987,
+              "refunds": 0,
+              "tax": 165.41,
+              "fees": 154.49,
+              "fulfilment": 10.04,
+              "service": 4.85,
+              "promotion": 0,
+              "otherProduct": 24.25,
+              "cannibalization": 0
+            },
+            "contributionMinor": 676.46,
+            "pendingRefundMinor": 19.74
+          },
+          "candidate": {
+            "completion": 0.04,
+            "usefulReward": 1,
+            "activeDays": 4.85,
+            "pointReturn": 0.72,
+            "rollingReturn": 1,
+            "pulls": 14.25,
+            "payerShare": 1,
+            "repeatPayerShare": 1,
+            "utility": 3.679999999999994,
+            "rosterCoverage": 0.52,
+            "wallet": {
+              "paid": 0,
+              "earned": 45,
+              "promotional": 0
+            },
+            "cash": {
+              "payments": 987,
+              "refunds": 0,
+              "tax": 165.41,
+              "fees": 154.49,
+              "fulfilment": 10.04,
+              "service": 4.85,
+              "promotion": 0,
+              "otherProduct": 24.25,
+              "cannibalization": 0
+            },
+            "contributionMinor": 676.46,
+            "pendingRefundMinor": 19.74
+          },
+          "contributionInterval": null
+        },
+        {
+          "day": 30,
+          "mature": true,
+          "baseline": {
+            "completion": 0.4,
+            "usefulReward": 1,
+            "activeDays": 21.01,
+            "pointReturn": 0.7,
+            "rollingReturn": 1,
+            "pulls": 50.54,
+            "payerShare": 1,
+            "repeatPayerShare": 1,
+            "utility": 8.00000000000001,
+            "rosterCoverage": 0.7,
+            "wallet": {
+              "paid": 0,
+              "earned": 2200,
+              "promotional": 4850
+            },
+            "cash": {
+              "payments": 3908.5,
+              "refunds": 64.76,
+              "tax": 656.14,
+              "fees": 599.46,
+              "fulfilment": 10.76,
+              "service": 21.01,
+              "promotion": 6,
+              "otherProduct": 105.05,
+              "cannibalization": 0
+            },
+            "contributionMinor": 2655.42,
+            "pendingRefundMinor": 13.41
+          },
+          "candidate": {
+            "completion": 0.4,
+            "usefulReward": 1,
+            "activeDays": 21.01,
+            "pointReturn": 0.7,
+            "rollingReturn": 1,
+            "pulls": 50.54,
+            "payerShare": 1,
+            "repeatPayerShare": 1,
+            "utility": 8.00000000000001,
+            "rosterCoverage": 0.7,
+            "wallet": {
+              "paid": 0,
+              "earned": 2200,
+              "promotional": 4850
+            },
+            "cash": {
+              "payments": 3908.5,
+              "refunds": 64.76,
+              "tax": 656.14,
+              "fees": 599.46,
+              "fulfilment": 10.76,
+              "service": 21.01,
+              "promotion": 6,
+              "otherProduct": 105.05,
+              "cannibalization": 0
+            },
+            "contributionMinor": 2655.42,
+            "pendingRefundMinor": 13.41
+          },
+          "contributionInterval": null
+        },
+        {
+          "day": 45,
+          "mature": true,
+          "baseline": {
+            "completion": 0.56,
+            "usefulReward": 1,
+            "activeDays": 31.75,
+            "pointReturn": 0.78,
+            "rollingReturn": 1,
+            "pulls": 61.55,
+            "payerShare": 1,
+            "repeatPayerShare": 1,
+            "utility": 9.920000000000018,
+            "rosterCoverage": 0.78,
+            "wallet": {
+              "paid": 0,
+              "earned": 4865,
+              "promotional": 2470
+            },
+            "cash": {
+              "payments": 4501,
+              "refunds": 86.98,
+              "tax": 755.4,
+              "fees": 692.6,
+              "fulfilment": 11.08,
+              "service": 31.75,
+              "promotion": 6,
+              "otherProduct": 158.75,
+              "cannibalization": 0
+            },
+            "contributionMinor": 3075.94,
+            "pendingRefundMinor": 3.04
+          },
+          "candidate": {
+            "completion": 0.99,
+            "usefulReward": 1,
+            "activeDays": 31.75,
+            "pointReturn": 0.78,
+            "rollingReturn": 1,
+            "pulls": 60.02,
+            "payerShare": 1,
+            "repeatPayerShare": 1,
+            "utility": 15.080000000000027,
+            "rosterCoverage": 0.995,
+            "wallet": {
+              "paid": 0,
+              "earned": 5775,
+              "promotional": 2470
+            },
+            "cash": {
+              "payments": 4439,
+              "refunds": 86.38,
+              "tax": 745.06,
+              "fees": 682.34,
+              "fulfilment": 11.94,
+              "service": 31.75,
+              "promotion": 6,
+              "otherProduct": 158.75,
+              "cannibalization": 0
+            },
+            "contributionMinor": 3034.28,
+            "pendingRefundMinor": 2.4
+          },
+          "contributionInterval": {
+            "estimate": -41.66,
+            "low": -51.158019205858096,
+            "high": -32.1619807941419,
+            "method": "Paired large-sample normal"
+          }
+        },
+        {
+          "day": 90,
+          "mature": true,
+          "baseline": {
+            "completion": 0.61,
+            "usefulReward": 1,
+            "activeDays": 63.29,
+            "pointReturn": 0.69,
+            "rollingReturn": 1,
+            "pulls": 68.17,
+            "payerShare": 1,
+            "repeatPayerShare": 1,
+            "utility": 10.520000000000021,
+            "rosterCoverage": 0.805,
+            "wallet": {
+              "paid": 0,
+              "earned": 14060,
+              "promotional": 0
+            },
+            "cash": {
+              "payments": 4505.5,
+              "refunds": 90.11,
+              "tax": 756.14,
+              "fees": 693.46,
+              "fulfilment": 11.18,
+              "service": 63.29,
+              "promotion": 6,
+              "otherProduct": 316.45,
+              "cannibalization": 0
+            },
+            "contributionMinor": 3201.77,
+            "pendingRefundMinor": 0
+          },
+          "candidate": {
+            "completion": 0.99,
+            "usefulReward": 1,
+            "activeDays": 63.29,
+            "pointReturn": 0.69,
+            "rollingReturn": 1,
+            "pulls": 60.21,
+            "payerShare": 1,
+            "repeatPayerShare": 1,
+            "utility": 15.080000000000027,
+            "rosterCoverage": 0.995,
+            "wallet": {
+              "paid": 0,
+              "earned": 21385,
+              "promotional": 0
+            },
+            "cash": {
+              "payments": 4442,
+              "refunds": 88.84,
+              "tax": 745.56,
+              "fees": 682.84,
+              "fulfilment": 11.94,
+              "service": 63.29,
+              "promotion": 6,
+              "otherProduct": 316.45,
+              "cannibalization": 0
+            },
+            "contributionMinor": 3159.98,
+            "pendingRefundMinor": 0
+          },
+          "contributionInterval": {
+            "estimate": -41.79,
+            "low": -51.273630983634064,
+            "high": -32.306369016365934,
+            "method": "Paired large-sample normal"
+          }
+        }
+      ]
+    },
+    {
+      "policy": {
+        "id": "free",
+        "name": "Non-paying players",
+        "kind": "free",
+        "weight": 25,
+        "attendance": 0.7,
+        "purchaseChance": 1,
+        "actionsPerSession": 3,
+        "sessionMinutes": 15,
+        "minutesPerAction": 2,
+        "dailyBudgetMinor": 500,
+        "totalBudgetMinor": 3000,
+        "savingUntilDay": 15,
+        "stopOnGoal": true,
+        "offerId": "bundle",
+        "wallet": {
+          "paid": 0,
+          "earned": 2000,
+          "promotional": 0
+        },
+        "initialState": {}
+      },
+      "seed": 1334545825,
+      "share": 0.25,
+      "windows": [
+        {
+          "day": 7,
+          "mature": true,
+          "baseline": {
+            "completion": 0.03,
+            "usefulReward": 1,
+            "activeDays": 4.92,
+            "pointReturn": 0.73,
+            "rollingReturn": 1,
+            "pulls": 4.16,
+            "payerShare": 0,
+            "repeatPayerShare": 0,
+            "utility": 3.5599999999999934,
+            "rosterCoverage": 0.515,
+            "wallet": {
+              "paid": 0,
+              "earned": 300,
+              "promotional": 0
+            },
+            "cash": {
+              "payments": 0,
+              "refunds": 0,
+              "tax": 0,
+              "fees": 0,
+              "fulfilment": 8.32,
+              "service": 4.92,
+              "promotion": 0,
+              "otherProduct": 24.6,
+              "cannibalization": 0
+            },
+            "contributionMinor": 11.36,
+            "pendingRefundMinor": 0
+          },
+          "candidate": {
+            "completion": 0.03,
+            "usefulReward": 1,
+            "activeDays": 4.92,
+            "pointReturn": 0.73,
+            "rollingReturn": 1,
+            "pulls": 4.16,
+            "payerShare": 0,
+            "repeatPayerShare": 0,
+            "utility": 3.5599999999999934,
+            "rosterCoverage": 0.515,
+            "wallet": {
+              "paid": 0,
+              "earned": 300,
+              "promotional": 0
+            },
+            "cash": {
+              "payments": 0,
+              "refunds": 0,
+              "tax": 0,
+              "fees": 0,
+              "fulfilment": 8.32,
+              "service": 4.92,
+              "promotion": 0,
+              "otherProduct": 24.6,
+              "cannibalization": 0
+            },
+            "contributionMinor": 11.36,
+            "pendingRefundMinor": 0
+          },
+          "contributionInterval": null
+        },
+        {
+          "day": 30,
+          "mature": true,
+          "baseline": {
+            "completion": 0.14,
+            "usefulReward": 1,
+            "activeDays": 21.55,
+            "pointReturn": 0.66,
+            "rollingReturn": 1,
+            "pulls": 13.49,
+            "payerShare": 0,
+            "repeatPayerShare": 0,
+            "utility": 4.879999999999992,
+            "rosterCoverage": 0.57,
+            "wallet": {
+              "paid": 0,
+              "earned": 1145,
+              "promotional": 4140
+            },
+            "cash": {
+              "payments": 0,
+              "refunds": 0,
+              "tax": 0,
+              "fees": 0,
+              "fulfilment": 10.14,
+              "service": 21.55,
+              "promotion": 6,
+              "otherProduct": 107.75,
+              "cannibalization": 0
+            },
+            "contributionMinor": 70.06,
+            "pendingRefundMinor": 0
+          },
+          "candidate": {
+            "completion": 0.14,
+            "usefulReward": 1,
+            "activeDays": 21.55,
+            "pointReturn": 0.66,
+            "rollingReturn": 1,
+            "pulls": 13.49,
+            "payerShare": 0,
+            "repeatPayerShare": 0,
+            "utility": 4.879999999999992,
+            "rosterCoverage": 0.57,
+            "wallet": {
+              "paid": 0,
+              "earned": 1145,
+              "promotional": 4140
+            },
+            "cash": {
+              "payments": 0,
+              "refunds": 0,
+              "tax": 0,
+              "fees": 0,
+              "fulfilment": 10.14,
+              "service": 21.55,
+              "promotion": 6,
+              "otherProduct": 107.75,
+              "cannibalization": 0
+            },
+            "contributionMinor": 70.06,
+            "pendingRefundMinor": 0
+          },
+          "contributionInterval": null
+        },
+        {
+          "day": 45,
+          "mature": true,
+          "baseline": {
+            "completion": 0.23,
+            "usefulReward": 1,
+            "activeDays": 31.81,
+            "pointReturn": 0.67,
+            "rollingReturn": 1,
+            "pulls": 21.2,
+            "payerShare": 0,
+            "repeatPayerShare": 0,
+            "utility": 5.96,
+            "rosterCoverage": 0.615,
+            "wallet": {
+              "paid": 0,
+              "earned": 1825,
+              "promotional": 880
+            },
+            "cash": {
+              "payments": 0,
+              "refunds": 0,
+              "tax": 0,
+              "fees": 0,
+              "fulfilment": 10.32,
+              "service": 31.81,
+              "promotion": 6,
+              "otherProduct": 159.05,
+              "cannibalization": 0
+            },
+            "contributionMinor": 110.92,
+            "pendingRefundMinor": 0
+          },
+          "candidate": {
+            "completion": 0.23,
+            "usefulReward": 1,
+            "activeDays": 31.81,
+            "pointReturn": 0.67,
+            "rollingReturn": 1,
+            "pulls": 21.2,
+            "payerShare": 0,
+            "repeatPayerShare": 0,
+            "utility": 5.96,
+            "rosterCoverage": 0.615,
+            "wallet": {
+              "paid": 0,
+              "earned": 1825,
+              "promotional": 880
+            },
+            "cash": {
+              "payments": 0,
+              "refunds": 0,
+              "tax": 0,
+              "fees": 0,
+              "fulfilment": 10.32,
+              "service": 31.81,
+              "promotion": 6,
+              "otherProduct": 159.05,
+              "cannibalization": 0
+            },
+            "contributionMinor": 110.92,
+            "pendingRefundMinor": 0
+          },
+          "contributionInterval": null
+        },
+        {
+          "day": 90,
+          "mature": true,
+          "baseline": {
+            "completion": 0.38,
+            "usefulReward": 1,
+            "activeDays": 63.14,
+            "pointReturn": 0.65,
+            "rollingReturn": 1,
+            "pulls": 32.34,
+            "payerShare": 0,
+            "repeatPayerShare": 0,
+            "utility": 7.760000000000011,
+            "rosterCoverage": 0.69,
+            "wallet": {
+              "paid": 0,
+              "earned": 6350,
+              "promotional": 0
+            },
+            "cash": {
+              "payments": 0,
+              "refunds": 0,
+              "tax": 0,
+              "fees": 0,
+              "fulfilment": 10.62,
+              "service": 63.14,
+              "promotion": 6,
+              "otherProduct": 315.7,
+              "cannibalization": 0
+            },
+            "contributionMinor": 235.94,
+            "pendingRefundMinor": 0
+          },
+          "candidate": {
+            "completion": 0.38,
+            "usefulReward": 1,
+            "activeDays": 63.14,
+            "pointReturn": 0.65,
+            "rollingReturn": 1,
+            "pulls": 32.34,
+            "payerShare": 0,
+            "repeatPayerShare": 0,
+            "utility": 7.760000000000011,
+            "rosterCoverage": 0.69,
+            "wallet": {
+              "paid": 0,
+              "earned": 6350,
+              "promotional": 0
+            },
+            "cash": {
+              "payments": 0,
+              "refunds": 0,
+              "tax": 0,
+              "fees": 0,
+              "fulfilment": 10.62,
+              "service": 63.14,
+              "promotion": 6,
+              "otherProduct": 315.7,
+              "cannibalization": 0
+            },
+            "contributionMinor": 235.94,
+            "pendingRefundMinor": 0
+          },
+          "contributionInterval": null
+        }
+      ]
+    },
+    {
+      "policy": {
+        "id": "goal",
+        "name": "Goal-oriented players",
+        "kind": "goal",
+        "weight": 25,
+        "attendance": 0.7,
+        "purchaseChance": 1,
+        "actionsPerSession": 3,
+        "sessionMinutes": 15,
+        "minutesPerAction": 2,
+        "dailyBudgetMinor": 1000,
+        "totalBudgetMinor": 10000,
+        "savingUntilDay": 15,
+        "stopOnGoal": true,
+        "offerId": "subscription",
+        "wallet": {
+          "paid": 0,
+          "earned": 2000,
+          "promotional": 0
+        },
+        "initialState": {}
+      },
+      "seed": 2825194564,
+      "share": 0.25,
+      "windows": [
+        {
+          "day": 7,
+          "mature": true,
+          "baseline": {
+            "completion": 0.08,
+            "usefulReward": 1,
+            "activeDays": 4.91,
+            "pointReturn": 0.71,
+            "rollingReturn": 1,
+            "pulls": 8.56,
+            "payerShare": 0.97,
+            "repeatPayerShare": 0,
+            "utility": 4.093999999999993,
+            "rosterCoverage": 0.53,
+            "wallet": {
+              "paid": 500,
+              "earned": 150,
+              "promotional": 60
+            },
+            "cash": {
+              "payments": 485,
+              "refunds": 0,
+              "tax": 80.51,
+              "fees": 24.25,
+              "fulfilment": 9.84,
+              "service": 4.91,
+              "promotion": 4.78,
+              "otherProduct": 24.55,
+              "cannibalization": 0
+            },
+            "contributionMinor": 385.26,
+            "pendingRefundMinor": 9.7
+          },
+          "candidate": {
+            "completion": 0.08,
+            "usefulReward": 1,
+            "activeDays": 4.91,
+            "pointReturn": 0.71,
+            "rollingReturn": 1,
+            "pulls": 8.56,
+            "payerShare": 0.97,
+            "repeatPayerShare": 0,
+            "utility": 4.093999999999993,
+            "rosterCoverage": 0.53,
+            "wallet": {
+              "paid": 500,
+              "earned": 150,
+              "promotional": 60
+            },
+            "cash": {
+              "payments": 485,
+              "refunds": 0,
+              "tax": 80.51,
+              "fees": 24.25,
+              "fulfilment": 9.84,
+              "service": 4.91,
+              "promotion": 4.78,
+              "otherProduct": 24.55,
+              "cannibalization": 0
+            },
+            "contributionMinor": 385.26,
+            "pendingRefundMinor": 9.7
+          },
+          "contributionInterval": null
+        },
+        {
+          "day": 30,
+          "mature": true,
+          "baseline": {
+            "completion": 0.24,
+            "usefulReward": 1,
+            "activeDays": 21.06,
+            "pointReturn": 0.72,
+            "rollingReturn": 1,
+            "pulls": 22.86,
+            "payerShare": 0.97,
+            "repeatPayerShare": 0,
+            "utility": 6.013999999999998,
+            "rosterCoverage": 0.61,
+            "wallet": {
+              "paid": 500,
+              "earned": 1900,
+              "promotional": 5895
+            },
+            "cash": {
+              "payments": 485,
+              "refunds": 9.7,
+              "tax": 78.57,
+              "fees": 24.25,
+              "fulfilment": 10.16,
+              "service": 21.06,
+              "promotion": 26.4,
+              "otherProduct": 105.3,
+              "cannibalization": 0
+            },
+            "contributionMinor": 420.16,
+            "pendingRefundMinor": 0
+          },
+          "candidate": {
+            "completion": 0.24,
+            "usefulReward": 1,
+            "activeDays": 21.06,
+            "pointReturn": 0.72,
+            "rollingReturn": 1,
+            "pulls": 22.86,
+            "payerShare": 0.97,
+            "repeatPayerShare": 0,
+            "utility": 6.013999999999998,
+            "rosterCoverage": 0.61,
+            "wallet": {
+              "paid": 500,
+              "earned": 1900,
+              "promotional": 5895
+            },
+            "cash": {
+              "payments": 485,
+              "refunds": 9.7,
+              "tax": 78.57,
+              "fees": 24.25,
+              "fulfilment": 10.16,
+              "service": 21.06,
+              "promotion": 26.4,
+              "otherProduct": 105.3,
+              "cannibalization": 0
+            },
+            "contributionMinor": 420.16,
+            "pendingRefundMinor": 0
+          },
+          "contributionInterval": null
+        },
+        {
+          "day": 45,
+          "mature": true,
+          "baseline": {
+            "completion": 0.33,
+            "usefulReward": 1,
+            "activeDays": 31.31,
+            "pointReturn": 0.82,
+            "rollingReturn": 1,
+            "pulls": 34.63,
+            "payerShare": 0.97,
+            "repeatPayerShare": 0.71,
+            "utility": 7.094000000000005,
+            "rosterCoverage": 0.655,
+            "wallet": {
+              "paid": 425,
+              "earned": 3280,
+              "promotional": 2970
+            },
+            "cash": {
+              "payments": 840,
+              "refunds": 16.8,
+              "tax": 136.08,
+              "fees": 42,
+              "fulfilment": 10.34,
+              "service": 31.31,
+              "promotion": 32.9,
+              "otherProduct": 156.55,
+              "cannibalization": 0
+            },
+            "contributionMinor": 727.12,
+            "pendingRefundMinor": 0
+          },
+          "candidate": {
+            "completion": 0.33,
+            "usefulReward": 1,
+            "activeDays": 31.31,
+            "pointReturn": 0.82,
+            "rollingReturn": 1,
+            "pulls": 34.63,
+            "payerShare": 0.97,
+            "repeatPayerShare": 0.71,
+            "utility": 7.094000000000005,
+            "rosterCoverage": 0.655,
+            "wallet": {
+              "paid": 425,
+              "earned": 3280,
+              "promotional": 2970
+            },
+            "cash": {
+              "payments": 840,
+              "refunds": 16.8,
+              "tax": 136.08,
+              "fees": 42,
+              "fulfilment": 10.34,
+              "service": 31.31,
+              "promotion": 32.9,
+              "otherProduct": 156.55,
+              "cannibalization": 0
+            },
+            "contributionMinor": 727.12,
+            "pendingRefundMinor": 0
+          },
+          "contributionInterval": null
+        },
+        {
+          "day": 90,
+          "mature": true,
+          "baseline": {
+            "completion": 0.55,
+            "usefulReward": 1,
+            "activeDays": 62.61,
+            "pointReturn": 0.7,
+            "rollingReturn": 1,
+            "pulls": 53.35,
+            "payerShare": 0.97,
+            "repeatPayerShare": 0.71,
+            "utility": 9.734000000000016,
+            "rosterCoverage": 0.765,
+            "wallet": {
+              "paid": 310,
+              "earned": 10340,
+              "promotional": 1235
+            },
+            "cash": {
+              "payments": 1125,
+              "refunds": 22.5,
+              "tax": 182.25,
+              "fees": 56.25,
+              "fulfilment": 10.78,
+              "service": 62.61,
+              "promotion": 52.55,
+              "otherProduct": 313.05,
+              "cannibalization": 0
+            },
+            "contributionMinor": 1051.11,
+            "pendingRefundMinor": 0
+          },
+          "candidate": {
+            "completion": 0.55,
+            "usefulReward": 1,
+            "activeDays": 62.61,
+            "pointReturn": 0.7,
+            "rollingReturn": 1,
+            "pulls": 53.35,
+            "payerShare": 0.97,
+            "repeatPayerShare": 0.71,
+            "utility": 9.734000000000016,
+            "rosterCoverage": 0.765,
+            "wallet": {
+              "paid": 310,
+              "earned": 10340,
+              "promotional": 1235
+            },
+            "cash": {
+              "payments": 1125,
+              "refunds": 22.5,
+              "tax": 182.25,
+              "fees": 56.25,
+              "fulfilment": 10.78,
+              "service": 62.61,
+              "promotion": 52.55,
+              "otherProduct": 313.05,
+              "cannibalization": 0
+            },
+            "contributionMinor": 1051.11,
+            "pendingRefundMinor": 0
+          },
+          "contributionInterval": null
+        }
+      ]
+    },
+    {
+      "policy": {
+        "id": "saver",
+        "name": "Saving players",
+        "kind": "saver",
+        "weight": 10,
+        "attendance": 0.7,
+        "purchaseChance": 1,
+        "actionsPerSession": 3,
+        "sessionMinutes": 15,
+        "minutesPerAction": 2,
+        "dailyBudgetMinor": 1000,
+        "totalBudgetMinor": 4000,
+        "savingUntilDay": 15,
+        "stopOnGoal": true,
+        "offerId": "bundle",
+        "wallet": {
+          "paid": 0,
+          "earned": 2000,
+          "promotional": 0
+        },
+        "initialState": {}
+      },
+      "seed": 387804972,
+      "share": 0.1,
+      "windows": [
+        {
+          "day": 7,
+          "mature": true,
+          "baseline": {
+            "completion": 0,
+            "usefulReward": 0,
+            "activeDays": 4.84,
+            "pointReturn": 0.72,
+            "rollingReturn": 1,
+            "pulls": 0,
+            "payerShare": 0,
+            "repeatPayerShare": 0,
+            "utility": 0,
+            "rosterCoverage": 0,
+            "wallet": {
+              "paid": 0,
+              "earned": 4420,
+              "promotional": 0
+            },
+            "cash": {
+              "payments": 0,
+              "refunds": 0,
+              "tax": 0,
+              "fees": 0,
+              "fulfilment": 0,
+              "service": 4.84,
+              "promotion": 0,
+              "otherProduct": 24.2,
+              "cannibalization": 0
+            },
+            "contributionMinor": 19.36,
+            "pendingRefundMinor": 0
+          },
+          "candidate": {
+            "completion": 0,
+            "usefulReward": 0,
+            "activeDays": 4.84,
+            "pointReturn": 0.72,
+            "rollingReturn": 1,
+            "pulls": 0,
+            "payerShare": 0,
+            "repeatPayerShare": 0,
+            "utility": 0,
+            "rosterCoverage": 0,
+            "wallet": {
+              "paid": 0,
+              "earned": 4420,
+              "promotional": 0
+            },
+            "cash": {
+              "payments": 0,
+              "refunds": 0,
+              "tax": 0,
+              "fees": 0,
+              "fulfilment": 0,
+              "service": 4.84,
+              "promotion": 0,
+              "otherProduct": 24.2,
+              "cannibalization": 0
+            },
+            "contributionMinor": 19.36,
+            "pendingRefundMinor": 0
+          },
+          "contributionInterval": null
+        },
+        {
+          "day": 30,
+          "mature": true,
+          "baseline": {
+            "completion": 0.34,
+            "usefulReward": 1,
+            "activeDays": 21.02,
+            "pointReturn": 0.73,
+            "rollingReturn": 1,
+            "pulls": 28.78,
+            "payerShare": 0.9,
+            "repeatPayerShare": 0.84,
+            "utility": 7.278000000000011,
+            "rosterCoverage": 0.67,
+            "wallet": {
+              "paid": 2520,
+              "earned": 1310,
+              "promotional": 4620
+            },
+            "cash": {
+              "payments": 1560,
+              "refunds": 17.6,
+              "tax": 255.44,
+              "fees": 78,
+              "fulfilment": 10.46,
+              "service": 21.02,
+              "promotion": 9.12,
+              "otherProduct": 105.1,
+              "cannibalization": 0
+            },
+            "contributionMinor": 1273.46,
+            "pendingRefundMinor": 13.6
+          },
+          "candidate": {
+            "completion": 0.34,
+            "usefulReward": 1,
+            "activeDays": 21.02,
+            "pointReturn": 0.73,
+            "rollingReturn": 1,
+            "pulls": 28.78,
+            "payerShare": 0.9,
+            "repeatPayerShare": 0.84,
+            "utility": 7.278000000000011,
+            "rosterCoverage": 0.67,
+            "wallet": {
+              "paid": 2520,
+              "earned": 1310,
+              "promotional": 4620
+            },
+            "cash": {
+              "payments": 1560,
+              "refunds": 17.6,
+              "tax": 255.44,
+              "fees": 78,
+              "fulfilment": 10.46,
+              "service": 21.02,
+              "promotion": 9.12,
+              "otherProduct": 105.1,
+              "cannibalization": 0
+            },
+            "contributionMinor": 1273.46,
+            "pendingRefundMinor": 13.6
+          },
+          "contributionInterval": null
+        },
+        {
+          "day": 45,
+          "mature": true,
+          "baseline": {
+            "completion": 0.53,
+            "usefulReward": 1,
+            "activeDays": 31.54,
+            "pointReturn": 0.68,
+            "rollingReturn": 1,
+            "pulls": 46.67,
+            "payerShare": 0.9,
+            "repeatPayerShare": 0.84,
+            "utility": 9.558000000000016,
+            "rosterCoverage": 0.765,
+            "wallet": {
+              "paid": 2370,
+              "earned": 3340,
+              "promotional": 2050
+            },
+            "cash": {
+              "payments": 2555,
+              "refunds": 41.1,
+              "tax": 415.91,
+              "fees": 127.75,
+              "fulfilment": 10.84,
+              "service": 31.54,
+              "promotion": 11.11,
+              "otherProduct": 157.7,
+              "cannibalization": 0
+            },
+            "contributionMinor": 2074.45,
+            "pendingRefundMinor": 10
+          },
+          "candidate": {
+            "completion": 0.53,
+            "usefulReward": 1,
+            "activeDays": 31.54,
+            "pointReturn": 0.68,
+            "rollingReturn": 1,
+            "pulls": 46.67,
+            "payerShare": 0.9,
+            "repeatPayerShare": 0.84,
+            "utility": 9.558000000000016,
+            "rosterCoverage": 0.765,
+            "wallet": {
+              "paid": 2370,
+              "earned": 3340,
+              "promotional": 2050
+            },
+            "cash": {
+              "payments": 2555,
+              "refunds": 41.1,
+              "tax": 415.91,
+              "fees": 127.75,
+              "fulfilment": 10.84,
+              "service": 31.54,
+              "promotion": 11.11,
+              "otherProduct": 157.7,
+              "cannibalization": 0
+            },
+            "contributionMinor": 2074.45,
+            "pendingRefundMinor": 10
+          },
+          "contributionInterval": null
+        },
+        {
+          "day": 90,
+          "mature": true,
+          "baseline": {
+            "completion": 0.6,
+            "usefulReward": 1,
+            "activeDays": 62.93,
+            "pointReturn": 0.71,
+            "rollingReturn": 1,
+            "pulls": 56.09,
+            "payerShare": 0.9,
+            "repeatPayerShare": 0.84,
+            "utility": 10.398000000000017,
+            "rosterCoverage": 0.8,
+            "wallet": {
+              "paid": 1480,
+              "earned": 12665,
+              "promotional": 0
+            },
+            "cash": {
+              "payments": 2735,
+              "refunds": 54.7,
+              "tax": 443.07,
+              "fees": 136.75,
+              "fulfilment": 10.98,
+              "service": 62.93,
+              "promotion": 11.47,
+              "otherProduct": 314.65,
+              "cannibalization": 0
+            },
+            "contributionMinor": 2329.75,
+            "pendingRefundMinor": 0
+          },
+          "candidate": {
+            "completion": 0.6,
+            "usefulReward": 1,
+            "activeDays": 62.93,
+            "pointReturn": 0.71,
+            "rollingReturn": 1,
+            "pulls": 56.09,
+            "payerShare": 0.9,
+            "repeatPayerShare": 0.84,
+            "utility": 10.398000000000017,
+            "rosterCoverage": 0.8,
+            "wallet": {
+              "paid": 1480,
+              "earned": 12665,
+              "promotional": 0
+            },
+            "cash": {
+              "payments": 2735,
+              "refunds": 54.7,
+              "tax": 443.07,
+              "fees": 136.75,
+              "fulfilment": 10.98,
+              "service": 62.93,
+              "promotion": 11.47,
+              "otherProduct": 314.65,
+              "cannibalization": 0
+            },
+            "contributionMinor": 2329.75,
+            "pendingRefundMinor": 0
+          },
+          "contributionInterval": null
+        }
+      ]
+    }
+  ],
+  "handCalculatedWaterfall": {
+    "description": "The separate two-day test fixture uses one USD 5 bundle and two retained copies.",
+    "grossPaymentMinor": 500,
+    "refundMinor": 100,
+    "netTaxMinor": 66,
+    "feeMinor": 25,
+    "serviceMinor": 4,
+    "fulfilmentMinor": 6,
+    "promotionMinor": 2,
+    "contributionMinor": 297,
+    "residualPaidResourceThousandths": 4000
+  }
+}

@@ -4,10 +4,10 @@
 
   <h1>Gacha Modeller</h1>
 
-  <p>Test banner and lootbox odds until the costly tail is as clear as the average.</p>
+  <p>Probability mechanics, economy scenarios and baseline/candidate analysis.</p>
 
   <p>
-    <a href="#what-you-can-do"><img src="https://img.shields.io/badge/Type-Web%20app-555" alt="Type: Web app"></a>
+    <a href="#analysis-capabilities"><img src="https://img.shields.io/badge/Type-Web%20app-555" alt="Type: Web app"></a>
     <a href="./package.json"><img src="https://img.shields.io/badge/Language-TypeScript-555" alt="Language: TypeScript"></a>
     <a href="https://github.com/apoapostolov/Gacha-Modeller/releases/latest"><img src="https://img.shields.io/github/v/release/apoapostolov/Gacha-Modeller" alt="Latest stable release version"></a>
     <a href="https://github.com/apoapostolov/Gacha-Modeller/releases/latest"><img src="https://img.shields.io/github/release-date/apoapostolov/Gacha-Modeller?display_date=published_at&amp;label=last%20release" alt="Published date of latest stable release"></a>
@@ -18,28 +18,21 @@
 
 ![Gacha Modeller lab after a seeded banner simulation, with cost distribution and summary measures](docs/gacha-modeller-hero.png)
 
-The lab puts the mean beside the expensive tail, so a banner's average pull
-count does not get the last word.
+Gacha Modeller is a local analysis workbench for banner, lootbox and digital-pack models. Immutable baseline/candidate snapshots support reproducible comparisons of acquisition distributions, resource consumption and calendar-based cash contribution. Completion, subjective reward utility and assumed activity remain distinct outcomes.
 
-Store pages talk in rates. You live in the tail: the 90th percentile, the spark you had to buy, the second student after the bar reset. Encode a pool here, studied or one you invented, and run it until those numbers are honest.
+## Analysis capabilities
 
-## What you can do
+The [company workbench guide](docs/company-workbench.md) describes model authoring, imports, comparison and replay. The [development checklist](DEVELOPMENT.md) tracks delivery and external evidence gates. The [M4 contract](docs/milestone-4.md) covers mathematical analysis; the [M5 contract](docs/milestone-5.md) covers financial conventions and synthetic economy scenarios.
 
-The [company workbench guide](docs/company-workbench.md) walks through local import, immutable baseline/candidate edits, comparison, learning cards and replay exports. The [development checklist](DEVELOPMENT.md) tracks the remaining economy and company-evidence phases. The [M4 guide](docs/milestone-4.md) explains mathematical checks and bounded experiments.
-
-- **Check the mathematics and sampling noise.** Compare supported exact probabilities with simulation and inspect paired confidence intervals.
-- **Explore declared player groups and candidate ranges.** Carry starting progress, weight population shares and validate bounded tradeoffs with a second seed.
-- **Change a company model without editing code.** Author scopes, target guarantees, shops, pack slots, duplicate caps and crafting in the candidate drawer.
-- **Follow a player's journey.** Step through actual completed or incomplete trials, inspect before/after state, and export the exact replay.
-- **Compare pack composition.** Study quantities, distinct-ID sampling and shared-item packs with declared resource flows.
-- **Pull until the featured shows.** You set the trial count. You get mean, median, p90, and a histogram.
-- **Cap the tail with a shop.** Spark-if-needed buys the featured when the bar fills. Leave the shop closed if you want the raw distribution.
-- **Set 50/50 capturing next to a straight rate-up.** Genshin-like and FGO-like sit in the same catalog so you can see the shape, not argue it.
-- **See leftover spark vanish when the pickup lands.** Blue Archive-like Charge resets when the student lands. The old 200 spark does not. Dual pickups are where that hurts.
-- **Keep a no-pity crate as the control.** Covert odds around 0.64%, no hug at 90, a long tail. Everything kinder should beat this.
-- **Share one pity bar across a guild.** Pool Share wastes leftover pity once, not once per player.
-- **Heat the stickers you still lack.** Collection Heat makes unowned pieces more likely. Completing the set is the product.
-- **Let chat fill the spark bar.** Audience Spark adds progress per pull. The overlay is the pitch; the number is how much tail you gave away.
+- **Acquisition mechanics:** rarity priority, hard/soft pity, featured and selected-target protection, exchanges and scoped progress.
+- **Pack and duplicate rules:** slot quantities, distinct-item sampling, shared-item packs, copy caps, salvage and crafting.
+- **Probability distributions:** completion, mean consumption, population attainment percentiles, incomplete pursuits and common-axis curves.
+- **Mathematical checks:** supported exact solvers, explicit fallbacks, sampling intervals and paired differences.
+- **Player groups and parameter experiments:** declared starting progress, fixed population shares, bounded grids and validation seeds.
+- **Economy and calendar scenarios:** origin-separated wallets, cash payments, offers, subscriptions, grants, refunds, availability and season migrations.
+- **Policy and utility assumptions:** non-paying, budget-limited, goal-oriented and saving populations; hard affordability/time limits; item upgrade curves and roster coverage.
+- **Sensitivity and evidence:** D7/D30/D90 and season-end outcomes, no-response and adverse cases, portfolio displacement and reconciled synthetic pilot fixtures.
+- **Audit and replay:** source-labelled mechanics, individual trial journeys, complete aggregate ledgers and versioned project/comparison exports.
 
 ## Catalog
 
@@ -54,24 +47,26 @@ Studied presets follow a published or community-consensus shape. They are not li
 | Independent Crate | 0.64% covert, no pity |
 | 1% + Hard Pity 100 | Teaching control |
 
-Pool Share, Collection Heat, and Audience Spark are ours. How the engine rolls lives in [docs/methodology.md](docs/methodology.md). Blue Archive charge vs spark is in [docs/blue-archive-recruitment.md](docs/blue-archive-recruitment.md).
+Pool Share, Collection Heat and Audience Spark are original models. Engine semantics are documented in [the methodology](docs/methodology.md); Blue Archive-like charge and spark shapes are described in [the recruitment study](docs/blue-archive-recruitment.md).
 
-## Run it
+## Local development
 
 ```bash
-cd /mnt/c/git-public/Gacha-Modeller
+cd Gacha-Modeller
 npm install
 npm test
 npm run dev
 ```
 
-Open http://127.0.0.1:3018/. Pick a banner, set trials, run. Same seed (`20260823`) gives you the same histogram.
+The development server runs at http://127.0.0.1:3018/. A fixed seed, immutable models, settings and engine version reproduce the same result. The [synthetic economy fixture](docs/fixtures/company-economy.json) provides a complete Milestone 5 example.
 
 ## Limits
 
-- No live game APIs. If a real banner changed last Tuesday, this lab does not know.
-- No session calendars, first-time packs, or store UI. Those wait on a player-time model.
-- No legal opinion on lootboxes.
+- Local-only storage, with no accounts, telemetry or live game configuration feeds.
+- Economy outputs use synthetic assumptions. Company finance approval, an approved pilot and behavioural calibration remain pending.
+- Cash contribution excludes statutory revenue recognition, fixed costs, discounting and cash-out liabilities.
+- Calendar events operate on local civil days; intraday sessions, automatic churn and causal engagement models are outside the current contract.
+- Exact analysis supports bounded model shapes; other cases use simulation with an explicit explanation.
 
 ## License
 

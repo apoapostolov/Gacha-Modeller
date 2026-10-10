@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [1.1.0-rc.1] - 2026-10-10
+
 - Reorganized the workspace into a compact Projects/Companies library and a project header scoped to the content column. Search expands matching folders; refresh is a borderless glyph with a fixed target and contrasting foreground.
 - Added explicit candidate loading and unloading, historical-revision comparison, and on-request acquisition/specialist execution. Opening or refreshing a project does not start a comparison.
 - Added format-7 project overviews for all 17 shipped examples, describing context, mechanics, reward support and analysis questions while preserving immutable model hashes.
@@ -79,5 +81,6 @@ First lab. You pick a banner, it runs the pulls, and you see the cost and the ta
 - Audience Spark: chat fills the spark bar without touching the base rate.
 - A local Vite lab with histogram, cost, shop rate, a ten-pull tape, and those compares on the matching presets.
 
+[1.1.0-rc.1]: https://github.com/apoapostolov/Gacha-Modeller/releases/tag/v1.1.0-rc.1
 [1.0.0]: https://github.com/apoapostolov/Gacha-Modeller/releases/tag/v1.0.0
 [0.1.0]: https://github.com/apoapostolov/Gacha-Modeller/releases/tag/v0.1.0

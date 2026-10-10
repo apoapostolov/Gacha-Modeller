@@ -1,7 +1,7 @@
 {
   "name": "gacha-modeller",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0-rc.1",
   "type": "module",
   "scripts": {
     "dev": "vite --port=3018 --host=127.0.0.1 --strictPort",

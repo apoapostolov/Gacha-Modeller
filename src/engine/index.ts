@@ -1,7 +1,13 @@
 export * from './rng.ts';
 export * from './types.ts';
-export { createState, pityFor, effectiveRate, featuredPool, grantFeatured, pull, pullPack, sparkIfReady, featuredCount, uniqueCount, uniqueFeaturedCount } from './pull.ts';
+export { createState, pityFor, effectiveRate, featuredPool, grantFeatured, pull, pullPack, sparkIfReady, exchangePool, featuredCount, uniqueCount, uniqueFeaturedCount } from './pull.ts';
+export * from './lifecycle.ts';
+export { craftIfReady } from './rewards.ts';
+export * from './contract.ts';
+export * from './journeys.ts';
 export * from './stats.ts';
 export * from './simulate.ts';
 export * from './social.ts';
 export * from './validation.ts';
+export * from './reachability.ts';
+export * from './atlas.ts';

@@ -1,3 +1,4 @@
+import { AdvancedModelEditor } from './AdvancedModelEditor.tsx';
 import { useId } from 'react';
 import { validateBanner, type Banner, type PityRule } from '../engine/index.ts';
 import { Drawer } from './Drawer.tsx';
@@ -21,6 +22,7 @@ export function ModelEditor({ draft, onChange, onClose, onSave, busy, error }: {
     copy.pity.forEach((pity) => { if (pity.rarity === old) pity.rarity = id; pity.resetAlso = pity.resetAlso?.map((r) => r === old ? id : r); });
     if (copy.featured?.rarity === old) copy.featured.rarity = id;
     if (copy.multiPull?.guaranteeRarity === old) copy.multiPull.guaranteeRarity = id;
+    copy.multiPull?.slots?.forEach((slot) => { if (slot.rarity === old) slot.rarity = id; });
     if (copy.spark?.reset?.rarityCounters) copy.spark.reset.rarityCounters = copy.spark.reset.rarityCounters.map((r) => r === old ? id : r);
   };
   return <Drawer title="Edit candidate" onClose={onClose} footer={<><span className="run-note">{validation.valid ? 'Ready to save a revision' : `${validation.errors.length} fields need attention`}</span><button className="primary" disabled={!validation.valid || busy} onClick={onSave}>{busy ? 'Saving…' : 'Save candidate'}</button></>}>
@@ -65,7 +67,7 @@ export function ModelEditor({ draft, onChange, onClose, onSave, busy, error }: {
         {tiers('Featured tier', draft.featured.rarity, (v) => patch((c) => { c.featured!.rarity = v; }))}
         <NumberField label="Featured probability within tier" value={draft.featured.chance} max={1} onChange={(v) => patch((c) => { c.featured!.chance = v!; })} />
         <label className="check-label"><input type="checkbox" checked={draft.featured.capturing} onChange={(e) => patch((c) => { c.featured!.capturing = e.target.checked; })} />Capture after a miss</label>
-        <NumberField label="Featured hard cap (optional)" value={draft.featured.hardAt} min={1} step={1} optional onChange={(v) => patch((c) => { c.featured!.hardAt = v; })} />
+        <NumberField label="Featured hard cap (optional)" value={draft.featured.hardAt} min={1} step={1} optional onChange={(v) => patch((c) => { c.featured!.hardAt = v; if (v === undefined) delete c.featured!.once; })} />
       </div>}
       <label className="check-label"><input type="checkbox" checked={!!draft.charge} onChange={(e) => patch((c) => { c.charge = e.target.checked ? { midAt: 100, midFeaturedChance: .5, hardAt: 200 } : undefined; })} />Charge checkpoints</label>
       {draft.charge && <div className="editor-grid"><NumberField label="Charge midpoint" value={draft.charge.midAt} min={1} step={1} onChange={(v) => patch((c) => { c.charge!.midAt = v!; })} /><NumberField label="Charge midpoint featured chance" value={draft.charge.midFeaturedChance} max={1} onChange={(v) => patch((c) => { c.charge!.midFeaturedChance = v!; })} /><NumberField label="Charge hard checkpoint" value={draft.charge.hardAt} min={1} step={1} onChange={(v) => patch((c) => { c.charge!.hardAt = v!; })} /></div>}
@@ -81,13 +83,17 @@ export function ModelEditor({ draft, onChange, onClose, onSave, busy, error }: {
     </details>
     <details className="editor-group"><summary>Pack purchase</summary>
       <label className="check-label"><input type="checkbox" checked={!!draft.multiPull} onChange={(e) => patch((c) => { c.multiPull = e.target.checked ? { size: 10 } : undefined; })} />Enable whole-pack action</label>
-      {draft.multiPull && <div className="editor-grid"><NumberField label="Pack size" value={draft.multiPull.size} min={1} max={1000} step={1} onChange={(v) => patch((c) => { c.multiPull!.size = v!; })} />{tiers('Pack minimum tier', draft.multiPull.guaranteeRarity ?? '', (v) => patch((c) => { c.multiPull!.guaranteeRarity = v || undefined; }), true)}</div>}
-      <p className="run-note">Repeated slots with replacement <Help label="Supported pack rules">Fixed size and one minimum-tier guarantee. Slot correlations, quantities, no-replacement pools and batch discounts are not supported yet.</Help></p>
+      {draft.multiPull && <div className="editor-grid"><NumberField label="Pack size" value={draft.multiPull.size} min={1} max={1000} step={1} onChange={(v) => patch((c) => { c.multiPull!.size = v!; if (c.multiPull!.slots && Number.isSafeInteger(v) && v! >= 1 && v! <= 1000) c.multiPull!.slots = Array.from({ length: v! }, (_, i) => c.multiPull!.slots![i] ?? { quantity: 1 }); })} />{tiers('Pack minimum tier', draft.multiPull.guaranteeRarity ?? '', (v) => patch((c) => { c.multiPull!.guaranteeRarity = v || undefined; }), true)}</div>}
+      <p className="run-note">Whole packs are purchased <Help label="Supported pack rules">Choose slot layouts and sampling in Pack slots &amp; correlations. Every paid slot costs the declared per-pull price. Batch discounts are not represented.</Help></p>
     </details>
     <details className="editor-group"><summary>Item catalogue</summary>
-      {draft.items.map((item, i) => <div className="editor-row" key={i}><div className="editor-grid"><TextField label={`Item ${i + 1} ID`} value={item.id} onChange={(v) => patch((c) => { c.items[i]!.id = v; })} /><TextField label={`Item ${i + 1} name`} value={item.name} onChange={(v) => patch((c) => { c.items[i]!.name = v; })} />{tiers(`Item ${i + 1} tier`, item.rarity, (v) => patch((c) => { c.items[i]!.rarity = v; }))}<NumberField label={`Item ${i + 1} weight`} value={item.weight} onChange={(v) => patch((c) => { c.items[i]!.weight = v!; })} /><label className="check-label"><input type="checkbox" checked={item.featured ?? false} onChange={(e) => patch((c) => { c.items[i]!.featured = e.target.checked; })} />Item {i + 1} featured</label></div><button className="text-button danger" onClick={() => patch((c) => { c.items.splice(i, 1); })}>Remove item {i + 1}</button></div>)}
+      {draft.items.map((item, i) => <div className="editor-row" key={i}><div className="editor-grid"><TextField label={`Item ${i + 1} ID`} value={item.id} onChange={(v) => patch((c) => { const old = c.items[i]!.id; c.items[i]!.id = v;
+          c.multiPull?.slots?.forEach((slot) => { if (slot.itemId === old) slot.itemId = v; });
+          if (c.spark?.items) c.spark.items = c.spark.items.map((id) => id === old ? v : id);
+          if (c.duplicates?.craftableItems) c.duplicates.craftableItems = c.duplicates.craftableItems.map((id) => id === old ? v : id); })} /><TextField label={`Item ${i + 1} name`} value={item.name} onChange={(v) => patch((c) => { c.items[i]!.name = v; })} />{tiers(`Item ${i + 1} tier`, item.rarity, (v) => patch((c) => { c.items[i]!.rarity = v; }))}<NumberField label={`Item ${i + 1} weight`} value={item.weight} onChange={(v) => patch((c) => { c.items[i]!.weight = v!; })} /><label className="check-label"><input type="checkbox" checked={item.featured ?? false} onChange={(e) => patch((c) => { c.items[i]!.featured = e.target.checked; })} />Item {i + 1} featured</label></div><button className="text-button danger" onClick={() => patch((c) => { c.items.splice(i, 1); })}>Remove item {i + 1}</button></div>)}
       <button className="secondary" onClick={() => patch((c) => { c.items.push({ id: unique('item', c.items.map((i) => i.id)), name: 'New item', rarity: c.rarities.at(-1)?.id ?? '', weight: 1 }); })}>Add item</button>
     </details>
+    <AdvancedModelEditor model={draft} patch={patch} />
     <details className="editor-group"><summary>Original modifiers</summary><div className="editor-grid">
       <NumberField label="Collection heat (optional)" value={draft.mechanics?.collectionHeat} max={1000} optional onChange={(v) => patch((c) => { (c.mechanics ??= {}).collectionHeat = v; })} />
       <NumberField label="Audience spark per pull (optional)" value={draft.mechanics?.audienceSparkPerPull} max={1000} optional onChange={(v) => patch((c) => { (c.mechanics ??= {}).audienceSparkPerPull = v; })} />

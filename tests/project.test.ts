@@ -20,6 +20,15 @@ describe('versioned company projects', () => {
     expect(await contentHash({ b: 2, a: 1 })).toBe(await contentHash({ a: 1, b: 2 }));
     expect(await contentHash([1, 2])).not.toBe(await contentHash([2, 1]));
   });
+  it('versions new mechanic models and refuses those fields in a v1 envelope', async () => {
+    const model = { ...hardPityBaseline, duplicates: { cap: 1, protection: 'none' as const, overflow: 'discard' as const, salvagePerCopy: 0 } };
+    const project = await createProject(model);
+    expect(project.version).toBe(2);
+    expect(project.baseline.schemaVersion).toBe(2);
+    expect(await importProject(JSON.parse(JSON.stringify(project)))).toEqual(project);
+    await expect(importProject({ format: 'gacha-modeller-model', version: 1, model })).rejects.toThrow(/version/);
+    expect((await importProject({ format: 'gacha-modeller-model', version: 2, model })).baseline.hash).toBe(project.baseline.hash);
+  });
   it('imports raw legacy banners and round-trips an exported project', async () => {
     const legacy = await importProject(hardPityBaseline);
     const restored = await importProject(JSON.parse(JSON.stringify(legacy)));
@@ -44,6 +53,12 @@ describe('versioned company projects', () => {
     next.pity[0]!.hardAt = 80;
     expect(semanticDiff(hardPityBaseline, next)).toContainEqual({ path: 'pity[chase].hardAt', before: 100, after: 80 });
   });
+});
+
+it('opens selected-target models with a usable default player choice', async () => {
+  const model = structuredClone(hardPityBaseline); model.targetRule = { hardAt: 10, once: true };
+  const project = await createProject(model);
+  expect(project.settings.targetId).toBe('chase');
 });
 
 describe('local persistence recovery', () => {

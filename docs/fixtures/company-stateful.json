@@ -1,0 +1,96 @@
+{
+  "format": "gacha-modeller-model",
+  "version": 2,
+  "model": {
+    "family": "original",
+    "source": "original",
+    "blurb": "Synthetic company fixture for studying declared mechanics.",
+    "notes": [
+      "Synthetic fixture; no live odds or business uplift claimed."
+    ],
+    "pullCost": {
+      "amount": 1,
+      "currency": "ticket"
+    },
+    "pity": [],
+    "id": "company-stateful",
+    "name": "Stateful target fixture",
+    "rarities": [
+      {
+        "id": "rare",
+        "name": "Rare",
+        "baseRate": 0.1,
+        "color": "#d4b483"
+      },
+      {
+        "id": "common",
+        "name": "Common",
+        "baseRate": 0,
+        "color": "#d4b483"
+      }
+    ],
+    "items": [
+      {
+        "id": "alpha",
+        "name": "Alpha",
+        "rarity": "rare",
+        "weight": 1,
+        "featured": true
+      },
+      {
+        "id": "beta",
+        "name": "Beta",
+        "rarity": "rare",
+        "weight": 1,
+        "featured": true
+      },
+      {
+        "id": "common",
+        "name": "Common",
+        "rarity": "common",
+        "weight": 1,
+        "featured": false
+      }
+    ],
+    "featured": {
+      "rarity": "rare",
+      "chance": 1,
+      "capturing": false
+    },
+    "targetRule": {
+      "hardAt": 6,
+      "once": true
+    },
+    "spark": {
+      "cost": 8,
+      "choice": "selected",
+      "items": [
+        "alpha",
+        "beta"
+      ]
+    },
+    "persistence": {
+      "familyId": "company-seasonal",
+      "targetProgress": {
+        "scope": "family",
+        "bannerSwitch": "retain",
+        "season": "reset",
+        "targetSwitch": "reset"
+      },
+      "onceGuaranteeUsed": {
+        "scope": "account",
+        "bannerSwitch": "retain",
+        "season": "retain",
+        "targetSwitch": "retain"
+      }
+    },
+    "provenance": {
+      "featured": {
+        "kind": "synthetic",
+        "source": "Company selected-target experiment",
+        "asOf": "2026-10-10",
+        "region": "test"
+      }
+    }
+  }
+}

@@ -40,13 +40,13 @@ Goal: import a baseline, fork a candidate, edit supported rules and compare repr
 
 Corresponds to the remaining A01/A03/A04/A06/A10 and later E07/E08.
 
-- [ ] M3.1 Scoped counters and explicit reset/persistence matrix for banner switch, season and item target.
-- [ ] M3.2 Target selection, once-only guarantees and player-selected exchange.
-- [ ] M3.3 Fixed slot layouts, quantities, no-replacement sampling and supported pack correlations.
-- [ ] M3.4 Duplicate caps, protection, salvage and crafting transitions.
-- [ ] M3.5 Mechanic atlas with step-through explanations and source provenance per rule.
-- [ ] M3.6 Conservative reachability diagnostics extended to multi-target/collection interactions.
-- [ ] M3.7 Trace export for lucky, median, unlucky and incomplete journeys.
+- [x] M3.1 Scoped counters and explicit reset/persistence matrix for banner switch, season and item target.
+- [x] M3.2 Target selection, once-only guarantees and player-selected exchange.
+- [x] M3.3 Fixed slot layouts, quantities, no-replacement sampling and supported pack correlations.
+- [x] M3.4 Duplicate caps, protection, salvage and crafting transitions.
+- [x] M3.5 Mechanic atlas with step-through explanations and source provenance per rule.
+- [x] M3.6 Conservative reachability diagnostics extended to multi-target/collection interactions.
+- [x] M3.7 Trace export for lucky, median, unlucky and incomplete journeys.
 
 ## Milestone 4: exact mathematics and comparison quality
 
@@ -139,3 +139,13 @@ Verification:
 Current limits: local projects and a previous-save backup, no cloud accounts. Double-corrupt storage remains untouched and work stays in memory. Import limit 5 MB. RNG policy differs from M1; its legacy function remains available. Group/two-pickup lessons use their explicit separate scenarios. No uncertainty intervals, exact solver, advanced pack layout, economy ledger or measured behavioural uplift yet.
 
 Next implementation batch: M3 scoped counters/reset persistence and target selection, then richer packs and duplicate transformations. Exact mathematics and comparison uncertainty stay in M4; economy and company evidence stay in M5/M6.
+
+### 10 October 2026: expressive mechanics and journeys
+
+Milestone 3 delivers field-specific persistence, selected/one-time target rules, selected exchanges, multi-item goals, explicit pack slots/quantities, distinct-ID and shared-item sampling, and duplicate/salvage/craft flows. Version 2 envelopes carry the new rules, while earlier imports remain supported. The editor exposes the supported mechanics; run settings schedule immutable destinations and lifecycle changes.
+
+Seven rule cards classify source assumptions. Representative journeys replay real trial indices with before/after state and export completed/incomplete evidence. Stored event truncation is visible and does not truncate the final simulation. Conservative reachability accounts for declared reward channels and finite caps; interacting transitions still need simulation.
+
+Verification: 110 tests across ten suites, TypeScript, production build and Git whitespace checks. Browser checks covered v2 import, candidate authoring, resource conservation, a comparison export/import numerical replay, season resets, incomplete journey export, distinct/shared packs, unsupported-combination rejection and source metadata. At 390 x 844, the drawer scrolls with its footer visible, help remains within the viewport, and the page has no horizontal overflow. These browser checks used the Codex Chromium in-app browser; other browser engines and physical devices remain unverified.
+
+The [M3 delivery contract](docs/milestone-3.md), [workbench examples](docs/company-workbench.md#m3-fixtures), and [methodology](docs/methodology.md#m3-state-and-acquisition-semantics) describe boundaries. Milestone 4 is next; confidence intervals, exact solvers, economy modelling and behavioural calibration are still open.

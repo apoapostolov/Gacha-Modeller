@@ -1,5 +1,6 @@
 import { eventRng, weightedPick, type Rng } from './rng.ts';
 import { assertValidBanner } from './validation.ts';
+import { grantReward } from './rewards.ts';
 import type {
   Banner,
   FeaturedRoll,
@@ -9,9 +10,10 @@ import type {
   PullOutcome,
   PullState,
   Rarity,
+  PackSlot,
 } from './types.ts';
 
-export function createState(banner: Banner): PullState {
+export function createState(banner: Banner, targetId?: string): PullState {
   const counters: Record<string, number> = Object.create(null);
   for (const rarity of banner.rarities) counters[rarity.id] = 0;
   return {
@@ -22,6 +24,9 @@ export function createState(banner: Banner): PullState {
     owned: new Set(),
     sparkProgress: 0,
     sinceFeatured: 0,
+    targetId, targetProgress: 0, onceGuaranteeUsed: false,
+    context: { bannerId: banner.id, familyId: banner.persistence?.familyId ?? banner.id, seasonId: 'initial', targetId },
+    scoped: Object.create(null), salvage: 0, salvageEarned: 0, salvageSpent: 0, duplicateCount: 0, crafted: 0,
   };
 }
 
@@ -154,13 +159,6 @@ function resolveFeatured(
   return { pool: featured, featuredRoll };
 }
 
-function grant(banner: Banner, state: PullState, item: PoolItem, resetCharge = true): void {
-  state.inventory[item.id] = (state.inventory[item.id] ?? 0) + 1;
-  state.owned.add(item.id);
-  const chase = banner.featured?.rarity;
-  if (resetCharge && item.featured && (!chase || item.rarity === chase)) state.sinceFeatured = 0;
-}
-
 export function featuredPool(banner: Banner): PoolItem[] {
   const chase = banner.featured?.rarity;
   return banner.items.filter(
@@ -171,6 +169,8 @@ export function featuredPool(banner: Banner): PoolItem[] {
 function nextFeaturedItem(banner: Banner, state: PullState): PoolItem {
   const pool = featuredPool(banner).filter((item) => item.weight > 0);
   if (pool.length === 0) throw new Error(`banner ${banner.id} has no featured item`);
+  const selected = pool.find((item) => item.id === state.targetId);
+  if (selected) return selected;
   const missing = pool.find((entry) => !state.owned.has(entry.id));
   return missing ?? pool[0]!;
 }
@@ -187,6 +187,7 @@ function rollItem(
   rarity: Rarity,
   pityKind: PityKind,
   featuredOpts?: { chance?: number; capturing?: boolean },
+  quantity = 1,
 ): PullOutcome {
   const { pool, featuredRoll } = resolveFeatured(banner, state, rarity.id, eventRng(rng, `pull:${state.totalPulls}:featured`), featuredOpts);
   if (pool.length === 0) {
@@ -194,19 +195,19 @@ function rollItem(
   }
   const item = pickFrom(banner, state, pool, eventRng(rng, `pull:${state.totalPulls}:item`));
   applyCounters(banner, state, rarity.id);
-  grant(banner, state, item);
+  const reward = grantReward(banner, state, item, quantity, true, rng);
   finishPull(banner, state);
-  return { item, rarity: rarity.id, pityKind, featuredRoll };
+  return { ...reward, rarity: rarity.id, pityKind, featuredRoll };
 }
 
 /** Force a featured draw, applying draw resets. Exchanges use a separate transition. */
-export function grantFeatured(banner: Banner, state: PullState): PullOutcome {
+export function grantFeatured(banner: Banner, state: PullState, rng?: Rng, quantity = 1): PullOutcome {
   const item = nextFeaturedItem(banner, state);
   applyCounters(banner, state, item.rarity);
   state.featuredArmed = false;
-  grant(banner, state, item);
+  const reward = grantReward(banner, state, item, quantity, true, rng ?? (() => 0));
   return {
-    item,
+    ...reward,
     rarity: item.rarity,
     pityKind: 'hard',
     featuredRoll: 'guaranteed',
@@ -219,20 +220,27 @@ function rarityById(banner: Banner, id: string): Rarity {
   return rarity;
 }
 
-function draw(banner: Banner, state: PullState, rng: Rng, minimum?: string): PullOutcome {
+function draw(banner: Banner, state: PullState, rng: Rng, minimum?: string, slot?: PackSlot): PullOutcome {
   state.sinceFeatured += 1;
+  state.targetProgress += 1;
+  const quantity = slot?.quantity ?? 1;
+  if (slot?.itemId) return { ...finishKnown(banner, state, banner.items.find((item) => item.id === slot.itemId)!, quantity, rng), packGuaranteed: true };
+  if (slot?.rarity) return { ...rollItem(banner, state, rng, rarityById(banner, slot.rarity), 'none', undefined, quantity), packGuaranteed: true };
   const minimumRank = minimum ? banner.rarities.findIndex((r) => r.id === minimum) : -1;
   const meetsMinimum = (id: string) => minimumRank < 0 || banner.rarities.findIndex((r) => r.id === id) <= minimumRank;
   const finishSelection = (rarity: Rarity, pityKind: PityKind, opts?: { chance?: number; capturing?: boolean }) => {
     if (!meetsMinimum(rarity.id)) {
-      return { ...rollItem(banner, state, rng, rarityById(banner, minimum!), 'none'), packGuaranteed: true };
+      return { ...rollItem(banner, state, rng, rarityById(banner, minimum!), 'none', undefined, quantity), packGuaranteed: true };
     }
-    return rollItem(banner, state, rng, rarity, pityKind, opts);
+    return rollItem(banner, state, rng, rarity, pityKind, opts, quantity);
   };
   const charge = banner.charge;
-  if ((charge && state.sinceFeatured >= charge.hardAt) || (banner.featured?.hardAt && state.sinceFeatured >= banner.featured.hardAt)) {
+  const targetDue = banner.targetRule && state.targetId && state.targetProgress >= banner.targetRule.hardAt && (!banner.targetRule.once || !state.onceGuaranteeUsed);
+  const featuredDue = banner.featured?.hardAt && state.sinceFeatured >= banner.featured.hardAt && (!banner.featured.once || !state.onceGuaranteeUsed);
+  if (targetDue || (charge && state.sinceFeatured >= charge.hardAt) || featuredDue) {
     if (!meetsMinimum(banner.featured!.rarity)) return finishSelection(rarityById(banner, banner.featured!.rarity), 'hard');
-    const outcome = grantFeatured(banner, state);
+    const outcome = grantFeatured(banner, state, rng, quantity);
+    if ((targetDue && banner.targetRule!.once) || (featuredDue && banner.featured!.once)) { state.onceGuaranteeUsed = true; outcome.onceGuaranteed = true; }
     finishPull(banner, state);
     return outcome;
   }
@@ -252,18 +260,36 @@ export function pull(banner: Banner, state: PullState, rng: Rng): PullOutcome {
   return draw(banner, state, rng);
 }
 
+function finishKnown(banner: Banner, state: PullState, item: PoolItem, quantity: number, rng: Rng): PullOutcome {
+  applyCounters(banner, state, item.rarity);
+  const reward = grantReward(banner, state, item, quantity, true, rng);
+  if (item.featured && (!banner.featured || banner.featured.rarity === item.rarity)) state.featuredArmed = false;
+  finishPull(banner, state);
+  return { ...reward, rarity: item.rarity, pityKind: 'none' };
+}
+
 /** Internal hot path; callers validate the model and pack mode before executing. */
-export function executePack(banner: Banner, state: PullState, rng: Rng, observe?: () => void): PullOutcome[] {
+export function executePack(banner: Banner, state: PullState, rng: Rng, observe?: (outcome: PullOutcome) => void): PullOutcome[] {
   const rule = banner.multiPull!;
   const minimumRank = rule.guaranteeRarity ? banner.rarities.findIndex((r) => r.id === rule.guaranteeRarity) : -1;
   let qualified = false;
   const outcomes: PullOutcome[] = [];
+  const selected = new Set<string>();
+  let shared: PoolItem | undefined;
   for (let slot = 0; slot < rule.size; slot++) {
     const minimum = slot === rule.size - 1 && !qualified ? rule.guaranteeRarity : undefined;
-    const outcome = draw(banner, state, rng, minimum);
+    let outcome: PullOutcome;
+    if (rule.sampling === 'without-replacement' || rule.correlation === 'shared-item') {
+      const pool = banner.items.filter((item) => item.weight > 0 && !selected.has(item.id));
+      const item = shared ?? pickFrom(banner, state, pool, eventRng(rng, `pull:${state.totalPulls}:item`));
+      if (rule.sampling === 'without-replacement') selected.add(item.id);
+      if (rule.correlation === 'shared-item') shared = item;
+      state.sinceFeatured++; state.targetProgress++;
+      outcome = finishKnown(banner, state, item, 1, rng);
+    } else outcome = draw(banner, state, rng, minimum, rule.slots?.[slot]);
     outcomes.push(outcome);
     if (banner.rarities.findIndex((r) => r.id === outcome.rarity) <= minimumRank) qualified = true;
-    observe?.();
+    observe?.(outcome);
   }
   return outcomes;
 }
@@ -275,21 +301,33 @@ export function pullPack(banner: Banner, state: PullState, rng: Rng): PullOutcom
   return executePack(banner, state, rng);
 }
 
-export function sparkIfReady(banner: Banner, state: PullState): PullOutcome | null {
+export function sparkIfReady(banner: Banner, state: PullState, selectedId?: string): PullOutcome | null {
   const spark = banner.spark;
   if (!spark) return null;
   const tolerance = Number.EPSILON * Math.max(state.sparkProgress, spark.cost) * 8;
   if (state.sparkProgress <= 0 || state.sparkProgress + tolerance < spark.cost) return null;
   const remaining = Math.max(0, state.sparkProgress - spark.cost);
   if (remaining === state.sparkProgress) throw new Error('spark.cost: Exchange cost is too small for the bar magnitude.');
-  const item = nextFeaturedItem(banner, state);
-  grant(banner, state, item, false);
+  const pool = exchangePool(banner);
+  const choice = spark.choice ?? 'missing-first';
+  const requested = choice === 'target' ? state.targetId : choice === 'selected' ? selectedId : undefined;
+  const available = pool.filter((item) => !banner.duplicates || (state.inventory[item.id] ?? 0) < banner.duplicates.cap);
+  if (choice === 'missing-first' && !available.length) return null;
+  const item = requested ? pool.find((i) => i.id === requested) : choice === 'missing-first' ? available.find((i) => !state.owned.has(i.id)) ?? available[0] : undefined;
+  if (!item) throw new Error('exchangeItemId: Choose an eligible exchange reward.');
+  if (banner.duplicates && (state.inventory[item.id] ?? 0) >= banner.duplicates.cap) return null;
+  const reward = grantReward(banner, state, item, 1, false);
   for (const id of spark.reset?.rarityCounters ?? []) state.counters[id] = 0;
   if (spark.reset?.featuredArmed) state.featuredArmed = false;
   if (spark.reset?.sinceFeatured) state.sinceFeatured = 0;
-  const outcome: PullOutcome = { item, rarity: item.rarity, pityKind: 'none', featuredRoll: 'guaranteed', sparked: true };
+  if (spark.reset?.targetProgress) state.targetProgress = 0;
+  const outcome: PullOutcome = { ...reward, rarity: item.rarity, pityKind: 'none', featuredRoll: 'guaranteed', sparked: true };
   state.sparkProgress = remaining;
   return outcome;
+}
+
+export function exchangePool(banner: Banner): PoolItem[] {
+  return banner.spark?.items ? banner.items.filter((item) => banner.spark!.items!.includes(item.id)) : featuredPool(banner).filter((item) => item.weight > 0);
 }
 
 export function featuredCount(banner: Banner, state: PullState): number {

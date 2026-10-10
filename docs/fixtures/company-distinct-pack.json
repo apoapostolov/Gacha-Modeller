@@ -1,0 +1,75 @@
+{
+  "format": "gacha-modeller-model",
+  "version": 2,
+  "model": {
+    "family": "original",
+    "source": "original",
+    "blurb": "Synthetic company fixture for studying declared mechanics.",
+    "notes": [
+      "Synthetic fixture; no live odds or business uplift claimed."
+    ],
+    "pullCost": {
+      "amount": 1,
+      "currency": "ticket"
+    },
+    "pity": [],
+    "id": "company-distinct-pack",
+    "name": "Distinct pack fixture",
+    "rarities": [
+      {
+        "id": "card",
+        "name": "Card",
+        "baseRate": 0,
+        "color": "#d4b483"
+      }
+    ],
+    "items": [
+      {
+        "id": "card-1",
+        "name": "Card-1",
+        "rarity": "card",
+        "weight": 1,
+        "featured": false
+      },
+      {
+        "id": "card-2",
+        "name": "Card-2",
+        "rarity": "card",
+        "weight": 2,
+        "featured": false
+      },
+      {
+        "id": "card-3",
+        "name": "Card-3",
+        "rarity": "card",
+        "weight": 3,
+        "featured": false
+      },
+      {
+        "id": "card-4",
+        "name": "Card-4",
+        "rarity": "card",
+        "weight": 4,
+        "featured": false
+      },
+      {
+        "id": "card-5",
+        "name": "Card-5",
+        "rarity": "card",
+        "weight": 5,
+        "featured": false
+      },
+      {
+        "id": "card-6",
+        "name": "Card-6",
+        "rarity": "card",
+        "weight": 6,
+        "featured": false
+      }
+    ],
+    "multiPull": {
+      "size": 4,
+      "sampling": "without-replacement"
+    }
+  }
+}

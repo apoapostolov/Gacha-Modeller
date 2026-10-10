@@ -1,0 +1,70 @@
+{
+  "format": "gacha-modeller-model",
+  "version": 2,
+  "model": {
+    "family": "original",
+    "source": "original",
+    "blurb": "Synthetic company fixture for studying declared mechanics.",
+    "notes": [
+      "Synthetic fixture; no live odds or business uplift claimed."
+    ],
+    "pullCost": {
+      "amount": 1,
+      "currency": "ticket"
+    },
+    "pity": [],
+    "id": "company-slots",
+    "name": "Slot and crafting fixture",
+    "rarities": [
+      {
+        "id": "card",
+        "name": "Card",
+        "baseRate": 0,
+        "color": "#d4b483"
+      }
+    ],
+    "items": [
+      {
+        "id": "common",
+        "name": "Common",
+        "rarity": "card",
+        "weight": 1,
+        "featured": false
+      },
+      {
+        "id": "rare",
+        "name": "Rare",
+        "rarity": "card",
+        "weight": 0,
+        "featured": false
+      }
+    ],
+    "multiPull": {
+      "size": 3,
+      "slots": [
+        {
+          "itemId": "common",
+          "quantity": 2
+        },
+        {
+          "itemId": "common",
+          "quantity": 1
+        },
+        {
+          "itemId": "common",
+          "quantity": 1
+        }
+      ]
+    },
+    "duplicates": {
+      "cap": 1,
+      "protection": "none",
+      "overflow": "salvage",
+      "salvagePerCopy": 2,
+      "craftCost": 6,
+      "craftableItems": [
+        "rare"
+      ]
+    }
+  }
+}

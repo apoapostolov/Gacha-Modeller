@@ -22,6 +22,7 @@ export function money(n: number, currency: string): string {
 
 export function goalLabel(goal: Goal): string {
   switch (goal.type) {
+    case 'targets': return `selected targets (${goal.targets.length})`;
     case 'first-featured':
       return 'first featured item';
     case 'copies':

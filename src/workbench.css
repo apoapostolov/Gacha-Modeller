@@ -102,3 +102,31 @@ td, th { border-bottom: 1px solid var(--line); padding: 12px 10px; vertical-alig
 .save-status { color: var(--mute); }
 .save-status[data-saved="true"] { color: var(--ok); }
 .model-description { color: var(--mute); font-size: 14px; margin: 0 0 12px; overflow-wrap: anywhere; }
+.learning-workbench { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--line); }
+.compact-field { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+.compact-field select { padding: 6px; max-width: 160px; background: var(--paper-2); border: 1px solid var(--line); }
+.mechanism-atlas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; }
+.mechanism-card { min-width: 0; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.mechanism-card h4, .journey-event h4 { font-family: var(--serif); font-size: 17px; margin: 0; }
+.mechanism-card p { margin: 8px 0; font-size: 14px; overflow-wrap: anywhere; }
+.source-class { color: var(--mute); font: 11px var(--mono); }
+.journey-heading { margin: 28px 0 12px; }
+.journey-choices { display: flex; flex-wrap: wrap; gap: 8px; }
+.journey-choices button { font-size: 13px; }
+.journey-choices button[aria-pressed=true] { background: var(--brass); color: var(--bg); border-color: var(--brass); }
+.journey-viewer { margin-top: 16px; }
+.journey-controls { display: flex; gap: 16px; align-items: center; margin: 16px 0; }
+.journey-slider { flex: 1; min-width: 0; font-size: 14px; }
+.journey-slider input { width: 100%; accent-color: var(--brass); }
+.journey-event { padding: 16px; background: var(--paper-2); overflow-wrap: anywhere; }
+.journey-event h4 { margin-top: 8px; }
+.journey-event p { margin-bottom: 0; font-size: 14px; }
+.journey-state tr[data-changed=true] td:last-child { color: var(--brass); background: var(--paper-2); }
+.catalogue-checks { display: grid; gap: 4px; max-height: 240px; overflow: auto; }
+@media(max-width: 640px) {
+  .mechanism-atlas { grid-template-columns: 1fr; }
+  .compact-field { flex-wrap: wrap; }
+  .journey-controls { gap: 8px; }
+  .journey-controls button { font-size: 13px; padding: 10px 8px; }
+  .journey-viewer > .section-heading { align-items: flex-start; flex-wrap: wrap; }
+}

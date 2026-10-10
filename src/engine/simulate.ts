@@ -1,3 +1,4 @@
+import { diagnoseGoal } from './reachability.ts';
 import { mulberry32 } from './rng.ts';
 import {
   createState,
@@ -8,7 +9,11 @@ import {
   uniqueFeaturedCount,
   featuredPool,
   executePack,
+  exchangePool,
 } from './pull.ts';
+import { transitionState } from './lifecycle.ts';
+import { craftIfReady } from './rewards.ts';
+import { modelSchemaVersion, advancedRun } from './contract.ts';
 import { assertValidBanner, validateRun, MAX_PULLS } from './validation.ts';
 import { histogram, summarize } from './stats.ts';
 import type {
@@ -21,11 +26,13 @@ import type {
   TrialOptions,
   TrialTermination,
   TrialSample,
+  JourneyEvent,
+  TraceState,
 } from './types.ts';
 
 const HARD_CAP = MAX_PULLS;
 
-function goalMet(banner: Banner, state: PullState, goal: Goal): boolean {
+export function goalMet(banner: Banner, state: PullState, goal: Goal): boolean {
   switch (goal.type) {
     case 'first-featured':
       return featuredCount(banner, state) >= 1;
@@ -36,33 +43,14 @@ function goalMet(banner: Banner, state: PullState, goal: Goal): boolean {
     case 'budget':
       return state.totalPulls >= goal.pulls;
     case 'collection':
-      return uniqueCount(state) >= banner.items.length;
+      return banner.items.every((item) => state.owned.has(item.id));
+    case 'targets':
+      return goal.targets.every((target) => (state.inventory[target.itemId] ?? 0) >= target.count);
   }
 }
 
-/** Conservative impossibility checks. Interacting counters can still make other goals unreachable. */
 function definitelyImpossible(banner: Banner, goal: Goal, sparkPolicy: SparkPolicy, options: TrialOptions): boolean {
-  if (goal.type === 'budget') return false;
-  const rankedMass = banner.rarities.slice(0, -1).reduce((sum, r) => sum + r.baseRate, 0);
-  const chase = banner.featured?.rarity;
-  const forcedFeatured = Boolean(banner.featured?.hardAt || banner.charge || (banner.spark && sparkPolicy === 'if-needed' && goal.type !== 'collection'));
-  const reachable = banner.items.filter((item) => {
-    if (item.weight <= 0) return false;
-    const rank = banner.rarities.findIndex((r) => r.id === item.rarity);
-    const rarity = banner.rarities[rank]!;
-    const byDraw = rank === banner.rarities.length - 1 ? rankedMass < 1 : rarity.baseRate > 0 || banner.pity.some((p) => p.rarity === item.rarity);
-    const byPack = options.actionMode === 'pack' && banner.multiPull?.guaranteeRarity === item.rarity;
-    const byCharge = banner.charge && item.rarity === chase;
-    if (item.featured && (!chase || item.rarity === chase) && forcedFeatured) return true;
-    if (!byDraw && !byPack && !byCharge) return false;
-    if (item.rarity !== chase) return true;
-    if (item.featured) return banner.featured!.chance > 0 || banner.featured!.capturing;
-    return banner.featured!.chance < 1 || Boolean(banner.charge && banner.charge.midFeaturedChance < 1);
-  });
-  if (goal.type === 'collection') return reachable.length < banner.items.length;
-  const targets = new Set(featuredPool(banner).map((item) => item.id));
-  const count = reachable.filter((item) => targets.has(item.id)).length;
-  return goal.type === 'unique-featured' ? count < goal.count : count === 0;
+  return diagnoseGoal(banner, goal, sparkPolicy, options).definitelyImpossible;
 }
 
 function runValidatedTrial(
@@ -72,30 +60,67 @@ function runValidatedTrial(
   sparkPolicy: SparkPolicy,
   options: TrialOptions,
   impossible: boolean,
+  observer?: (event: JourneyEvent) => void,
 ): TrialResult {
-  const state = createState(banner);
+  let active = banner;
+  let state = createState(banner, options.targetId);
+  let cost = 0;
+  const transitions = [...options.transitions ?? []].sort((a, b) => a.atPull - b.atPull);
+  let transitionIndex = 0;
   let sparked = false;
   let attainmentPulls: number | null = goalMet(banner, state, goal) ? 0 : null;
   let termination: TrialTermination = impossible ? 'impossible' : 'horizon';
   const horizon = options.maxPulls ?? HARD_CAP;
-  const actionSize = options.actionMode === 'pack' ? banner.multiPull!.size : 1;
   const observe = () => {
-    if (attainmentPulls === null && goalMet(banner, state, goal)) attainmentPulls = state.totalPulls;
+    if (attainmentPulls === null && goalMet(active, state, goal)) attainmentPulls = state.totalPulls;
   };
+  const view = (): TraceState => ({ pulls: state.totalPulls, rarityCounters: { ...state.counters }, captureArmed: state.featuredArmed, sinceFeatured: state.sinceFeatured, sparkProgress: state.sparkProgress, targetId: state.targetId, targetProgress: state.targetProgress, onceUsed: state.onceGuaranteeUsed, salvage: state.salvage, owned: state.owned.size, selectedCopies: state.targetId ? state.inventory[state.targetId] ?? 0 : 0 });
+  const emit = (kind: JourneyEvent['kind'], before: TraceState | undefined, detail: Partial<Pick<JourneyEvent, 'outcome' | 'transition' | 'purchaseCost'>> = {}) => { if (observer) observer({ kind, modelId: active.id, before: before!, after: view(), ...detail }); };
   while (!impossible && attainmentPulls === null) {
+    while (transitionIndex < transitions.length && transitions[transitionIndex]!.atPull <= state.totalPulls) {
+      const event = transitions[transitionIndex++]!;
+      const next = event.type === 'banner-switch' ? event.model! : active;
+      const before = observer ? view() : undefined;
+      state = transitionState(active, next, state, event); active = next; observe();
+      emit('transition', before, { transition: { type: event.type, seasonId: event.seasonId, targetId: event.targetId } });
+    }
+    if (attainmentPulls !== null) break;
+    if (options.craftPolicy === 'missing-targets' && active.duplicates?.craftCost && goal.type !== 'budget') {
+      const wanted = goal.type === 'targets' ? goal.targets : goal.type === 'collection' ? active.items.map((item) => ({ itemId: item.id, count: 1 })) : featuredPool(active).map((item) => ({ itemId: item.id, count: goal.type === 'copies' ? goal.count : 1 }));
+      for (const target of wanted) {
+        const recipe = active.duplicates.craftableItems?.includes(target.itemId) ?? active.items.some((item) => item.id === target.itemId && item.weight > 0);
+        if (!recipe) continue;
+        while ((state.inventory[target.itemId] ?? 0) < target.count) {
+          const before = observer ? view() : undefined;
+          const outcome = craftIfReady(active, state, target.itemId); if (!outcome) break;
+          observe(); emit('craft', before, { outcome }); if (attainmentPulls !== null) break;
+        }
+        if (attainmentPulls !== null) break;
+      }
+    }
+    if (attainmentPulls !== null) break;
+    const actionSize = options.actionMode === 'pack' ? active.multiPull!.size : 1;
     // Settle ready exchanges before testing limits, including on the final purchased pull.
-    if (sparkPolicy === 'if-needed' && banner.spark && goal.type !== 'budget' && goal.type !== 'collection') {
-      while (sparkIfReady(banner, state)) {
+    if (sparkPolicy === 'if-needed' && active.spark && goal.type !== 'budget' && goal.type !== 'collection') {
+      while (true) {
+        const before = observer ? view() : undefined;
+        const outcome = sparkIfReady(active, state, options.exchangeItemId); if (!outcome) break;
         sparked = true;
         observe();
+        emit('exchange', before, { outcome });
         if (attainmentPulls !== null) break;
       }
     }
     if (attainmentPulls !== null) break;
     if (goal.type === 'budget' && state.totalPulls + actionSize > goal.pulls && goal.pulls <= horizon) { termination = 'budget'; break; }
     if (state.totalPulls + actionSize > horizon) break;
-    if (options.actionMode === 'pack') executePack(banner, state, rng, observe);
-    else { pull(banner, state, rng); observe(); }
+    if (active.targetRule && !state.targetId) throw new Error('targetId: Select a featured target after this transition.');
+    const purchaseCost = actionSize * active.pullCost.amount;
+    cost += purchaseCost;
+    emit('purchase', observer ? view() : undefined, { purchaseCost });
+    let before = observer ? view() : undefined;
+    if (options.actionMode === 'pack') executePack(active, state, rng, (outcome) => { observe(); emit('draw', before, { outcome }); if (observer) before = view(); });
+    else { const outcome = pull(active, state, rng); observe(); emit('draw', before, { outcome }); }
   }
   const goalAchieved = attainmentPulls !== null;
   return {
@@ -103,11 +128,12 @@ function runValidatedTrial(
     termination: goalAchieved ? 'goal' : termination,
     attainmentPulls,
     pulls: state.totalPulls,
-    cost: state.totalPulls * banner.pullCost.amount,
-    featuredCount: featuredCount(banner, state),
+    cost,
+    featuredCount: featuredCount(active, state),
     uniqueCount: uniqueCount(state),
     sparked,
     inventory: { ...state.inventory },
+    ...(banner.duplicates || options.transitions?.some((event) => event.model?.duplicates) ? { duplicateCount: state.duplicateCount, salvageEarned: state.salvageEarned, salvageSpent: state.salvageSpent, salvageRemaining: state.salvage, crafted: state.crafted } : {}),
   };
 }
 
@@ -115,17 +141,32 @@ function validateScenario(banner: Banner, goal: Goal, sparkPolicy: SparkPolicy, 
   assertValidBanner(banner);
   validateRun(goal, sparkPolicy, options, trials, seed);
   if (options.actionMode === 'pack' && !banner.multiPull) throw new Error('actionMode: This model has no pack rule.');
+  if (options.targetId !== undefined && !featuredPool(banner).some((item) => item.id === options.targetId && item.weight > 0)) throw new Error('targetId: Choose an existing positive-weight featured item.');
+  if (banner.targetRule && !options.targetId) throw new Error('targetId: This model needs a selected featured target.');
+  if (banner.spark?.choice === 'selected' && sparkPolicy === 'if-needed' && !exchangePool(banner).some((item) => item.id === options.exchangeItemId)) throw new Error('exchangeItemId: Choose an eligible shop reward.');
+  if (banner.spark?.choice === 'target' && sparkPolicy === 'if-needed' && !exchangePool(banner).some((item) => item.id === options.targetId)) throw new Error('targetId: Choose an eligible shop target.');
+  let current = banner;
+  for (const event of [...options.transitions ?? []].sort((a, b) => a.atPull - b.atPull)) {
+    if (event.type === 'banner-switch') {
+      assertValidBanner(event.model);
+      if (event.model!.pullCost.currency !== banner.pullCost.currency) throw new Error('transitions.model.pullCost.currency: A journey needs one currency unit.');
+      if (options.actionMode === 'pack' && !event.model!.multiPull) throw new Error('transitions.model.multiPull: Every switched model needs a pack rule.');
+      current = event.model!;
+      if (current.spark?.choice === 'selected' && sparkPolicy === 'if-needed' && !exchangePool(current).some((item) => item.id === options.exchangeItemId)) throw new Error('transitions.exchangeItemId: Choose a shop reward eligible on every destination.');
+    }
+    if (event.type === 'target-switch' && !featuredPool(current).some((item) => item.id === event.targetId && item.weight > 0)) throw new Error('transitions.targetId: Choose an eligible featured item on the active model.');
+  }
 }
 
-export function runTrial(banner: Banner, goal: Goal, rng: () => number, sparkPolicy: SparkPolicy = 'if-needed', options: TrialOptions = {}): TrialResult {
-  return createTrialExecutor(banner, goal, sparkPolicy, options)(rng);
+export function runTrial(banner: Banner, goal: Goal, rng: () => number, sparkPolicy: SparkPolicy = 'if-needed', options: TrialOptions = {}, observer?: (event: JourneyEvent) => void): TrialResult {
+  return createTrialExecutor(banner, goal, sparkPolicy, options)(rng, observer);
 }
 
 /** Validate once at a job boundary, then execute a frozen model in the hot loop. */
 export function createTrialExecutor(banner: Banner, goal: Goal, sparkPolicy: SparkPolicy, options: TrialOptions) {
   validateScenario(banner, goal, sparkPolicy, options);
   const impossible = definitelyImpossible(banner, goal, sparkPolicy, options);
-  return (rng: () => number) => runValidatedTrial(banner, goal, rng, sparkPolicy, options, impossible);
+  return (rng: () => number, observer?: (event: JourneyEvent) => void) => runValidatedTrial(banner, goal, rng, sparkPolicy, options, impossible, observer);
 }
 
 export function runMonteCarlo(
@@ -167,8 +208,8 @@ export function summarizeTrials(banner: Banner, goal: Goal, seed: number, sparkP
     completedPulls: attained.length ? summarize(attained) : null,
     acquisitionQuantiles: { p50: populationQuantile(0.5), p90: populationQuantile(0.9), p95: populationQuantile(0.95) },
     manifest: {
-      engineVersion: rngPolicy === 'legacy-sequential' ? 'foundation-1' : 'workbench-2', rngPolicy, rarityPolicy: 'priority', model: structuredClone(banner),
-      options: { maxPulls: options.maxPulls ?? HARD_CAP, actionMode: options.actionMode ?? 'single' },
+      engineVersion: modelSchemaVersion(banner) === 2 || advancedRun(goal, options) ? 'mechanics-3' : rngPolicy === 'legacy-sequential' ? 'foundation-1' : 'workbench-2', rngPolicy, rarityPolicy: 'priority', model: structuredClone(banner),
+      options: { ...structuredClone(options), maxPulls: options.maxPulls ?? HARD_CAP, actionMode: options.actionMode ?? 'single' },
     },
     bannerId: banner.id,
     goal: { ...goal },
@@ -182,6 +223,10 @@ export function summarizeTrials(banner: Banner, goal: Goal, seed: number, sparkP
     sparkRate: results.filter((row) => row.sparked).length / Math.max(trials, 1),
     histogram: histogram(pulls),
     acquisitionCdf,
+    ...(results.some((row) => row.duplicateCount !== undefined) ? { duplicateSummary: {
+      attempted: summarize(results.map((row) => row.duplicateCount ?? 0)), salvageEarned: summarize(results.map((row) => row.salvageEarned ?? 0)),
+      salvageSpent: summarize(results.map((row) => row.salvageSpent ?? 0)), salvageRemaining: summarize(results.map((row) => row.salvageRemaining ?? 0)), crafted: summarize(results.map((row) => row.crafted ?? 0)),
+    } } : {}),
   };
 }
 

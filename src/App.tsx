@@ -115,7 +115,7 @@ export function App() {
         <p className="run-note">Stored on this browser <Help label="Local project storage">Committed snapshots and settings are saved locally, with a previous-save backup. Unsaved editor fields stay in memory. Export project for a portable backup. Nothing is uploaded.</Help></p>
       </aside>
       <div className="workspace-content">
-        {project && settings && <><div className="model-pair"><ModelDetails model={project.baseline.model} role="Baseline" hash={project.baseline.hash} seed={project.settings.seed} actionMode={project.settings.actionMode} /><ModelDetails model={project.candidate.model} role="Candidate" hash={project.candidate.hash} seed={project.settings.seed} actionMode={project.settings.actionMode} onEdit={() => setEditorOpen(true)} /></div>
+        {project && settings && <><div className="model-pair"><ModelDetails model={project.baseline.model} role="Baseline" hash={project.baseline.hash} seed={project.settings.seed} targetId={project.settings.targetId} actionMode={project.settings.actionMode} /><ModelDetails model={project.candidate.model} role="Candidate" hash={project.candidate.hash} seed={project.settings.seed} targetId={project.settings.targetId} actionMode={project.settings.actionMode} onEdit={() => setEditorOpen(true)} /></div>
           {draftChanged && <p className="status-line">You have unsaved candidate edits. <button className="text-button" onClick={() => setEditorOpen(true)}>Continue editing</button></p>}
           {project.history.length > 0 && <details className="panel revision-history"><summary>Candidate history ({project.history.length} previous)</summary>{project.history.map((revision, i) => <div className="history-row" key={revision.id}><span>Revision {i + 1} · {new Date(revision.createdAt).toLocaleString()} · {revision.hash.slice(0, 8)}</span><button className="text-button" onClick={() => { setDraft(structuredClone(revision.model)); setEditorOpen(true); }}>Load into editor</button></div>)}</details>}
           {visibleReport ? <ComparisonResults key={visibleReport.completedAt} report={visibleReport} /> : <section className="panel empty-results"><h2>Compare your next idea</h2><p>{busy ? 'Your models are running in the background. You can keep exploring or cancel this job.' : 'Edit the candidate, then run a comparison against the locked baseline.'}</p></section>}
@@ -123,7 +123,7 @@ export function App() {
         </>}
       </div>
     </main>
-    {settingsOpen && settings && <RunSettings value={settings} onChange={setSettings} onClose={() => setSettingsOpen(false)} packAvailable={packAvailable} busy={busy} error={error} onRun={() => { if (run()) setSettingsOpen(false); }} />}
+    {settingsOpen && settings && <RunSettings value={settings} onChange={setSettings} onClose={() => setSettingsOpen(false)} packAvailable={packAvailable} models={project ? [project.baseline.model, project.candidate.model] : []} busy={busy} error={error} onRun={() => { if (run()) setSettingsOpen(false); }} />}
     {editorOpen && draft && <ModelEditor draft={draft} onChange={setDraft} onClose={() => setEditorOpen(false)} onSave={() => void commit()} busy={operation} error={error} />}
     <p className="foot">Local modelling lab · studied presets are like-models <Help label="Scope of the lab">Models describe cited probability shapes, not licensed live tables. Monte Carlo resource use does not establish revenue, engagement or retention uplift. Company evidence and economy models are later milestones.</Help></p>
   </div>;

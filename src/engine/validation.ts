@@ -114,12 +114,15 @@ export function validateBanner(input: unknown): ModelValidation {
       probability(input.featured.chance, 'featured.chance');
       if (typeof input.featured.capturing !== 'boolean') fail('featured.capturing', 'Use true or false.');
       if (input.featured.hardAt !== undefined) positiveInteger(input.featured.hardAt, 'featured.hardAt');
+      if (input.featured.once !== undefined && (typeof input.featured.once !== 'boolean' || input.featured.hardAt === undefined)) fail('featured.once', 'A one-time guarantee requires a hard cap and a boolean flag.');
     }
   }
   if (input.spark !== undefined) {
     if (!object(input.spark)) fail('spark', 'Provide a spark rule object.');
     else {
       if (!finite(input.spark.cost) || input.spark.cost <= 0) fail('spark.cost', 'Use a finite cost greater than zero.');
+      if (input.spark.choice !== undefined && !['missing-first','selected','target'].includes(String(input.spark.choice))) fail('spark.choice', 'Choose missing-first, selected or target.');
+      if (input.spark.items !== undefined && (!Array.isArray(input.spark.items) || input.spark.items.length === 0 || new Set(input.spark.items).size !== input.spark.items.length || !input.spark.items.every((id) => itemIds.has(String(id))))) fail('spark.items', 'Provide unique existing reward IDs.');
       if (input.spark.reset !== undefined) {
         if (!object(input.spark.reset)) fail('spark.reset', 'Provide explicit exchange reset effects.');
         else {
@@ -128,7 +131,7 @@ export function validateBanner(input: unknown): ModelValidation {
             if (!Array.isArray(reset.rarityCounters)) fail('spark.reset.rarityCounters', 'Provide rarity IDs.');
             else reset.rarityCounters.forEach((id, i) => reference(id, `spark.reset.rarityCounters[${i}]`));
           }
-          for (const key of ['featuredArmed', 'sinceFeatured']) {
+          for (const key of ['featuredArmed', 'sinceFeatured', 'targetProgress']) {
             if (reset[key] !== undefined && typeof reset[key] !== 'boolean') fail(`spark.reset.${key}`, 'Use true or false.');
           }
         }
@@ -155,6 +158,45 @@ export function validateBanner(input: unknown): ModelValidation {
     else {
       positiveInteger(input.multiPull.size, 'multiPull.size', MAX_PACK_SIZE);
       if (input.multiPull.guaranteeRarity !== undefined) reference(input.multiPull.guaranteeRarity, 'multiPull.guaranteeRarity');
+      if (input.multiPull.sampling !== undefined && !['replacement','without-replacement'].includes(String(input.multiPull.sampling))) fail('multiPull.sampling', 'Choose replacement or without-replacement.');
+      if (input.multiPull.correlation !== undefined && !['independent','shared-item'].includes(String(input.multiPull.correlation))) fail('multiPull.correlation', 'Choose independent or shared-item.');
+      if (input.multiPull.slots !== undefined) {
+        if (!Array.isArray(input.multiPull.slots) || input.multiPull.slots.length !== input.multiPull.size) fail('multiPull.slots', 'Provide exactly one layout row per paid slot.');
+        else input.multiPull.slots.forEach((slot, i) => {
+          const path = `multiPull.slots[${i}]`;
+          if (!object(slot)) { fail(path, 'Provide a slot rule.'); return; }
+          positiveInteger(slot.quantity, `${path}.quantity`, 1000);
+          if (slot.rarity !== undefined) reference(slot.rarity, `${path}.rarity`);
+          if (slot.itemId !== undefined && !itemIds.has(String(slot.itemId))) fail(`${path}.itemId`, 'Choose an existing fixed reward.');
+          if (slot.itemId !== undefined && slot.rarity !== undefined) fail(path, 'Choose a fixed item or a fixed rarity.');
+        });
+      }
+      const weighted = input.multiPull.sampling === 'without-replacement' || input.multiPull.correlation === 'shared-item';
+      if (weighted && (rarities.length !== 1 || pity.length || input.featured || input.charge || input.targetRule || input.multiPull.slots || input.multiPull.guaranteeRarity)) fail('multiPull.sampling', 'Weighted correlated packs require one tier, no protection, no layout and no minimum-tier guarantee.');
+      if (input.multiPull.sampling === 'without-replacement' && input.multiPull.correlation === 'shared-item') fail('multiPull.correlation', 'Shared-item and no-replacement sampling cannot be combined.');
+      if (input.multiPull.sampling === 'without-replacement' && finite(input.multiPull.size) && input.multiPull.size > items.filter((item) => object(item) && finite(item.weight) && item.weight > 0).length) fail('multiPull.size', 'A no-replacement pack needs enough positive-weight item IDs.');
+      if (weighted && object(input.duplicates) && input.duplicates.protection === 'same-rarity') fail('duplicates.protection', 'Weighted correlated packs need no duplicate redirection.');
+    }
+  }
+  if (input.duplicates !== undefined) {
+    if (!object(input.duplicates)) fail('duplicates', 'Provide a duplicate rule.');
+    else {
+      positiveInteger(input.duplicates.cap, 'duplicates.cap');
+      if (!['none','same-rarity'].includes(String(input.duplicates.protection))) fail('duplicates.protection', 'Choose none or same-rarity.');
+      if (!['discard','salvage'].includes(String(input.duplicates.overflow))) fail('duplicates.overflow', 'Choose discard or salvage.');
+      if (!integer(input.duplicates.salvagePerCopy, 0, 1_000_000)) fail('duplicates.salvagePerCopy', 'Use 0 to 1,000,000 whole shards per overflow copy.');
+      if (input.duplicates.craftCost !== undefined) positiveInteger(input.duplicates.craftCost, 'duplicates.craftCost', 1_000_000_000);
+      if (input.duplicates.craftableItems !== undefined && (!Array.isArray(input.duplicates.craftableItems) || input.duplicates.craftableItems.length === 0 || new Set(input.duplicates.craftableItems).size !== input.duplicates.craftableItems.length || !input.duplicates.craftableItems.every((id) => itemIds.has(String(id))))) fail('duplicates.craftableItems', 'Choose unique existing recipe rewards.');
+      if (input.duplicates.craftCost !== undefined && (input.duplicates.overflow !== 'salvage' || input.duplicates.salvagePerCopy === 0)) fail('duplicates.craftCost', 'Crafting needs a positive salvage source.');
+    }
+  }
+  if (input.provenance !== undefined) {
+    if (!object(input.provenance)) fail('provenance', 'Provide rule source records.');
+    else for (const [key, source] of Object.entries(input.provenance)) {
+      if (!['rates','pity','featured','exchange','packs','persistence','duplicates'].includes(key) || !object(source)) { fail(`provenance.${key}`, 'Choose a supported mechanism source.'); continue; }
+      if (!['cited-shape','synthetic'].includes(String(source.kind)) || !text(source.source)) fail(`provenance.${key}`, 'Provide source text and a cited-shape or synthetic classification.');
+      if (source.asOf !== undefined && (typeof source.asOf !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(source.asOf) || !Number.isFinite(Date.parse(source.asOf)) || new Date(source.asOf).toISOString().slice(0,10) !== source.asOf)) fail(`provenance.${key}.asOf`, 'Use a valid YYYY-MM-DD date.');
+      if (source.region !== undefined && !text(source.region)) fail(`provenance.${key}.region`, 'Provide a region label.');
     }
   }
   if (input.mechanics !== undefined) {
@@ -169,6 +211,27 @@ export function validateBanner(input: unknown): ModelValidation {
       if (input.mechanics.poolSharePlayers !== undefined) positiveInteger(input.mechanics.poolSharePlayers, 'mechanics.poolSharePlayers', 1_000);
       for (const key of Object.keys(input.mechanics)) {
         if (!['collectionHeat', 'audienceSparkPerPull', 'poolSharePlayers'].includes(key)) fail(`mechanics.${key}`, 'This mechanic is not supported.');
+      }
+    }
+  }
+  if (input.targetRule !== undefined) {
+    if (!object(input.targetRule)) fail('targetRule', 'Provide a selected-target guarantee.');
+    else {
+      positiveInteger(input.targetRule.hardAt, 'targetRule.hardAt');
+      if (typeof input.targetRule.once !== 'boolean') fail('targetRule.once', 'Use true or false.');
+      if (!object(input.featured) || input.charge || input.featured.hardAt !== undefined) fail('targetRule', 'Selected-target protection requires featured rules and cannot overlap charge or featured hard caps.');
+    }
+  }
+  if (input.persistence !== undefined) {
+    if (!object(input.persistence)) fail('persistence', 'Provide a persistence matrix.');
+    else {
+      const fields = ['rarityCounters','featuredArmed','sinceFeatured','sparkProgress','targetProgress','onceGuaranteeUsed'];
+      for (const [field, rule] of Object.entries(input.persistence)) {
+        if (field === 'familyId') { if (!text(rule)) fail('persistence.familyId', 'Provide a named family.'); continue; }
+        if (!fields.includes(field) || !object(rule)) { fail(`persistence.${field}`, 'Provide a supported protection rule.'); continue; }
+        if (!['banner','family','account'].includes(String(rule.scope))) fail(`persistence.${field}.scope`, 'Choose banner, family or account.');
+        if (rule.scope === 'family' && !text(input.persistence.familyId)) fail('persistence.familyId', 'Family scope requires a named family.');
+        for (const event of ['bannerSwitch','season','targetSwitch']) if (!['retain','reset'].includes(String(rule[event]))) fail(`persistence.${field}.${event}`, 'Choose retain or reset.');
       }
     }
   }
@@ -195,15 +258,24 @@ export function validateBanner(input: unknown): ModelValidation {
   banner.rarities.forEach((r, i) => {
     const selectable = i === banner.rarities.length - 1 ? mass < 1 : r.baseRate > 0 || banner.pity.some((p) => p.rarity === r.id);
     const featuredForced = banner.featured?.rarity === r.id && Boolean(banner.featured.hardAt || banner.charge);
-    const packForced = banner.multiPull?.guaranteeRarity === r.id;
+    const packForced = banner.multiPull?.guaranteeRarity === r.id || banner.multiPull?.slots?.some((slot) => slot.rarity === r.id);
     if (selectable || featuredForced || packForced) positivePool(banner.items.filter((item) => item.rarity === r.id), `rarities[${i}].items`);
   });
   const target = banner.items.filter((item) => item.featured && (!banner.featured || item.rarity === banner.featured.rarity));
-  if (banner.featured || banner.spark || banner.charge) positivePool(target, 'featured.items');
+  if (banner.featured || banner.charge || (banner.spark && !banner.spark.items)) positivePool(target, 'featured.items');
   if (banner.featured) {
     const chance = banner.featured.chance;
     const standard = banner.items.filter((item) => item.rarity === banner.featured!.rarity && !item.featured);
     if (chance < 1 || (banner.charge && banner.charge.midFeaturedChance < 1)) positivePool(standard, 'featured.standardItems');
+  }
+  if (banner.multiPull?.guaranteeRarity && banner.multiPull.slots) {
+    const minimum = banner.rarities.findIndex((rarity) => rarity.id === banner.multiPull!.guaranteeRarity);
+    const rank = (slot: NonNullable<Banner['multiPull']>['slots'] extends (infer T)[] | undefined ? T : never) => {
+      const id = slot.itemId ? banner.items.find((item) => item.id === slot.itemId)!.rarity : slot.rarity;
+      return id ? banner.rarities.findIndex((rarity) => rarity.id === id) : Infinity;
+    };
+    const last = banner.multiPull.slots.at(-1)!;
+    if (!banner.multiPull.slots.some((slot) => rank(slot) <= minimum) && (last.rarity || last.itemId)) fail('multiPull.slots', 'The fixed layout cannot satisfy the declared minimum-tier guarantee.');
   }
   return result();
 }
@@ -232,6 +304,9 @@ export function validateRun(goal: Goal, sparkPolicy: SparkPolicy, options: Trial
     case 'copies': case 'unique-featured':
       if (!integer(goal.count)) fail('goal.count', 'Use a positive whole count.');
       break;
+    case 'targets':
+      if (!Array.isArray(goal.targets) || goal.targets.length < 1 || goal.targets.length > 50 || new Set(goal.targets.map((t) => t?.itemId)).size !== goal.targets.length || !goal.targets.every((t) => object(t) && text(t.itemId) && integer(t.count))) fail('goal.targets', 'Choose 1 to 50 unique item IDs with positive whole counts.');
+      break;
     case 'budget':
       if (!integer(goal.pulls, 0)) fail('goal.pulls', 'Use a non-negative whole pull budget.');
       break;
@@ -241,6 +316,18 @@ export function validateRun(goal: Goal, sparkPolicy: SparkPolicy, options: Trial
   else {
     if (options.maxPulls !== undefined && !integer(options.maxPulls, 1, MAX_PULLS)) fail('maxPulls', `Use 1 to ${MAX_PULLS} whole pulls.`);
     if (options.actionMode !== undefined && (typeof options.actionMode !== 'string' || !['single', 'pack'].includes(options.actionMode))) fail('actionMode', 'Choose single or pack.');
+    for (const field of ['targetId','exchangeItemId']) if (options[field as keyof TrialOptions] !== undefined && !text(options[field as keyof TrialOptions])) fail(field, 'Choose an item ID.');
+    if (options.craftPolicy !== undefined && !['never','missing-targets'].includes(String(options.craftPolicy))) fail('craftPolicy', 'Choose never or missing-targets.');
+    if (options.transitions !== undefined) {
+      if (!Array.isArray(options.transitions) || options.transitions.length > 50) fail('transitions', 'Provide at most 50 scheduled transitions.');
+      else options.transitions.forEach((event, i) => {
+        if (!object(event) || !integer(event.atPull, 0, MAX_PULLS)) { fail(`transitions[${i}]`, 'Provide a purchased-pull boundary.'); return; }
+        if (!['banner-switch','season','target-switch'].includes(String(event.type))) fail(`transitions[${i}].type`, 'Choose a supported transition.');
+        if (event.type === 'season' && !text(event.seasonId)) fail(`transitions[${i}].seasonId`, 'Provide the next season ID.');
+        if (event.type === 'target-switch' && !text(event.targetId)) fail(`transitions[${i}].targetId`, 'Choose the next target ID.');
+        if (event.type === 'banner-switch' && !object(event.model)) fail(`transitions[${i}].model`, 'Provide the next model.');
+      });
+    }
   }
   if (issues.length) throw new ModelValidationError(issues);
 }

@@ -10,7 +10,7 @@ export function runTrialBatch(banner: Banner, goal: Goal, trials: number, seed: 
   const samples: TrialSample[] = [];
   for (let i = startIndex; i < startIndex + trials; i++) {
     const { inventory: _inventory, firstPulls: _first, ...sample } = execute(createTrialRng(seed, i));
-    samples.push(sample);
+    samples.push({ ...sample, trialIndex: i });
   }
   return samples;
 }

@@ -41,15 +41,19 @@ export interface FeaturedRule {
   capturing: boolean;
   /** Banner-level guarantee of the featured item after this many pulls. */
   hardAt?: number;
+  once?: boolean;
 }
 
 export interface SparkRule {
   cost: number;
+  choice?: 'missing-first' | 'selected' | 'target';
+  items?: string[];
   /** Exchanges preserve draw protection unless reset effects are explicitly declared. */
   reset?: {
     rarityCounters?: string[];
     featuredArmed?: boolean;
     sinceFeatured?: boolean;
+    targetProgress?: boolean;
   };
 }
 
@@ -68,7 +72,22 @@ export interface ChargeRule {
 export interface MultiPullRule {
   size: number;
   guaranteeRarity?: string;
+  slots?: PackSlot[];
+  sampling?: 'replacement' | 'without-replacement';
+  correlation?: 'independent' | 'shared-item';
 }
+
+export interface PackSlot { rarity?: string; itemId?: string; quantity: number }
+export type ProtectionField = 'rarityCounters' | 'featuredArmed' | 'sinceFeatured' | 'sparkProgress' | 'targetProgress' | 'onceGuaranteeUsed';
+export interface PersistenceRule { scope: 'banner' | 'family' | 'account'; bannerSwitch: 'retain' | 'reset'; season: 'retain' | 'reset'; targetSwitch: 'retain' | 'reset' }
+export type PersistenceMatrix = { familyId?: string } & Partial<Record<ProtectionField, PersistenceRule>>;
+export interface DuplicateRule { cap: number; protection: 'none' | 'same-rarity'; overflow: 'discard' | 'salvage'; salvagePerCopy: number; craftCost?: number; craftableItems?: string[] }
+export type MechanismKey = 'rates' | 'pity' | 'featured' | 'exchange' | 'packs' | 'persistence' | 'duplicates';
+export interface RuleSource { kind: 'cited-shape' | 'synthetic'; source: string; asOf?: string; region?: string }
+export interface Transition { type: 'banner-switch' | 'season' | 'target-switch'; seasonId?: string; targetId?: string }
+export interface ScheduledTransition extends Transition { atPull: number; model?: Banner }
+export interface StateContext { bannerId: string; familyId: string; seasonId: string; targetId?: string }
+export interface ScopedValue { value: number | boolean | Record<string, number>; seasonId: string; targetId?: string }
 
 export interface PoolItem {
   id: string;
@@ -104,6 +123,10 @@ export interface Banner {
   multiPull?: MultiPullRule;
   items: PoolItem[];
   mechanics?: MechanicFlags;
+  persistence?: PersistenceMatrix;
+  targetRule?: { hardAt: number; once: boolean };
+  duplicates?: DuplicateRule;
+  provenance?: Partial<Record<MechanismKey, RuleSource>>;
 }
 
 export interface PullState {
@@ -115,6 +138,16 @@ export interface PullState {
   sparkProgress: number;
   /** Pulls since the last featured item. Used by featured.hardAt. */
   sinceFeatured: number;
+  targetId?: string;
+  targetProgress: number;
+  onceGuaranteeUsed: boolean;
+  context: StateContext;
+  scoped: Record<string, ScopedValue>;
+  salvage: number;
+  salvageEarned: number;
+  salvageSpent: number;
+  duplicateCount: number;
+  crafted: number;
 }
 
 export interface PullOutcome {
@@ -124,6 +157,12 @@ export interface PullOutcome {
   featuredRoll?: FeaturedRoll;
   sparked?: boolean;
   packGuaranteed?: boolean;
+  quantity?: number;
+  accepted?: number;
+  salvage?: number;
+  crafted?: boolean;
+  redirectedFrom?: string;
+  onceGuaranteed?: boolean;
 }
 
 export type Goal =
@@ -131,7 +170,8 @@ export type Goal =
   | { type: 'copies'; count: number }
   | { type: 'unique-featured'; count: number }
   | { type: 'budget'; pulls: number }
-  | { type: 'collection' };
+  | { type: 'collection' }
+  | { type: 'targets'; targets: { itemId: string; count: number }[] };
 
 export interface TrialResult {
   goalAchieved: boolean;
@@ -146,6 +186,11 @@ export interface TrialResult {
   inventory: Record<string, number>;
   /** Pulls when the first pickup landed, if this trial chased two banners. */
   firstPulls?: number;
+  duplicateCount?: number;
+  salvageEarned?: number;
+  salvageSpent?: number;
+  salvageRemaining?: number;
+  crafted?: number;
 }
 
 export type TrialTermination = 'goal' | 'horizon' | 'budget' | 'impossible';
@@ -153,6 +198,10 @@ export type TrialTermination = 'goal' | 'horizon' | 'budget' | 'impossible';
 export interface TrialOptions {
   maxPulls?: number;
   actionMode?: 'single' | 'pack';
+  targetId?: string;
+  exchangeItemId?: string;
+  craftPolicy?: 'never' | 'missing-targets';
+  transitions?: ScheduledTransition[];
 }
 
 export interface Summary {
@@ -182,11 +231,11 @@ export interface SimReport {
   completedPulls: Summary | null;
   acquisitionQuantiles: { p50: number | null; p90: number | null; p95: number | null };
   manifest: {
-    engineVersion: 'foundation-1' | 'workbench-2';
+    engineVersion: 'foundation-1' | 'workbench-2' | 'mechanics-3';
     rngPolicy: 'legacy-sequential' | 'event-streams-v1';
     rarityPolicy: 'priority';
     model: Banner;
-    options: Required<TrialOptions>;
+    options: TrialOptions & Required<Pick<TrialOptions, 'maxPulls' | 'actionMode'>>;
   };
   bannerId: string;
   goal: Goal;
@@ -201,6 +250,22 @@ export interface SimReport {
   histogram: Histogram;
   /** Cumulative attained counts, always divided by all trials in population plots. */
   acquisitionCdf: { pulls: number; attained: number }[];
+  duplicateSummary?: { attempted: Summary; salvageEarned: Summary; salvageSpent: Summary; salvageRemaining: Summary; crafted: Summary };
 }
 
-export type TrialSample = Omit<TrialResult, 'inventory' | 'firstPulls'>;
+export type TrialSample = Omit<TrialResult, 'inventory' | 'firstPulls'> & { trialIndex?: number };
+
+export interface TraceState {
+  pulls: number; rarityCounters: Record<string, number>; captureArmed: boolean; sinceFeatured: number; sparkProgress: number;
+  targetId?: string; targetProgress: number; onceUsed: boolean; salvage: number; owned: number; selectedCopies: number;
+}
+export interface JourneyEvent {
+  kind: 'purchase' | 'draw' | 'exchange' | 'craft' | 'transition'; modelId: string;
+  before: TraceState; after: TraceState; outcome?: PullOutcome; transition?: Transition; purchaseCost?: number;
+}
+export interface JourneyTrace {
+  engineVersion: 'mechanics-3'; randomPolicy: 'event-streams-v1'; seed: number; trialIndex: number;
+  model: Banner; goal: Goal; sparkPolicy: SparkPolicy; options: TrialOptions; result: TrialResult;
+  events: JourneyEvent[]; totalEvents: number; truncated: boolean;
+}
+export type Representative = 'lucky' | 'median' | 'unlucky' | 'incomplete';

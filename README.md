@@ -25,6 +25,11 @@ Store pages talk in rates. You live in the tail: the 90th percentile, the spark 
 
 ## What you can do
 
+The [company workbench guide](docs/company-workbench.md) walks through local import, immutable baseline/candidate edits, comparison, learning cards and replay exports. The [development checklist](DEVELOPMENT.md) tracks the remaining exact-math, economy and company-evidence phases.
+
+- **Change a company model without editing code.** Author scopes, target guarantees, shops, pack slots, duplicate caps and crafting in the candidate drawer.
+- **Follow a player's journey.** Step through actual completed or incomplete trials, inspect before/after state, and export the exact replay.
+- **Compare pack composition.** Study quantities, distinct-ID sampling and shared-item packs with declared resource flows.
 - **Pull until the featured shows.** You set the trial count. You get mean, median, p90, and a histogram.
 - **Cap the tail with a shop.** Spark-if-needed buys the featured when the bar fills. Leave the shop closed if you want the raw distribution.
 - **Set 50/50 capturing next to a straight rate-up.** Genshin-like and FGO-like sit in the same catalog so you can see the shape, not argue it.

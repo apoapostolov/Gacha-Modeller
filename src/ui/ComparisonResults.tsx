@@ -1,3 +1,4 @@
+import { LearningWorkbench } from './LearningWorkbench.tsx';
 import { useState } from 'react';
 import type { ComparisonReport } from '../jobs/compare.ts';
 import { fmt, goalLabel, money } from './format.ts';
@@ -16,14 +17,23 @@ export function ComparisonResults({ report }: { report: ComparisonReport }) {
     ['Currency consumed', money(a.cost.mean, a.manifest.model.pullCost.currency), money(b.cost.mean, b.manifest.model.pullCost.currency), sameCurrency ? delta(b.cost.mean - a.cost.mean) : 'Different units'],
     ['Median attainment', q(a.acquisitionQuantiles.p50), q(b.acquisitionQuantiles.p50), a.acquisitionQuantiles.p50 !== null && b.acquisitionQuantiles.p50 !== null ? delta(b.acquisitionQuantiles.p50 - a.acquisitionQuantiles.p50) : 'Unavailable'],
     ['90% attainment', q(a.acquisitionQuantiles.p90), q(b.acquisitionQuantiles.p90), a.acquisitionQuantiles.p90 !== null && b.acquisitionQuantiles.p90 !== null ? delta(b.acquisitionQuantiles.p90 - a.acquisitionQuantiles.p90) : 'Unavailable'],
+    ['Featured copies retained', fmt(a.featuredCount.mean, 2), fmt(b.featuredCount.mean, 2), delta(b.featuredCount.mean - a.featuredCount.mean, 2)],
+    ['Distinct items retained', fmt(a.uniqueCount.mean, 2), fmt(b.uniqueCount.mean, 2), delta(b.uniqueCount.mean - a.uniqueCount.mean, 2)],
     ['Exchange used', `${fmt(a.sparkRate * 100, 1)}%`, `${fmt(b.sparkRate * 100, 1)}%`, `${delta((b.sparkRate - a.sparkRate) * 100)} pp`],
   ];
+  if (a.duplicateSummary || b.duplicateSummary) {
+    for (const [key, label] of [['attempted', 'Repeat copies received'], ['salvageEarned', 'Shards earned'], ['salvageSpent', 'Shards spent'], ['salvageRemaining', 'Shards remaining'], ['crafted', 'Rewards crafted']] as const) {
+      const first = a.duplicateSummary?.[key].mean ?? 0; const next = b.duplicateSummary?.[key].mean ?? 0;
+      rows.push([label, fmt(first, 2), fmt(next, 2), delta(next - first, 2)]);
+    }
+  }
   return <section className="panel comparison-results" aria-label="Comparison results">
     <div className="section-heading"><h2>Results · {goalLabel(report.settings.goal)}</h2><span className="evidence-label">Monte Carlo <Help label="Comparison evidence">{report.assumptions.map((assumption, i) => <p key={i}>{assumption}</p>)}</Help></span></div>
     <p className="run-note">{report.settings.trials.toLocaleString()} trials per model · seed {report.settings.seed} · {report.settings.actionMode === 'pack' ? 'whole packs' : 'single pulls'}</p>
     <div className="table-scroll"><table className="comparison-table"><caption className="sr-only">Baseline and candidate outcomes using identical run settings. Difference is candidate minus baseline.</caption><thead><tr><th scope="col">Measure <Help label="Outcome measures">Means include every trial, including failed pursuits. Attainment percentiles use the whole population; insufficient completion makes them unavailable. Lower currency consumption alone does not establish company profitability. Differences are Monte Carlo estimates without confidence intervals yet.</Help></th><th scope="col">Baseline</th><th scope="col">Candidate</th><th scope="col">Difference</th></tr></thead><tbody>{rows.map(([label, first, next, difference]) => <tr key={label}><th scope="row">{label}</th><td>{first}</td><td>{next}</td><td>{difference}</td></tr>)}</tbody></table></div>
     <p className="run-note">Currency consumption is a resource measure <Help label="Profitability scope">This milestone compares mechanics, completion and resource use. Revenue, margin, excitement, engagement and retention need the economy and evidence milestones. Currency differences are suppressed when units differ.</Help></p>
     <ComparisonChart baseline={a} candidate={b} />
+    <LearningWorkbench report={report} />
     {report.learning && Object.keys(report.learning).length > 0 && <details className="comparison-details"><summary>Learning scenarios</summary>
       <p className="run-note">Supplementary lessons <Help label="Learning scenario scope">These lessons use the baseline, separate from the baseline/candidate comparison. Guild and two-pickup lessons retain the legacy sequential RNG and their own stated trial counts. They teach mechanics; they do not measure a candidate improvement.</Help></p>
       {report.learning.poolShare && <div><h3>Shared guild pity</h3><p>{report.learning.poolShare.players} players · 90 pulls each · {report.learning.poolShare.trials.toLocaleString()} groups · seed {report.learning.poolShare.seed}</p><p>Mean featured items: {fmt(report.learning.poolShare.sharedFeatured.mean, 2)} shared, {fmt(report.learning.poolShare.soloFeatured.mean, 2)} solo. <Help label="Guild lesson">The same group budget is split into independent solo histories or one shared history. Exchange is not used. Player count is a lesson parameter; individual comparison curves use one player's state.</Help></p></div>}

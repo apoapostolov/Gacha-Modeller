@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+- Added per-field banner/family/account protection scopes and explicit reset rules for banner, season and target changes.
+- Added selected targets, one-time guarantees, player-selected shops and multi-item/copy goals.
+- Packs support fixed slot rewards, quantities, no-replacement sampling and shared-item correlation, with incompatible combinations rejected.
+- Added retained-copy caps, duplicate protection, overflow salvage and crafting, with reconciled resource measures.
+- Added seven mechanism cards with rule sources and state-by-state player journeys, including incomplete pursuits and exact replay exports.
+- Added version 2 model/project/comparison support while preserving older imports, plus [M3 workflow fixtures](docs/company-workbench.md#m3-fixtures).
+
 - Run controls now use a scrolling drawer with a fixed action footer. Long technical explanations use accessible custom help panels; short descriptions stay visible.
 - Added a local company workbench with immutable baseline/candidate snapshots, revision history, canonical hashes, strict versioned imports and portable project backups.
 - Added a validated model editor for catalogues, rates, pity, featured/charge rules, exchange effects, packs and original modifiers.

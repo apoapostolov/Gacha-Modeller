@@ -188,9 +188,21 @@
   },
   "overview": {
     "context": "Blue Archive-like Recruitment Points",
-    "summary": "A character model that combines random recruitment with an accumulated point exchange.",
-    "distinctive": "Natural featured rewards preserve progress toward the exchange.",
-    "strength": "The exchange gives repeated recruitment a predictable reward route.",
-    "analysis": "Test exchange cost, extra copies and progress lost at a banner boundary."
+    "summary": "Blue Archive is an anime tactical RPG built around recruiting students, forming teams and following their stories. This example follows the earlier Recruitment Points system: every recruitment builds points toward choosing an eligible featured student. It is useful for exploring the feeling of saving for a known destination while still allowing lucky pulls along the way.",
+    "distinctive": "A natural featured reward does not erase the points already earned toward the 200-point exchange. Shared banner points can therefore matter when a player wants more than one featured student. This is the earlier points system, not the later Recruitment Charge example.",
+    "strength": "A predictable exchange gives players a concrete saving target. The design interpretation is that the student cast, team roles and story attachment can make that target feel personal, while lucky early pulls still leave progress toward another reward.",
+    "analysis": "Compare saving for one student with chasing two, check how often points become a second reward, and explore what a banner deadline does to players who are close to the exchange.",
+    "popularity": "Nexon named Blue Archive among the games that helped Q1 2024 revenue exceed its outlook. That is evidence of commercial demand, not a measured approval rating for the spark rule. The popularity of the game and the reception of any one recruitment system are different questions.",
+    "business": "Recruitment consumes pyroxene that can be earned or purchased. As a design interpretation, new students and events can turn saved points into a spending decision near the exchange threshold. This model measures reward access and currency use, not the effect of that decision on live revenue or profit.",
+    "sources": [
+      {
+        "title": "Nexon: Blue Archive game introduction",
+        "url": "https://www.nexon.com/main/en/Blue%20Archive/details"
+      },
+      {
+        "title": "Nexon Q1 2024 investor presentation",
+        "url": "https://pdf.irpocket.com/C3659/BbNL/FM7o/SMql.pdf"
+      }
+    ]
   }
 }

@@ -1,5 +1,4 @@
 import type { Project, ProjectOverview as Overview } from '../project/project.ts';
-import { Help } from './Help.tsx';
 
 function fallback(project: Project): Overview {
   const model = project.baseline.model;
@@ -12,22 +11,22 @@ function fallback(project: Project): Overview {
   };
 }
 
-function Explanation({ label, text }: { label: string; text: string }) {
-  const sentence = text.split(/(?<=[.!?])\s/)[0]!;
-  const visible = sentence.length <= 200 ? sentence : `${sentence.slice(0, 180).replace(/\s+\S*$/, '')}…`;
-  return <p>{visible}{visible !== text && <> <Help label={label}>{text}</Help></>}</p>;
-}
-
 export function ProjectOverview({ project }: { project: Project }) {
   const overview = project.overview ?? fallback(project);
   return <section className="panel project-overview" aria-labelledby="overview-title">
-    <h2 id="overview-title">Model overview</h2>
-    <div className="overview-intro"><strong>{overview.context}.</strong> <Explanation label="Model context" text={overview.summary} /></div>
+    <h2 id="overview-title">Game and reward system</h2>
+    <div className="overview-intro"><strong>{overview.context}</strong><p>{overview.summary}</p></div>
     <div className="overview-grid">
-      <div><h3>Distinctive mechanics</h3><Explanation label="Distinctive mechanics" text={overview.distinctive} /></div>
-      <div><h3>Reward support</h3><Explanation label="Reward support" text={overview.strength} /></div>
-      <div><h3>Analysis focus</h3><Explanation label="Analysis focus" text={overview.analysis} /></div>
+      <div><h3>How the rewards work</h3><p>{overview.distinctive}</p></div>
+      <div><h3>Why players might like it</h3><p>{overview.strength}</p></div>
+      {overview.popularity && <div><h3>Popularity and reception</h3><p>{overview.popularity}</p></div>}
+      {overview.business && <div><h3>How it makes money</h3><p>{overview.business}</p></div>}
+      <div className="overview-questions"><h3>What to explore</h3><p>{overview.analysis}</p></div>
     </div>
-    <p className="overview-scope">Describes this configured example. <Help label="Overview evidence"><p>Reward support describes a model feature, not a measured improvement in engagement or profit. Game examples use dated rule shapes and synthetic pools.</p><p>{project.baseline.model.source}</p><p>Project descriptions are editable in the project JSON under overview. Descriptions do not alter model probabilities or snapshot hashes.</p></Help></p>
+    <details className="overview-scope"><summary>Sources and what's included in this example</summary>
+      {overview.sources && <ul>{overview.sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noreferrer">{source.title}</a></li>)}</ul>}
+      <p>{project.baseline.model.source}</p>
+      <p>Game-like examples use simplified rules and fictional reward pools. Player appeal and business explanations are design interpretations unless a source supports them. Spending and revenue do not show net profit; that also depends on costs. Descriptions can be edited in the project file without changing the reward rules.</p>
+    </details>
   </section>;
 }

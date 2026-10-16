@@ -184,9 +184,17 @@
   },
   "overview": {
     "context": "CS-style independent cosmetic crate",
-    "summary": "An independent rarity draw with a low chance of the top configured tier.",
-    "distinctive": "Draws have no pity or accumulated exchange progress.",
-    "strength": "Independent draws provide a simple reference for rarity probabilities.",
-    "analysis": "Inspect unsuccessful-player shares, long waits and cumulative resource costs."
+    "summary": "This example borrows the independent cosmetic-crate pattern associated with Counter-Strike: each opening rolls a rarity, then awards an item from a fictional pool. The surrounding game is a competitive team shooter; the reward chase concerns appearance and collection rather than recruiting stronger characters. This sandbox deliberately leaves out item wear, live market prices and trading.",
+    "distinctive": "Each crate starts over with the same odds. There is no pity meter or guaranteed endpoint, so one player's unlucky streak does not improve the chance of their next rare item.",
+    "strength": "The design interpretation is that cosmetic identity can give rare drops value without directly selling combat power. The same independence that creates occasional spectacular wins also permits very long runs of disappointment.",
+    "analysis": "Explore how many players never see the top tier within a budget and how expensive the longest chases become. Compare the same base odds with a guaranteed endpoint.",
+    "popularity": "On October 12, 2026, the Steam page showed Very Positive English reviews overall and Mostly Positive recent reviews for Counter-Strike 2. Those are reviews of the game, not approval of case openings. No crate-specific sentiment or profit dataset is attached.",
+    "business": "A paid crate-and-key economy can charge for each attempt, while cosmetic demand creates a reason to open another. This is a design interpretation of the pattern; the model does not estimate Valve's income, market fees or net profit, and its currency is only a configured unit.",
+    "sources": [
+      {
+        "title": "Valve: Counter-Strike 2 and Steam player reviews (checked October 12, 2026)",
+        "url": "https://store.steampowered.com/app/730/CounterStrike_2/"
+      }
+    ]
   }
 }

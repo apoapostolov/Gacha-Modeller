@@ -9,7 +9,8 @@ import { assertSpecialist, type SpecialistProfile } from '../specialist/types.ts
 import { assertBinding, type CatalogBinding } from '../integrations/catalog.ts';
 export interface RunSettings extends TrialOptions { economy?: EconomyConfig; analysis?: AnalysisSettings; goal: Goal; trials: number; seed: number; sparkPolicy: SparkPolicy; maxPulls: number; actionMode: 'single' | 'pack' }
 export interface ModelSnapshot { schemaVersion: 1 | 2; id: string; hash: string; createdAt: string; model: Banner }
-export interface ProjectOverview { context: string; summary: string; distinctive: string; strength: string; analysis: string }
+export interface OverviewSource { title: string; url: string }
+export interface ProjectOverview { context: string; summary: string; distinctive: string; strength: string; analysis: string; popularity?: string; business?: string; sources?: OverviewSource[] }
 export interface Project { format: 'gacha-modeller-project'; version: 1 | 2 | 3 | 4 | 5 | 6 | 7; id: string; name: string; baseline: ModelSnapshot; candidate: ModelSnapshot; history: ModelSnapshot[]; settings: RunSettings; company?: CompanyEvidence; specialist?: SpecialistProfile; integration?: CatalogBinding; overview?: ProjectOverview }
 export interface Change { path: string; before: unknown; after: unknown }
 export interface StoragePort { getItem(key: string): string | null; setItem(key: string, value: string): void }
@@ -152,10 +153,25 @@ export async function importProject(value: unknown): Promise<Project> {
   if (![1,2,3,4,5,6,7].includes(Number(value.version)) || typeof value.version !== 'number') throw new Error('project.version: Unsupported project version.');
   if (value.overview !== undefined) {
     if (value.version < 7) throw new Error('project.version: Project overviews need version 7.');
-    keys(value.overview, ['context','summary','distinctive','strength','analysis'], 'project.overview');
+    keys(value.overview, ['context','summary','distinctive','strength','analysis','popularity','business','sources'], 'project.overview');
     for (const field of ['context','summary','distinctive','strength','analysis']) {
       nonempty(value.overview[field], `project.overview.${field}`);
       if (value.overview[field].length > 1200) throw new Error(`project.overview.${field}: Keep the explanation within 1,200 characters.`);
+    }
+    for (const field of ['popularity','business']) if (value.overview[field] !== undefined) {
+      nonempty(value.overview[field], `project.overview.${field}`);
+      if (value.overview[field].length > 1200) throw new Error(`project.overview.${field}: Keep the explanation within 1,200 characters.`);
+    }
+    if (value.overview.sources !== undefined) {
+      if (!Array.isArray(value.overview.sources) || value.overview.sources.length > 12) throw new Error('project.overview.sources: Provide up to 12 sources.');
+      for (const source of value.overview.sources) {
+        keys(source, ['title','url'], 'project.overview.sources');
+        nonempty(source.title, 'project.overview.sources.title');
+        nonempty(source.url, 'project.overview.sources.url');
+        if (source.title.length > 240 || source.url.length > 2000) throw new Error('project.overview.sources: Source text is too long.');
+        let url: URL; try { url = new URL(source.url); } catch { throw new Error('project.overview.sources.url: Provide an HTTPS link.'); }
+        if (url.protocol !== 'https:' || url.username || url.password) throw new Error('project.overview.sources.url: Provide an HTTPS link without credentials.');
+      }
     }
   }
   if (value.specialist !== undefined) assertSpecialist(value.specialist);

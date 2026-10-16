@@ -53,7 +53,7 @@ Studied presets follow a published or community-consensus shape. They are not li
 | Overwatch-like legendary cosmetic box | Four rewards, a legendary slot and a synthetic cosmetic collection |
 | Fortnite-like revealed X-Ray llama | Fixed known Save the World offer using earned tickets |
 | Fortnite-like historical blind llama | Synthetic random-pack contrast to the revealed offer |
-| Synthetic collectible card pack | Rare floor, duplicate salvage and missing-card crafting |
+| Example collectible card pack | A fictional card pack with a rare floor, duplicate shards and missing-card crafting |
 
 Pool Share, Collection Heat and Audience Spark are original models. Engine semantics are documented in [the methodology](docs/methodology.md); Blue Archive-like charge and spark shapes are described in [the recruitment study](docs/blue-archive-recruitment.md).
 
@@ -68,9 +68,13 @@ npm run dev
 
 The development server runs at http://127.0.0.1:3018/. A fixed seed, immutable models, settings and engine version reproduce the same result. The [synthetic economy fixture](docs/fixtures/company-economy.json) provides a complete Milestone 5 example.
 
+Rendered UI checks use lintapple and the project design rules in `ui-policy.json`. With the development server running, `npm run lint:ui:page` checks the initial view, and `npm run lint:ui` checks 54 rendered states across phone, tablet and desktop widths, including game descriptions and sources, completed baseline analyses, comparisons, company evidence and specialist settings. The checks do not save drafts or edit project files. On a new machine, install Chromium with `npx playwright install chromium --only-shell`.
+
+`npm run lint:ui -- --report output/playwright/ui-report.json --screenshots output/playwright/screenshots` retains a JSON report and captures. Exit 1 includes unresolved contrast measurements in overlapping help panels and partially visible drawer content; these require visual review and are not reported as passes. The UI uses local system fonts, explicit control spacing, tabular figures and HTML chart axes that retain their text size on narrow screens.
+
 Sections are subfolders of `projects/`, each with `section.json` and complete project JSON files. Refresh library discovers new files without a build. The Company section contains editable synthetic assumptions and evidence. Existing browser projects can be migrated to Workspace; their original bytes remain available. Workspace files are ignored by Git by default.
 
-The sidebar separates Projects and Companies, with instant search that opens matching folders. Projects open with the baseline and a concise model overview. **Load candidate** selects the current or a historical revision; **Run comparison** starts the analysis. Historical comparisons preserve the current saved candidate. Format 7 adds editable overview text without changing model hashes. The [workspace usability contract](docs/workspace-usability.md) records these flows and accessibility decisions.
+The sidebar separates Projects and Companies, with instant search that opens matching folders. Projects open with current rules, a full game-and-reward overview and a results table. **Simulate current rules** fills the current-model results; **Load proposal** selects the latest or an earlier candidate, and **Compare rule sets** adds the proposed-model and change columns. Removing a proposal keeps the current-model results from the last completed run. Earlier proposals do not replace the current saved candidate. Format 7 supports editable game, reception, business and source descriptions without changing model hashes. The [workspace usability contract](docs/workspace-usability.md) records these flows and accessibility decisions.
 
 The Specialist studies section contains editable collectible and payout projects; Catalogue integrations contains a synthetic PlayFab mapping example. Modules can be attached to other projects. Profile settings retain the financial baseline and edit the candidate. Complete JSON supports additional supply rows or payout outcomes. Their hashes and cash contracts are independent from the acquisition snapshots. Catalogue integration maps names without guessing drop probabilities or cash values.
 

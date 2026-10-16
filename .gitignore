@@ -15,3 +15,7 @@ projects/workspace/*.json
 
 # Local mechanic scratch. Do not commit.
 proposals/
+
+# Local browser verification artifacts.
+.playwright-cli/
+output/playwright/

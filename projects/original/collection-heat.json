@@ -314,9 +314,11 @@
   },
   "overview": {
     "context": "Original sticker collection model",
-    "summary": "Missing stickers receive extra selection weight in a synthetic 16-item set.",
-    "distinctive": "Selection probabilities depend on the player’s current collection.",
-    "strength": "Missing-item weighting favours incomplete parts of the collection.",
-    "analysis": "Compare duplicate frequency, full-set completion and the final missing items."
+    "summary": "Collection Heat is an original sticker-album game idea using a fictional set of 16 items. As the album fills, items the player still needs receive extra selection weight. The model explores a collection experience that gradually becomes more helpful, instead of making the last missing sticker just as difficult to find as the first.",
+    "distinctive": "Odds depend on what the player already owns. This gently favours missing items rather than applying a fixed chance to every draw or promising one item at a fixed checkpoint.",
+    "strength": "The design hypothesis is that fewer dead-end duplicates can make completing the album feel achievable. Strong assistance can also shorten the collection journey, changing how much new content is needed.",
+    "analysis": "Explore duplicate frequency, completion speed and the wait for the final item. Compare gentle assistance with fixed odds, and consider how often a completed collection needs a new goal.",
+    "popularity": "This is a local experimental design, not a launched sticker game. No reception, retention, spending or sales measurements are attached.",
+    "business": "A commercial version could sell packs, offer earned draws or fund new albums through events. Easier completion might support satisfaction while reducing repeat openings; which effect matters more needs player and economy evidence."
   }
 }

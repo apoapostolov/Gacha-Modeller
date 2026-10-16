@@ -9,10 +9,14 @@ export function Drawer({ title, onClose, children, footer }: { title: string; on
     const previous = document.activeElement as HTMLElement | null;
     dialog.showModal();
     const oldOverflow = document.body.style.overflow;
+    const background = Array.from(dialog.parentElement?.children ?? []).filter(element => element !== dialog) as HTMLElement[];
+    const previousInert = background.map(element => element.inert);
+    background.forEach(element => { element.inert = true; });
     document.body.style.overflow = 'hidden';
     return () => {
       dialog.close();
       document.body.style.overflow = oldOverflow;
+      background.forEach((element, index) => { element.inert = previousInert[index]!; });
       previous?.focus();
     };
   }, []);
@@ -27,7 +31,7 @@ export function Drawer({ title, onClose, children, footer }: { title: string; on
     const box = event.currentTarget.getBoundingClientRect();
     if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) onClose();
   }}>
-    <header className="drawer-head"><h2 id={titleId}>{title}</h2><button className="icon-button" aria-label={`Close ${title}`} onClick={onClose}>×</button></header>
+    <header className="drawer-head"><h2 id={titleId}>{title}</h2><button className="secondary" aria-label={`Close ${title}`} onClick={onClose}>Close</button></header>
     <div className="drawer-body">{children}</div>
     {footer && <footer className="drawer-footer">{footer}</footer>}
   </dialog>;

@@ -1,0 +1,115 @@
+{
+  "fonts": [
+    "system-ui",
+    "-apple-system",
+    "BlinkMacSystemFont",
+    "Segoe UI",
+    "ui-monospace"
+  ],
+  "fontSizes": [
+    12,
+    14,
+    16,
+    18,
+    20,
+    24,
+    32,
+    40
+  ],
+  "typeRules": [
+    {
+      "selector": ".help-trigger",
+      "sizes": [
+        12,
+        14,
+        16,
+        18,
+        20,
+        24,
+        32
+      ]
+    },
+    {
+      "selector": ".panel h2",
+      "sizes": [
+        14,
+        16,
+        18,
+        20,
+        24
+      ]
+    },
+    {
+      "selector": ".catalog-heading h3, .overview-grid h3",
+      "sizes": [
+        14,
+        16
+      ]
+    },
+    {
+      "selector": "h1",
+      "sizes": [
+        32,
+        40
+      ]
+    },
+    {
+      "selector": "h2, h3",
+      "sizes": [
+        18,
+        20,
+        24,
+        32
+      ]
+    },
+    {
+      "selector": "button, [role=button]",
+      "sizes": [
+        14,
+        16,
+        24
+      ]
+    }
+  ],
+  "minControlSize": 32,
+  "controlSizeRules": [
+    {
+      "selector": ".help-trigger",
+      "minSize": 12
+    },
+    {
+      "selector": "button, [role=button]",
+      "minSize": 44,
+      "maxViewportWidth": 600
+    }
+  ],
+  "minControlGap": 8,
+  "minControlInset": 8,
+  "controlContainers": [
+    "[data-ui-container]"
+  ],
+  "minLayoutGap": 8,
+  "bannedCopy": [
+    "unlock your potential",
+    "seamlessly",
+    "game-changing"
+  ],
+  "viewports": [
+    {
+      "width": 390,
+      "height": 844
+    },
+    {
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "width": 1440,
+      "height": 900
+    }
+  ],
+  "colorSchemes": [
+    "dark"
+  ],
+  "exceptions": []
+}

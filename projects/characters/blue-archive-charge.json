@@ -194,9 +194,21 @@
   },
   "overview": {
     "context": "Blue Archive-like Recruitment Charge",
-    "summary": "A character model with rewards at two charge checkpoints.",
-    "distinctive": "A featured reward resets charge, unlike a point exchange that keeps accumulating.",
-    "strength": "Checkpoint rewards provide a route to the featured character.",
-    "analysis": "Compare early success, meter resets and long waits against the spark example."
+    "summary": "Blue Archive combines tactical team building with a large cast of recruitable students and character stories. This example studies the July 2026 Japanese Recruitment Charge shape already documented in this project. Its progress bar gives rewards at intermediate and final checkpoints, making the next milestone part of the recruitment experience.",
+    "distinctive": "At charge 100 the example gives a 3-star reward with a 50% featured chance; at 200 it guarantees the featured student. Getting a featured student resets charge, so an early success changes the route to the next one. This differs from accumulated exchange points that survive a lucky pull.",
+    "strength": "An intermediate checkpoint gives a visible moment of progress before the final guarantee. The design interpretation is that it can make a long chase easier to follow, although losing progress after success may matter to players collecting several students.",
+    "analysis": "Compare it with the spark example: who gets a first student early, who has to restart, and how long it takes to collect two featured students. Use the project source notes for the dated rule scope.",
+    "popularity": "Nexon identified Blue Archive as a contributor to stronger-than-expected Q1 2024 revenue. That historical result predates this charge example and cannot establish reception of the July 2026 rule. No player-sentiment or spending study for this exact charge configuration is attached.",
+    "business": "The recruitment currency can connect character demand to paid top-ups. A checkpoint system changes when players may feel close to a reward, but whether its resets improve or harm spending is a design question to test, not an established profit claim.",
+    "sources": [
+      {
+        "title": "Nexon: Blue Archive game introduction",
+        "url": "https://www.nexon.com/main/en/Blue%20Archive/details"
+      },
+      {
+        "title": "Nexon Q1 2024 investor presentation",
+        "url": "https://pdf.irpocket.com/C3659/BbNL/FM7o/SMql.pdf"
+      }
+    ]
   }
 }

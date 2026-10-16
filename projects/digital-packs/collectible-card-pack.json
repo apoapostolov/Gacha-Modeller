@@ -2,21 +2,22 @@
   "format": "gacha-modeller-project",
   "version": 7,
   "id": "collectible-card-pack",
-  "name": "Synthetic collectible card pack",
+  "name": "Example collectible card pack",
   "baseline": {
     "schemaVersion": 2,
     "id": "collectible-card-pack-snapshot-0",
-    "hash": "6e714396042791e401eb66ea731e8d310c09904178e75ee40462b467f265fe39",
+    "hash": "dc652e99bd9e88174b138a1a8adf26f2c09bb88523d1588a2e74d62911a3fc15",
     "createdAt": "2026-10-10T00:00:00.000Z",
     "model": {
       "id": "collectible-card-pack",
-      "name": "Synthetic collectible card pack",
+      "name": "Example pack · reference rules",
       "family": "original",
-      "blurb": "Five cards per pack, one rare card or better, with duplicate salvage and crafting.",
+      "blurb": "Five cards per pack, including at least one rare or mythic card. Keep up to two copies of each card; later copies become shards, and ten shards can craft a missing card.",
       "source": "original",
       "notes": [
-        "Original digital card design with synthetic probabilities and resource costs.",
-        "Collection goals include every card. Duplicate copies above two convert to shards; missing cards can be crafted."
+        "This example pack uses fictional cards and assumed drop rates, credits and crafting costs. It does not represent a live game offer.",
+        "Every pack contains five cards and includes at least one rare or mythic card.",
+        "The collection keeps up to two copies of each card. Later copies become shards; ten shards can craft a missing card."
       ],
       "pullCost": {
         "amount": 20,
@@ -187,17 +188,19 @@
   "candidate": {
     "schemaVersion": 2,
     "id": "collectible-card-pack-snapshot-1",
-    "hash": "38a6294124f77d44a0925b9fb1246f2371584b700c8cc9abd2882e7c7ab07844",
+    "hash": "6cf16be0d1530219a4626c6a1d3a9e9e03ea4f37aaed86eb390267d84ef83bb3",
     "createdAt": "2026-10-10T00:00:00.000Z",
     "model": {
       "id": "collectible-card-pack-candidate",
-      "name": "Synthetic collectible card pack candidate",
+      "name": "Example pack · starting version",
       "family": "original",
-      "blurb": "Five cards per pack, one rare card or better, with duplicate salvage and crafting.",
+      "blurb": "Five cards per pack, including at least one rare or mythic card. Keep up to two copies of each card; later copies become shards, and ten shards can craft a missing card.",
       "source": "original",
       "notes": [
-        "Original digital card design with synthetic probabilities and resource costs.",
-        "Collection goals include every card. Duplicate copies above two convert to shards; missing cards can be crafted."
+        "This example pack uses fictional cards and assumed drop rates, credits and crafting costs. It does not represent a live game offer.",
+        "Every pack contains five cards and includes at least one rare or mythic card.",
+        "The collection keeps up to two copies of each card. Later copies become shards; ten shards can craft a missing card.",
+        "This starting version uses the same rules as the reference. Edit it to compare a different pack design."
       ],
       "pullCost": {
         "amount": 20,
@@ -378,10 +381,12 @@
     "craftPolicy": "missing-targets"
   },
   "overview": {
-    "context": "Synthetic digital card game",
-    "summary": "A five-card pack with a rare-tier guarantee, duplicate salvage and crafting.",
-    "distinctive": "Pack guarantees and duplicate conversion provide separate reward routes.",
-    "strength": "Salvage can turn extra copies into progress toward an eligible card.",
-    "analysis": "Compare collection speed, duplicate frequency and the cost of crafting."
+    "context": "Example card-game pack design",
+    "summary": "This fictional card game combines multi-card packs with collecting a playable set. Each pack includes a minimum rarity, while unwanted extra copies become shards that can help craft missing cards. It is a designer's example of two reward routes working together: the surprise of opening a pack and the planned progress of crafting.",
+    "distinctive": "Pack slots, duplicate limits and crafting all affect collection progress. A pack may give several cards, but its most useful contribution may be the shards needed for one specific missing card.",
+    "strength": "The design interpretation is that converting duplicates into a useful resource reduces the feeling of a wasted opening. A rarity floor gives every pack a minimum promise without guaranteeing that its rare card fits the player's deck.",
+    "analysis": "Explore how many packs complete the set, when duplicates stop being useful, and how much crafting shortens the chase for the last few cards.",
+    "popularity": "This is not a released trading card game and has no players, reviews or published sales figures. Its mechanics represent a design pattern, not evidence that a particular real game uses these exact odds or crafting prices.",
+    "business": "A commercial card game could sell packs while offering earned packs and crafting as alternative routes. The important business question is whether content and deck variety create lasting demand; this synthetic example cannot establish revenue or profit."
   }
 }

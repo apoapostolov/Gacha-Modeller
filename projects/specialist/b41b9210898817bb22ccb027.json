@@ -6,17 +6,18 @@
   "baseline": {
     "schemaVersion": 2,
     "id": "collectible-card-pack-snapshot-0",
-    "hash": "6e714396042791e401eb66ea731e8d310c09904178e75ee40462b467f265fe39",
+    "hash": "dc652e99bd9e88174b138a1a8adf26f2c09bb88523d1588a2e74d62911a3fc15",
     "createdAt": "2026-10-10T00:00:00.000Z",
     "model": {
       "id": "collectible-card-pack",
-      "name": "Synthetic collectible card pack",
+      "name": "Example pack · reference rules",
       "family": "original",
-      "blurb": "Five cards per pack, one rare card or better, with duplicate salvage and crafting.",
+      "blurb": "Five cards per pack, including at least one rare or mythic card. Keep up to two copies of each card; later copies become shards, and ten shards can craft a missing card.",
       "source": "original",
       "notes": [
-        "Original digital card design with synthetic probabilities and resource costs.",
-        "Collection goals include every card. Duplicate copies above two convert to shards; missing cards can be crafted."
+        "This example pack uses fictional cards and assumed drop rates, credits and crafting costs. It does not represent a live game offer.",
+        "Every pack contains five cards and includes at least one rare or mythic card.",
+        "The collection keeps up to two copies of each card. Later copies become shards; ten shards can craft a missing card."
       ],
       "pullCost": {
         "amount": 20,
@@ -187,17 +188,19 @@
   "candidate": {
     "schemaVersion": 2,
     "id": "collectible-card-pack-snapshot-1",
-    "hash": "38a6294124f77d44a0925b9fb1246f2371584b700c8cc9abd2882e7c7ab07844",
+    "hash": "6cf16be0d1530219a4626c6a1d3a9e9e03ea4f37aaed86eb390267d84ef83bb3",
     "createdAt": "2026-10-10T00:00:00.000Z",
     "model": {
       "id": "collectible-card-pack-candidate",
-      "name": "Synthetic collectible card pack candidate",
+      "name": "Example pack · starting version",
       "family": "original",
-      "blurb": "Five cards per pack, one rare card or better, with duplicate salvage and crafting.",
+      "blurb": "Five cards per pack, including at least one rare or mythic card. Keep up to two copies of each card; later copies become shards, and ten shards can craft a missing card.",
       "source": "original",
       "notes": [
-        "Original digital card design with synthetic probabilities and resource costs.",
-        "Collection goals include every card. Duplicate copies above two convert to shards; missing cards can be crafted."
+        "This example pack uses fictional cards and assumed drop rates, credits and crafting costs. It does not represent a live game offer.",
+        "Every pack contains five cards and includes at least one rare or mythic card.",
+        "The collection keeps up to two copies of each card. Later copies become shards; ten shards can craft a missing card.",
+        "This starting version uses the same rules as the reference. Edit it to compare a different pack design."
       ],
       "pullCost": {
         "amount": 20,
@@ -504,9 +507,11 @@
   },
   "overview": {
     "context": "Synthetic collectible market",
-    "summary": "A collectible study with bounded supply, reward allocation and market assumptions.",
-    "distinctive": "Collectible supply and financial values have their own contract.",
-    "strength": "Explicit supply constraints support availability and funding checks.",
-    "analysis": "Compare supply depletion, player allocations, market assumptions and treasury exposure."
+    "summary": "This fictional collectible game explores limited item supply and an assumed resale market. The card-pack example provides collection mechanics, while a separate financial profile describes edition quantities, prices, trading costs and possible redemption obligations. It lets a designer examine scarcity without presenting a hypothetical market price as a promised player return.",
+    "distinctive": "A supply limit controls how many collectibles exist, but not whether anyone wants to buy them. The profile separates assumed market value, liquidity and cash obligations from the random reward model.",
+    "strength": "Scarcity can give a collection a clear identity, but the design interpretation depends on useful or desirable items. A rare object with no buyers is not automatically a valuable reward.",
+    "analysis": "Explore edition size, demand assumptions, fees and cash obligations. Compare what players can collect with what they could actually sell under the declared liquidity assumptions.",
+    "popularity": "This is a synthetic market example with no real buyers, trading history or sentiment data. Its price cases are assumptions, not forecasts or observed reception.",
+    "business": "A commercial version could earn from initial sales or declared trading fees, while limited supply, production costs and redemption promises affect its cash position. Trading volume and resale prices are uncertain here; profitability is not established."
   }
 }

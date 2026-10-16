@@ -6,17 +6,18 @@
   "baseline": {
     "schemaVersion": 2,
     "id": "collectible-card-pack-snapshot-0",
-    "hash": "6e714396042791e401eb66ea731e8d310c09904178e75ee40462b467f265fe39",
+    "hash": "dc652e99bd9e88174b138a1a8adf26f2c09bb88523d1588a2e74d62911a3fc15",
     "createdAt": "2026-10-10T00:00:00.000Z",
     "model": {
       "id": "collectible-card-pack",
-      "name": "Synthetic collectible card pack",
+      "name": "Example pack · reference rules",
       "family": "original",
-      "blurb": "Five cards per pack, one rare card or better, with duplicate salvage and crafting.",
+      "blurb": "Five cards per pack, including at least one rare or mythic card. Keep up to two copies of each card; later copies become shards, and ten shards can craft a missing card.",
       "source": "original",
       "notes": [
-        "Original digital card design with synthetic probabilities and resource costs.",
-        "Collection goals include every card. Duplicate copies above two convert to shards; missing cards can be crafted."
+        "This example pack uses fictional cards and assumed drop rates, credits and crafting costs. It does not represent a live game offer.",
+        "Every pack contains five cards and includes at least one rare or mythic card.",
+        "The collection keeps up to two copies of each card. Later copies become shards; ten shards can craft a missing card."
       ],
       "pullCost": {
         "amount": 20,
@@ -187,17 +188,19 @@
   "candidate": {
     "schemaVersion": 2,
     "id": "collectible-card-pack-snapshot-1",
-    "hash": "38a6294124f77d44a0925b9fb1246f2371584b700c8cc9abd2882e7c7ab07844",
+    "hash": "6cf16be0d1530219a4626c6a1d3a9e9e03ea4f37aaed86eb390267d84ef83bb3",
     "createdAt": "2026-10-10T00:00:00.000Z",
     "model": {
       "id": "collectible-card-pack-candidate",
-      "name": "Synthetic collectible card pack candidate",
+      "name": "Example pack · starting version",
       "family": "original",
-      "blurb": "Five cards per pack, one rare card or better, with duplicate salvage and crafting.",
+      "blurb": "Five cards per pack, including at least one rare or mythic card. Keep up to two copies of each card; later copies become shards, and ten shards can craft a missing card.",
       "source": "original",
       "notes": [
-        "Original digital card design with synthetic probabilities and resource costs.",
-        "Collection goals include every card. Duplicate copies above two convert to shards; missing cards can be crafted."
+        "This example pack uses fictional cards and assumed drop rates, credits and crafting costs. It does not represent a live game offer.",
+        "Every pack contains five cards and includes at least one rare or mythic card.",
+        "The collection keeps up to two copies of each card. Later copies become shards; ten shards can craft a missing card.",
+        "This starting version uses the same rules as the reference. Edit it to compare a different pack design."
       ],
       "pullCost": {
         "amount": 20,
@@ -479,9 +482,11 @@
   },
   "overview": {
     "context": "Synthetic cash-payout study",
-    "summary": "A payout distribution with session, player-loss and treasury assumptions.",
-    "distinctive": "Stake returns, profitable plays and net session profits are separate outcomes.",
-    "strength": "Explicit payout weights support calculation of expected return and contribution.",
-    "analysis": "Compare volatility, session length, player outcomes and reserve exposure."
+    "summary": "This fictional payout game adds a separate financial profile to the card-pack example. A declared distribution describes possible cash outcomes and their frequency, while a synthetic session shows how those outcomes vary between players. It is a research sandbox for comparing an offered payout structure, not a live game or an approved product.",
+    "distinctive": "Cash payouts use their own rules and hashes. Average payout, the spread of possible wins and the operator's cash exposure are separate from the card collection model.",
+    "strength": "The design question is whether the payout pattern is understandable to players. A high average return can still contain many losing sessions, so the advertised average cannot describe everyone's experience.",
+    "analysis": "Compare typical player outcomes with rare large wins, the declared average return and the operator's cash requirements. Keep financial assumptions separate from collectible reward chances.",
+    "popularity": "No released game, public reception study or commercial track record is attached. The player sessions and declared reviews are synthetic research inputs.",
+    "business": "Revenue would come from player stakes or payments, while payouts, fees and operating costs create cash obligations. This profile makes assumptions explicit; it does not demonstrate sustainable profit or approval to launch."
   }
 }

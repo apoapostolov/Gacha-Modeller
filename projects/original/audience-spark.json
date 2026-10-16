@@ -278,9 +278,11 @@
   },
   "overview": {
     "context": "Original audience-assisted reward model",
-    "summary": "Audience activity contributes exchange progress alongside player draws.",
-    "distinctive": "Additional point accrual advances the configured exchange milestone.",
-    "strength": "Shared contribution reduces the draws required to reach the exchange.",
-    "analysis": "Test milestone timing and resource cost under different contribution assumptions."
+    "summary": "Audience Spark is an original reward idea for a fictional game with community participation. Player draws earn exchange progress, and an assumed level of audience activity contributes extra progress. It explores a shared milestone around a stream or event, while keeping the reward itself separate from any real viewer behaviour.",
+    "distinctive": "Extra point accrual moves the player closer to a guaranteed exchange without changing the random draw odds. Audience contribution is an entered assumption, not live data from a stream.",
+    "strength": "The design hypothesis is that a community can make a reward milestone feel collective. Fairness matters when some players have large audiences and others do not.",
+    "analysis": "Compare progress with and without audience help, the value of earned versus paid attempts, and whether the same reward goal remains reasonable for players with smaller audiences.",
+    "popularity": "This is an experimental sandbox rule. It has no published player or viewer study, live usage figures or commercial reception.",
+    "business": "A developer might use community goals to support events or promote new content. Audience size alone does not prove paying demand, and this example does not estimate sponsorship income, conversion or net profit."
   }
 }

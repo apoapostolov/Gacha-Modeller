@@ -649,9 +649,21 @@
   },
   "overview": {
     "context": "Overwatch-like legendary cosmetic box",
-    "summary": "A four-slot cosmetic box with one guaranteed legendary slot and synthetic remaining rewards.",
-    "distinctive": "The guaranteed slot differs from the random slots in the same box.",
-    "strength": "The fixed legendary slot ensures access to that tier per box.",
-    "analysis": "Compare complete boxes, duplicate rewards and collection progress; slot odds are not box odds."
+    "summary": "Overwatch is a team-based hero shooter whose cosmetic rewards let players personalise heroes without adding combat power. This example follows a Legendary Loot Box shape from the February 2025 reward programme: four reward slots, including a guaranteed legendary slot. The remaining contents and collection are fictional, and the regular-box guarantee counters are not included.",
+    "distinctive": "The box promises a legendary reward, but does not promise a particular skin. A player can be happy with the rarity and still miss the cosmetic they wanted; duplicate protection and collection size therefore matter.",
+    "strength": "A guaranteed high-tier item can make a milestone feel substantial. The design interpretation is that letting players earn visible cosmetic progress supports the hero attachment already created by matches.",
+    "analysis": "Compare collecting a rarity with collecting a specific skin. Check how duplicate protection changes the last few missing cosmetics, and keep a box's overall guarantee separate from its individual slot chances.",
+    "popularity": "Blizzard promoted Legendary Loot Boxes among Season 15 rewards and had previously changed boxes to reduce duplicates in its June 2017 PTR notes. These are documented product decisions. They do not establish a numerical approval score for the 2025 reward programme.",
+    "business": "The cited Season 15 programme offers rewards through play and its pass, so this example should not be read as a cash sale for each legendary box. Its possible business role is supporting interest in the game and paid content; that connection is a design hypothesis, not measured profit.",
+    "sources": [
+      {
+        "title": "Blizzard: Season 15 rewards and Legendary Loot Boxes (February 2025)",
+        "url": "https://overwatch.blizzard.com/en-us/news/24175767/"
+      },
+      {
+        "title": "Blizzard: duplicate reduction in loot boxes (June 2017 PTR)",
+        "url": "https://overwatch.blizzard.com/en-us/news/patch-notes/ptr/2017/06/"
+      }
+    ]
   }
 }

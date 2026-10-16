@@ -272,9 +272,17 @@
   },
   "overview": {
     "context": "Genshin Impact-like character acquisition",
-    "summary": "A rare-character model with rising late-pull odds and protection after a missed featured reward.",
-    "distinctive": "Soft pity, hard pity and featured protection interact with a synthetic point exchange.",
-    "strength": "Progress guarantees bound long waits for the configured rewards.",
-    "analysis": "Separate rarity access from featured access; test pity timing and exchange cost."
+    "summary": "Genshin Impact is an exploration and combat RPG where players build teams of collectible characters. Its character banners combine random wishes with progress guarantees, so a desired character can be an immediate lucky win or a longer saving goal. This example studies that chase using fictional characters and a simplified probability curve, rather than reproducing the whole live game.",
+    "distinctive": "The rare-character chance rises late in a streak, a hard limit guarantees the rare tier, and featured protection follows a missed featured reward. The added point exchange is a sandbox extension, not a standard Character Event Wish feature.",
+    "strength": "A character has both a personality and a place in a team. As a design interpretation, story attachment makes a banner more meaningful than a generic prize, while a visible route to a guarantee can make saving feel worthwhile.",
+    "analysis": "Explore how many draws players need, how often a featured chase disappoints them, and whether earlier guarantees reduce the longest waits. Keep the extra point exchange separate when discussing lessons for the real game.",
+    "popularity": "Sensor Tower estimated more than $3 billion in App Store and Google Play spending by May 2022 and ranked Genshin first among gacha mobile games by revenue in Q1 2022. These historical spending estimates show commercial reach, not a current satisfaction score or all-platform profit.",
+    "business": "Paid currency lets players make more wishes when earned currency is not enough. Sensor Tower reported revenue spikes around recurring content and character updates. The design interpretation is that appealing new characters and recurring banners create reasons to return and spend; development, marketing and platform costs still determine profit.",
+    "sources": [
+      {
+        "title": "Sensor Tower: Genshin mobile spending and update cadence (May 2022)",
+        "url": "https://sensortower.com/blog/genshin-impact-three-billion-revenue"
+      }
+    ]
   }
 }

@@ -17,6 +17,16 @@ describe('versioned company projects', () => {
     const candidate = structuredClone(project.candidate.model); candidate.pity[0]!.hardAt = 80;
     expect((await saveCandidate(project, candidate)).overview).toEqual(overview);
   });
+  it('preserves researched context and rejects unsafe or incomplete source links', async () => {
+    const original = await createProject(hardPityBaseline);
+    const overview = { context: 'Example game', summary: 'Full game context. A second sentence stays visible.', distinctive: 'Reward rules.', strength: 'Player appeal.', analysis: 'Design questions.', popularity: 'Dated evidence.', business: 'Revenue differs from profit.', sources: [{ title: 'Publisher notes', url: 'https://example.com/notes' }] };
+    const project = await importProject({ ...original, version: 7, overview });
+    expect(project.overview).toEqual(overview);
+    expect(project.baseline.hash).toBe(original.baseline.hash);
+    await expect(importProject({ ...project, overview: { ...overview, business: '' } })).rejects.toThrow(/business/);
+    await expect(importProject({ ...project, overview: { ...overview, sources: [{ title: 'Bad link', url: 'javascript:alert(1)' }] } })).rejects.toThrow(/HTTPS/);
+    await expect(importProject({ ...project, overview: { ...overview, sources: [{ title: '', url: 'https://example.com' }] } })).rejects.toThrow(/title/);
+  });
   it('forks a frozen baseline and keeps old candidate revisions intact', async () => {
     const project = await createProject(hardPityBaseline);
     const draft = structuredClone(project.candidate.model);

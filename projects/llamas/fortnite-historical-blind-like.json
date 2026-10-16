@@ -146,9 +146,21 @@
   },
   "overview": {
     "context": "Fortnite: Save the World-like historical blind llama",
-    "summary": "A historical contrast example with unknown rewards before purchase.",
-    "distinctive": "Each pack uses a synthetic random pool and ticket price.",
-    "strength": "Multiple reward slots support collection progress in one action.",
-    "analysis": "Compare reward uncertainty and resource use with the revealed X-Ray example."
+    "summary": "This is a historical contrast for Fortnite: Save the World's collection and progression rewards. Before X-Ray contents were introduced, the player could commit resources to a Llama without seeing its exact contents. The sandbox uses a fictional multi-item pool and ticket price to compare that uncertainty with the revealed-offer example, not to recreate a live shop.",
+    "distinctive": "Several reward slots are drawn after the purchase decision. A useful hero or schematic can arrive alongside materials, but the player cannot check the complete bundle beforehand.",
+    "strength": "The design interpretation is that a multi-item reveal provides several moments of surprise. Its tradeoff is weaker control: an opening can look generous while contributing little to the player's actual collection goal.",
+    "analysis": "Compare surprise, useful rewards and resource use against a known offer. Ask whether a larger bundle helps the player's goal or mainly increases the number of duplicate items.",
+    "popularity": "Epic's January 2019 announcement replaced blind purchase decisions with visible X-Ray contents. This is evidence of a product redesign, not proof that every player disliked blind Llamas. No separate audience or satisfaction measurements for the historical system are attached.",
+    "business": "Historically, paid Llama openings could connect collection goals to repeat purchases. The ticket-priced model here is a contrast experiment, not a reconstruction of historical revenue. Epic removed V-Buck Llama purchases in March 2022, so it should not be presented as the current paid system.",
+    "sources": [
+      {
+        "title": "Epic: X-Ray Llamas reveal their contents (January 2019)",
+        "url": "https://www.fortnite.com/news/loot-unboxing"
+      },
+      {
+        "title": "Epic: earned-ticket Llamas and paid game access (March 2022)",
+        "url": "https://www.fortnite.com/news/changes-to-save-the-world-store-and-llama-shop"
+      }
+    ]
   }
 }

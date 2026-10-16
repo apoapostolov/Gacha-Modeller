@@ -188,9 +188,21 @@
   },
   "overview": {
     "context": "Fortnite: Save the World-like X-Ray llama",
-    "summary": "A revealed offer with a known schematic, hero and material reward.",
-    "distinctive": "Reward contents are fixed and visible before selection.",
-    "strength": "Known contents let a player assess the offer before spending tickets.",
-    "analysis": "Compare offer value and collection fit; randomized purchase choice is outside this model."
+    "summary": "Fortnite: Save the World is a cooperative combat and building game where heroes, schematics and materials support progression. Its X-Ray Llamas reveal the contents before the player chooses an offer. This example contains one fixed offer with a schematic, a hero and materials, paid for with earned tickets; it is an offer-choice example rather than a blind random purchase.",
+    "distinctive": "The uncertainty is removed before selection. A player can decide whether these known items help their collection instead of paying first and hoping for a useful result. The model does not simulate which rotating offer a player chooses.",
+    "strength": "Knowing the contents lets a player reject unwanted rewards. The design interpretation is that this can make spending earned resources feel more purposeful and avoid disappointment from paying for a duplicate.",
+    "analysis": "Compare the known offer with the blind-llama example: how useful are the included items, how many tickets are used, and where would collection-aware offer choice matter?",
+    "popularity": "Epic introduced visible X-Ray contents in January 2019 and explained that purchased Llamas should contain items players wanted. That records the company's design response, not a public sentiment score. No adoption or satisfaction figures for X-Ray Llamas are attached.",
+    "business": "Epic moved Llamas to earned X-Ray Tickets in March 2022 while keeping Save the World access a paid offering. This reward model therefore does not create direct per-opening cash sales. Its possible business value is supporting the paid game experience, which would need separate evidence.",
+    "sources": [
+      {
+        "title": "Epic: X-Ray Llamas reveal their contents (January 2019)",
+        "url": "https://www.fortnite.com/news/loot-unboxing"
+      },
+      {
+        "title": "Epic: earned-ticket Llamas and paid game access (March 2022)",
+        "url": "https://www.fortnite.com/news/changes-to-save-the-world-store-and-llama-shop"
+      }
+    ]
   }
 }

@@ -140,9 +140,11 @@
   },
   "overview": {
     "context": "Synthetic character acquisition reference",
-    "summary": "A simple 1% chase chance with a reward guarantee at pull 100.",
-    "distinctive": "The rate stays constant until the hard guarantee.",
-    "strength": "A clear cap makes long waits easy to interpret.",
-    "analysis": "Use as a reference when testing rate ramps, caps and featured guarantees."
+    "summary": "This is a fictional character-collection game stripped down to one easy rule: each draw has a 1% chance of the chase reward, and draw 100 guarantees it if it has not appeared. There is no licensed game or player community behind this example. It is a clean starting point for trying a new gacha idea without also changing a complicated roster or economy.",
+    "distinctive": "The chance stays the same until the guaranteed draw. There are no rising odds or extra checkpoints to learn, so any change in player waits is easier to connect to a rule you edited.",
+    "strength": "A clear maximum gives the player a saving target. The design tradeoff is that the draws before it may feel repetitive: the guarantee improves certainty, but does not by itself make the rewards exciting.",
+    "analysis": "Try an earlier guarantee, rising late-draw odds or a different base chance. Compare the typical wait with the experience of the unluckiest players, rather than judging the system by the average alone.",
+    "popularity": "This is a teaching example, not a released game. It has no measured audience, review score, retention result or sales history. Use it to compare design choices, then validate the promising ones with players.",
+    "business": "In a paid implementation, extra draws could be sold through currency packs; in a free implementation, tickets could come entirely from play. Neither is assumed to be profitable here. Price, earned ticket supply, content appeal and operating costs would decide the business outcome."
   }
 }

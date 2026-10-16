@@ -188,9 +188,21 @@
   },
   "overview": {
     "context": "Fate/Grand Order-like character acquisition",
-    "summary": "A simplified rate-up model with a rare-character rate and a featured guarantee.",
-    "distinctive": "Off-banner rare rewards do not arm featured protection.",
-    "strength": "The configured summon cap provides featured-reward protection.",
-    "analysis": "Compare the long waiting-time tail, guarantee scope and off-banner rewards."
+    "summary": "Fate/Grand Order is a story-focused mobile RPG in which players collect Servants and assemble teams for battles. Summoning mixes rare characters with featured banners, so players may chase a favourite from the story as well as a useful team member. This simplified example uses the documented 2022 guarantee shape and a fictional reward pool, rather than claiming to match every current banner.",
+    "distinctive": "A rare summon is not always the featured Servant. In this example, an off-banner rare result does not prepare a guaranteed featured result next time; the separate long summon cap provides that protection.",
+    "strength": "The design interpretation is that a recognisable franchise and extended character stories give collection goals meaning beyond raw combat strength. A late guarantee offers a final destination, while leaving a much longer possible chase than an early checkpoint system.",
+    "analysis": "Look at how many players receive the featured reward, how often rare pulls miss it, and how far the unlucky players have to go. Compare a long summon cap with stronger protection after an off-banner result.",
+    "popularity": "Sensor Tower estimated $4 billion in lifetime mobile player spending in January 2020 and ranked FGO as Japan's highest-grossing mobile game of 2019. The publisher marked 30 million downloads in October 2024. These dated indicators describe reach and spending, not a satisfaction score for the guarantee rule.",
+    "business": "Players can purchase summon currency to pursue featured Servants and extra copies. The design interpretation is that story attachment and banner availability create reasons to spend. Historical gross player spending does not reveal net profit, and this simulation does not reproduce live purchasing behaviour.",
+    "sources": [
+      {
+        "title": "Sensor Tower: FGO mobile spending (January 2020)",
+        "url": "https://sensortower.com/blog/fate-grand-order-revenue-4-billion"
+      },
+      {
+        "title": "FGO: 30 million download campaign (October 2024)",
+        "url": "https://news.fate-go.jp/2024/3000man/"
+      }
+    ]
   }
 }

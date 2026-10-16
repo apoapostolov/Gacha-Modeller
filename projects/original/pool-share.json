@@ -278,9 +278,11 @@
   },
   "overview": {
     "context": "Original guild reward model",
-    "summary": "Four players share the configured rare-reward progress counter.",
-    "distinctive": "Group progress changes when the next rare-reward guarantee occurs.",
-    "strength": "A shared counter makes group activity contribute to the milestone.",
-    "analysis": "Check reward allocation and per-player waits alongside aggregate group progress."
+    "summary": "Pool Share is an original guild-reward idea for a fictional social game. Four players contribute to a shared rare-reward counter instead of progressing through completely separate pity histories. It lets a designer explore whether doing activities together can create a clearer shared milestone while still providing fair outcomes to individual members.",
+    "distinctive": "A shared counter changes when the group's next rare reward is due. The total group reward count can improve while one member still waits a long time, so group progress and individual fairness must be checked separately.",
+    "strength": "The design hypothesis is that shared progress gives guild members a reason to coordinate. It can also create tension if one player contributes more or receives fewer useful rewards.",
+    "analysis": "Compare group output with each player's waiting time. Explore equal contributions, uneven participation and the difference between a useful guild reward and a fair personal reward.",
+    "popularity": "This is an experimental mechanism created for the sandbox. There is no released game, player reception study or commercial performance record for this exact rule set.",
+    "business": "Shared milestones could support participation in a paid or free game, but more guild activity is not automatically more revenue. Test who pays for attempts, who receives rewards and whether social pressure creates frustration before making a business claim."
   }
 }

@@ -12,9 +12,14 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
-    "benchmark": "node --experimental-transform-types scripts/benchmark.ts"
+    "benchmark": "node --experimental-transform-types scripts/benchmark.ts",
+    "lint:ui": "node scripts/check-ui.mjs",
+    "lint:ui:page": "lintapple http://127.0.0.1:3018 --ready .model-details"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.3.1",
+    "@fortawesome/free-solid-svg-icons": "^7.3.1",
+    "@fortawesome/react-fontawesome": "^3.5.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
@@ -25,6 +30,8 @@
     "@vitejs/plugin-react": "^5.0.0",
     "axe-core": "^4.14.0",
     "jsdom": "^26.1.0",
+    "lintapple": "^0.1.20",
+    "playwright": "^1.63.0",
     "typescript": "~5.8.2",
     "vite": "^6.2.0",
     "vitest": "^4.1.11"

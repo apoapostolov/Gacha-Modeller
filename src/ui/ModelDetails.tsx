@@ -15,19 +15,19 @@ export function ModelDetails({ model, role, hash, seed, actionMode, targetId, on
     for (let i = 0; i < 10; i++) outcomes.push(pull(model, state, rng));
     return outcomes;
   }, [model, seed, actionMode, targetId]);
-  return <section className="panel model-details">
-    <div className="section-heading"><span className={`role-label ${role.toLowerCase()}`}>{role}</span>{onEdit ? <button className="text-button" onClick={onEdit}>Edit candidate</button> : <span className="run-note">Original rules stay fixed. <Help label="Immutable baseline">The imported baseline is an immutable snapshot. Editing creates a new candidate revision; previous snapshots remain available in history.</Help></span>}</div>
+  return <section className="panel model-details" data-ui-container>
+    <div className="section-heading"><span className={`role-label ${role.toLowerCase()}`}>{role === 'Baseline' ? 'Current rules' : 'Proposed rules'}</span>{onEdit ? <button className="text-button" onClick={onEdit}>Edit proposal</button> : <span className="run-note">Current saved rules. <Help label="Baseline model">The baseline is the fixed reference for this study. Editing creates a candidate revision; previous snapshots remain available in history.</Help></span>}</div>
     <h3>{model.name}</h3>
     <p className="model-description">{shortDescription ? model.blurb : overview} {!shortDescription && <Help label={`${role} overview`}>{model.blurb}</Help>}</p>
-    <p className="run-note">{model.items.length} items · {model.rarities.length} {model.rarities.length === 1 ? 'tier' : 'tiers'}</p>
+    <p className="run-note">{model.items.length} possible rewards across {model.rarities.length} {model.rarities.length === 1 ? 'rarity level' : 'rarity levels'}. A listed chance is the chance before progress guarantees change it.</p>
     <div className="rates">
-      {model.rarities.slice(0, -1).map((rarity) => <div className="rate" key={rarity.id}><b>{(rarity.baseRate * 100).toFixed(rarity.baseRate < .02 ? 2 : 1)}%</b><span>{rarity.name}</span></div>)}
-      {model.pity[0] && <div className="rate"><b>{model.pity[0].hardAt}</b><span>Rarity guarantee at pull</span></div>}
-      {model.featured && <div className="rate"><b>{(model.featured.chance * 100).toFixed(1)}%</b><span>Featured within {model.rarities.find(rarity => rarity.id === model.featured!.rarity)?.name}</span></div>}
-      {model.spark && <div className="rate"><b>{model.spark.cost}</b><span>Exchange cost</span></div>}
-      {model.charge && <div className="rate"><b>{model.charge.midAt}/{model.charge.hardAt}</b><span>Charge checkpoints</span></div>}
+      {model.rarities.slice(0, -1).map((rarity) => <div className="rate" data-ui-number key={rarity.id}><b>{(rarity.baseRate * 100).toFixed(rarity.baseRate < .02 ? 2 : 1)}%</b><span>Base chance of {rarity.name}</span></div>)}
+      {model.pity[0] && <div className="rate" data-ui-number><b>{model.pity[0].hardAt}</b><span>Rarity guaranteed by draw</span></div>}
+      {model.featured && <div className="rate" data-ui-number><b>{(model.featured.chance * 100).toFixed(1)}%</b><span>Chance the {model.rarities.find(rarity => rarity.id === model.featured!.rarity)?.name} is featured</span></div>}
+      {model.spark && <div className="rate" data-ui-number><b>{model.spark.cost}</b><span>Points for a guaranteed reward</span></div>}
+      {model.charge && <div className="rate" data-ui-number><b>{model.charge.midAt}/{model.charge.hardAt}</b><span>Charge checkpoints</span></div>}
     </div>
-    <p className="field-hint">{model.multiPull?.slots ? 'Fixed pack slots override these base rates.' : model.pity.length || model.charge ? 'Progress guarantees can change these base rates.' : 'Base rates describe an unrestricted reward draw.'} <Help label={`${role} rarity priority`}>Fixed slots award their declared items. Rarity-specific slots restrict their draw to that tier. For unrestricted draws, rarities are evaluated in listed order and the final tier gets the remaining probability. Higher tiers consume soft-pity probability before lower tiers. The displayed base rates alone do not describe fixed-slot offers.</Help></p>
+    <p className="field-hint">{model.multiPull?.slots ? 'Pack rules can give different reward chances to different slots.' : model.pity.length || model.charge ? 'A player’s progress can raise or guarantee a reward chance.' : 'These chances apply to each draw before any progress guarantees.'} <Help label={`${role} probability rules`}>A chance is the share of possible outcomes expected over many draws. For example, 2% means about 2 in 100 draws before any guarantees. Fixed pack slots may follow separate rules. Pity and charge can change chances as a player makes more draws.</Help></p>
     {model.multiPull && <p className="field-hint">{model.multiPull.size} reward slots per pack{model.multiPull.guaranteeRarity ? ` · ${model.rarities.find(r => r.id === model.multiPull!.guaranteeRarity)?.name} or better guaranteed` : ''}.</p>}
     <details className="model-rule-details"><summary>Rules and sources</summary><div className="model-hints"><span>Rule assumptions define the scope of this example. <Help label={`${role} source and rules`}><p>{model.source}</p><ul>{model.notes.map((note, index) => <li key={index}>{note}</li>)}</ul></Help></span>
       {validation.warnings.length > 0 && <span className="warning-text">Soft pity can leave less probability for later tiers. <Help label={`${role} rate overlap`}>{validation.warnings.map((issue) => <p key={`${issue.path}-${issue.code}`}>{issue.message}</p>)}</Help></span>}

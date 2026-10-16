@@ -2,21 +2,22 @@
   "format": "gacha-modeller-project",
   "version": 7,
   "id": "92d56167-adfd-4588-81f3-5c9effc18547",
-  "name": "Synthetic PlayFab catalogue mapping",
+  "name": "PlayFab card catalogue mapping",
   "baseline": {
     "schemaVersion": 2,
     "id": "collectible-card-pack-snapshot-0",
-    "hash": "6e714396042791e401eb66ea731e8d310c09904178e75ee40462b467f265fe39",
+    "hash": "dc652e99bd9e88174b138a1a8adf26f2c09bb88523d1588a2e74d62911a3fc15",
     "createdAt": "2026-10-10T00:00:00.000Z",
     "model": {
       "id": "collectible-card-pack",
-      "name": "Synthetic collectible card pack",
+      "name": "Example pack · reference rules",
       "family": "original",
-      "blurb": "Five cards per pack, one rare card or better, with duplicate salvage and crafting.",
+      "blurb": "Five cards per pack, including at least one rare or mythic card. Keep up to two copies of each card; later copies become shards, and ten shards can craft a missing card.",
       "source": "original",
       "notes": [
-        "Original digital card design with synthetic probabilities and resource costs.",
-        "Collection goals include every card. Duplicate copies above two convert to shards; missing cards can be crafted."
+        "This example pack uses fictional cards and assumed drop rates, credits and crafting costs. It does not represent a live game offer.",
+        "Every pack contains five cards and includes at least one rare or mythic card.",
+        "The collection keeps up to two copies of each card. Later copies become shards; ten shards can craft a missing card."
       ],
       "pullCost": {
         "amount": 20,
@@ -187,17 +188,19 @@
   "candidate": {
     "schemaVersion": 2,
     "id": "c781b5e5-d700-4beb-b839-bdd69e8add19",
-    "hash": "880064e556897410e692d5d6f8b6b6af71a158b8c3df199f67ac08457adbb21b",
+    "hash": "061fba2a551f5cc873bd6a027fd47cf135fa3f1d2ed1146930cb28eccbeef711",
     "createdAt": "2026-10-10T17:20:42.624Z",
     "model": {
       "id": "collectible-card-pack-candidate",
-      "name": "Synthetic collectible card pack candidate",
+      "name": "Example pack · starting version",
       "family": "original",
-      "blurb": "Five cards per pack, one rare card or better, with duplicate salvage and crafting.",
+      "blurb": "Five cards per pack, including at least one rare or mythic card. Keep up to two copies of each card; later copies become shards, and ten shards can craft a missing card.",
       "source": "original",
       "notes": [
-        "Original digital card design with synthetic probabilities and resource costs.",
-        "Collection goals include every card. Duplicate copies above two convert to shards; missing cards can be crafted."
+        "This example pack uses fictional cards and assumed drop rates, credits and crafting costs. It does not represent a live game offer.",
+        "Every pack contains five cards and includes at least one rare or mythic card.",
+        "The collection keeps up to two copies of each card. Later copies become shards; ten shards can craft a missing card.",
+        "This starting version uses the same rules as the reference. Edit it to compare a different pack design."
       ],
       "pullCost": {
         "amount": 20,
@@ -369,17 +372,19 @@
     {
       "schemaVersion": 2,
       "id": "collectible-card-pack-snapshot-1",
-      "hash": "38a6294124f77d44a0925b9fb1246f2371584b700c8cc9abd2882e7c7ab07844",
+      "hash": "6cf16be0d1530219a4626c6a1d3a9e9e03ea4f37aaed86eb390267d84ef83bb3",
       "createdAt": "2026-10-10T00:00:00.000Z",
       "model": {
         "id": "collectible-card-pack-candidate",
-        "name": "Synthetic collectible card pack candidate",
+        "name": "Example pack · starting version",
         "family": "original",
-        "blurb": "Five cards per pack, one rare card or better, with duplicate salvage and crafting.",
+        "blurb": "Five cards per pack, including at least one rare or mythic card. Keep up to two copies of each card; later copies become shards, and ten shards can craft a missing card.",
         "source": "original",
         "notes": [
-          "Original digital card design with synthetic probabilities and resource costs.",
-          "Collection goals include every card. Duplicate copies above two convert to shards; missing cards can be crafted."
+          "This example pack uses fictional cards and assumed drop rates, credits and crafting costs. It does not represent a live game offer.",
+          "Every pack contains five cards and includes at least one rare or mythic card.",
+          "The collection keeps up to two copies of each card. Later copies become shards; ten shards can craft a missing card.",
+          "This starting version uses the same rules as the reference. Edit it to compare a different pack design."
         ],
         "pullCost": {
           "amount": 20,
@@ -577,10 +582,18 @@
     ]
   },
   "overview": {
-    "context": "Synthetic PlayFab catalogue integration",
-    "summary": "A local catalogue mapping example based on the synthetic card-pack model.",
-    "distinctive": "External catalogue names map to stable model item identities.",
-    "strength": "Name mappings preserve the configured reward probabilities.",
-    "analysis": "Check unmapped items and catalogue conflicts before comparing the reward models."
+    "context": "Local PlayFab catalogue mapping",
+    "summary": "This is a fictional card-game catalogue connected to a PlayFab-shaped item list. It helps a designer map the reward names used by a game service onto the cards in the simulation. The underlying example still uses packs, duplicate shards and crafting; connecting a catalogue does not import live reward chances or prices.",
+    "distinctive": "The adapter changes item identities and displayed names, not probabilities. Source items are mapped deliberately so a catalogue refresh cannot silently become a new reward model.",
+    "strength": "Consistent item names make it easier for designers and engineers to discuss the same card. Mapping is a workflow improvement rather than a new player-facing reward mechanic.",
+    "analysis": "Check that intended cards map to the correct items, then compare their reward rules in the Models tab. Treat missing mappings as a content problem, not a reason to guess drop chances.",
+    "popularity": "Microsoft documents PlayFab Economy as a service for items, currencies and stores. This specific card game and catalogue are synthetic, with no player reception or business results attached.",
+    "business": "A catalogue can support commercial items and offers, but this mapping example does not reproduce store revenue, transactions or ownership. Business performance still depends on the game, its offers and verified company data.",
+    "sources": [
+      {
+        "title": "Microsoft: PlayFab Economy overview",
+        "url": "https://learn.microsoft.com/en-us/gaming/playfab/economy-monetization/economy-what-is"
+      }
+    ]
   }
 }
